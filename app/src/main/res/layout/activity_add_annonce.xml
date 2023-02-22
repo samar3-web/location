@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".addAnnonceActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/shape_rect01"
+            android:padding="10dp">
+
+            <ImageButton
+                android:id="@+id/backBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@null"
+                android:src="@drawable/ic_baseline_arrow_back_ios_new_24"></ImageButton>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Ajouter une maison"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/annonceIconIv"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/ic_baseline_add_home_24"
+            app:civ_border_color="@color/colorPrimary"
+            app:civ_border_width="1dp"
+            android:layout_gravity="center"/>
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/textInputTitle"
+            style="@style/parent"
+            android:layout_marginTop="@dimen/loginViewsMargin">
+
+            <EditText
+                android:id="@+id/titleEt"
+                style="@style/modifiedEditText"
+                android:backgroundTint="#0FFFFFFF"
+                android:hint="Titre"
+                android:inputType="textPersonName|textCapWords"
+                android:maxLines="1"
+                android:layout_below="@+id/annonceIconIv"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/textInputDesc"
+            style="@style/parent"
+            android:layout_marginTop="@dimen/loginViewsMargin">
+
+            <EditText
+                android:id="@+id/descriptionEt"
+                style="@style/modifiedEditText"
+                android:backgroundTint="#0FFFFFFF"
+                android:hint="Description"
+                android:inputType="textCapSentences|textMultiLine"
+                android:layout_below="@+id/titleEt"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/textInputPrice"
+            style="@style/parent"
+            android:layout_marginTop="@dimen/loginViewsMargin">
+
+            <EditText
+                android:id="@+id/price"
+                style="@style/modifiedEditText"
+                android:backgroundTint="#0FFFFFFF"
+                android:hint="Prix"
+                android:padding="8dp"
+                android:inputType="numberDecimal"
+                android:layout_below="@+id/descriptionEt"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/textInputCategory"
+            style="@style/parent"
+            android:layout_marginTop="@dimen/loginViewsMargin">
+
+            <TextView
+                android:id="@+id/categoryTv"
+                style="@style/modifiedEditText"
+                android:backgroundTint="#0FFFFFFF"
+                android:hint="Catégorie"
+                android:inputType="textCapSentences|textMultiLine"
+                android:layout_below="@+id/price"
+                android:padding="8dp"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/textInputgouv"
+            style="@style/parent"
+            android:layout_marginTop="@dimen/loginViewsMargin">
+
+            <TextView
+                android:id="@+id/gouv"
+                style="@style/modifiedEditText"
+                android:backgroundTint="#0FFFFFFF"
+                android:hint="Gouvernorat"
+                android:inputType="numberDecimal"
+                android:layout_below="@+id/category"
+                android:padding="8dp"
+                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+            android:id="@+id/addAnnonce"
+            style="@style/loginButton"
+            app:spinning_bar_width="4dp"
+            app:spinning_bar_color="#FFF"
+            android:text="Publier"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/loginViewsMargin"
+            app:spinning_bar_padding="6dp"
+            app:initialCornerAngle="27dp"/>
+    </LinearLayout>
+
+</LinearLayout>

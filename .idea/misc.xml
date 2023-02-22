@@ -3,10 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/drawable/button_background_blue.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/drawable/ic_add_img.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/drawable/ic_back_img.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/drawable/ic_baseline_add_home_24.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.2520833333333333" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/drawable/ic_login_hero.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/drawable/ic_register_hero.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/drawable/ic_side_bg.xml" value="0.13796296296296295" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/drawable/search_bg.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/drawable/shape_rect01.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/drawable/transparent_background.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/layout/activity_add_annonce.xml" value="0.25" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/layout/activity_login.xml" value="0.2359375" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/layout/activity_register.xml" value="0.2359375" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/layout/activity_splash.xml" value="0.2359375" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/layout/row_home.xml" value="0.25" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/layout/row_offer.xml" value="0.25" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/location/app/src/main/res/menu/menu.xml" value="0.25" />
