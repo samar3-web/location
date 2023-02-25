@@ -5,4 +5,47 @@
     <dimen name="headerTextSize">25sp</dimen>
     <dimen name="newsMoreTextSize">12sp</dimen>
     <dimen name="loginViewsMargin">20dp</dimen>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="app_namee">Customers</string>
+
+    <array name="username">
+        <item>John</item>
+        <item>Mike</item>
+        <item>Sarah</item>
+        <item>Sheldon</item>
+        <item>Edward</item>
+    </array>
+    <array name="gender">
+        <item>Male</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Male</item>
+        <item>Male</item>
+
+    </array>
+    <integer-array name="age">
+        <item>21</item>
+        <item>21</item>
+        <item>24</item>
+        <item>22</item>
+        <item>23</item>
+
+
+    </integer-array>
+
+    <string-array name="size_array">
+        <item>SIZE</item>
+        <item>1BHK</item>
+        <item>2BHK</item>
+        <item>3BHK</item>
+        <item>4BHK</item>
+        <item>5BHK</item>
+    </string-array>
+    <string-array name="available_array">
+        <item>AVAILABLE</item>
+        <item>YES</item>
+        <item>NO</item>
+
+    </string-array>
 </resources>
