@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+        <com.google.android.material.card.MaterialCardView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:cardBackgroundColor="#DA2C67"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="30dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/edit_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="20dp"
+                app:cornerRadius="200dp"
+                android:elevation="30dp"
+                android:drawableRight="@drawable/edit_pen"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/save_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="20dp"
+                app:cornerRadius="200dp"
+                android:elevation="30dp"
+                android:text="save"
+                android:drawableRight="@drawable/edit_pen"
+                android:visibility="gone"
+                />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp"
+            >
+            <com.google.android.material.card.MaterialCardView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="300dp"
+                android:padding="10dp"
+                app:cardElevation="20dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    >
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="200dp"
+                        app:cardElevation="20dp">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/customer_profile_image"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:background="@color/white"
+                            android:src="@mipmap/ic_launcher_round" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <TextView
+                android:id="@+id/customer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp"
+                android:inputType="textPersonName"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:hint="Name"
+                android:textColorHint="@color/white"
+                />
+
+            <TextView
+                android:id="@+id/customer_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:hint="Gender"
+                android:textColorHint="@color/white"
+                />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
+        android:padding="10dp"
+        android:layout_margin="20dp"
+        app:cardElevation="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <EditText
+                android:id="@+id/customer_name_input"
+                android:layout_width="match_parent"
+                android:imeOptions="actionDone"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:padding="20dp"
+                android:drawablePadding="20dp"
+                android:drawableLeft="@drawable/mail"
+                 android:visibility="gone"
+                />
+
+
+            <LinearLayout
+                android:id="@+id/gender_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:visibility="gone"
+                >
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gender"
+                    android:textSize="20sp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    />
+                <RadioGroup
+                    android:id="@+id/customer_gender_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    >
+
+                    <RadioButton
+                        android:id="@+id/male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/purple_500"
+                        android:text="Male"
+                        android:textColor="@color/purple_500"
+                        android:paddingHorizontal="5dp"
+                        android:imeOptions="actionDone"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/purple_500"
+                        android:text="Female"
+                        android:paddingHorizontal="5dp"
+                        android:imeOptions="actionDone"
+                        android:textColor="@color/purple_500"
+                        />
+                </RadioGroup>
+
+            </LinearLayout>
+
+
+
+            <EditText
+                android:id="@+id/customer_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="email@gmail.com"
+                android:inputType="textEmailAddress"
+                android:padding="20dp"
+                android:drawablePadding="20dp"
+                android:drawableLeft="@drawable/mail"
+                android:enabled="false"
+                android:imeOptions="actionDone"
+
+                />
+            <EditText
+                android:id="@+id/custmer_accountType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CUSTOMER"
+                android:inputType="textCapWords"
+                android:textAllCaps="true"
+                android:padding="20dp"
+                android:drawablePadding="20dp"
+                android:drawableLeft="@drawable/date"
+                android:enabled="false"
+                android:imeOptions="actionDone"
+
+                />
+
+            <EditText
+                android:id="@+id/customer_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="10000000000"
+                android:inputType="phone"
+                android:drawablePadding="20dp"
+                android:padding="20dp"
+                android:drawableLeft="@drawable/phone1"
+                android:enabled="false"
+                android:imeOptions="actionDone"
+
+                />
+
+            <EditText
+                android:id="@+id/customer_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="  new Delhi, red fort"
+                android:inputType="textPassword"
+                android:padding="20dp"
+                android:drawablePadding="20dp"
+                android:drawableLeft="@drawable/password"
+                android:enabled="false"
+                android:imeOptions="actionDone"
+                />
+
+            <EditText
+                android:id="@+id/customer_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="e.g New Airport Road"
+                android:inputType="textPostalAddress"
+                android:drawablePadding="20dp"
+                android:padding="20dp"
+                android:drawableLeft="@drawable/location"
+                android:enabled="false"
+                android:imeOptions="actionDone"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/customer_logout_btn"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:cornerRadius="20dp"
+                android:text="Logout"
+                android:textSize="20sp"
+                android:drawableRight="@drawable/logout"
+
+                />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+

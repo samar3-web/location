@@ -1,0 +1,267 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:onClick="onCardViewClicked"
+
+                app:cardCornerRadius="20dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <!-- Media -->
+                            <ImageView
+                                android:id="@+id/house_banner"
+                                android:layout_width="match_parent"
+                                android:layout_height="194dp"
+                                android:contentDescription="It is a house image"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/house_banner"
+
+                                />
+                            <!--profile image-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/profile_cardview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBottom="@+id/house_banner"
+                                android:layout_margin="8dp"
+                                android:onClick="onCardViewClicked"
+                                app:cardBackgroundColor="#E7F4ED"
+                                app:cardCornerRadius="100dp"
+                                app:cardElevation="8dp">
+
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:src="@drawable/b" />
+
+                            </com.google.android.material.card.MaterialCardView>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!-- Buttons -->
+                        <LinearLayout
+                            android:layout_width="190dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <!-- Title, secondary and supporting text -->
+                            <TextView
+                                android:id="@+id/city"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Delhi,India"
+                                android:textAppearance="?attr/textAppearanceHeadline6"
+
+                                />
+
+                            <TextView
+                                android:id="@+id/location"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:maxLength="70"
+                                android:text=" loca address will be here"
+                                android:textAppearance="?attr/textAppearanceBody2"
+                                android:textColor="?android:attr/textColorSecondary" />
+
+                        </LinearLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginEnd="6dp"
+                            android:layout_marginRight="3dp"
+                            android:text="4BHK"
+                            app:cornerRadius="15dp"
+
+                            app:elevation="8dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:layout_marginRight="6dp"
+                            android:text="$1000"
+                            app:backgroundTint="@color/green"
+                            app:cornerRadius="15dp"
+
+                            app:elevation="8dp" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/rentit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="Rent it"
+                            app:backgroundTint="@color/green"
+                            app:cornerRadius="15dp"
+                            app:elevation="8dp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/map_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:onClick="onCardViewClicked"
+                app:cardBackgroundColor="#E7F4ED"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="8dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/sample_map"
+
+                    />
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/moreimages_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:onClick="onCardViewClicked"
+                app:cardBackgroundColor="#E7F4ED"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/image1"
+                        android:layout_width="match_parent"
+                        android:layout_height="194dp"
+                        android:layout_margin="2dp"
+                        android:contentDescription="It is a house image"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/house_banner"
+
+                        />
+
+                    <ImageView
+                        android:id="@+id/image2"
+                        android:layout_width="match_parent"
+                        android:layout_height="194dp"
+                        android:layout_margin="2dp"
+                        android:contentDescription="It is a house image"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/house_banner"
+
+                        />
+
+                    <ImageView
+                        android:id="@+id/image3"
+                        android:layout_width="match_parent"
+                        android:layout_height="194dp"
+                        android:layout_margin="2dp"
+                        android:contentDescription="It is a house image"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/house_banner"
+
+                        />
+
+                    <ImageView
+                        android:id="@+id/image4"
+                        android:layout_width="match_parent"
+                        android:layout_height="194dp"
+                        android:layout_margin="2dp"
+                        android:contentDescription="It is a house image"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/house_banner"
+
+                        />
+
+                    <ImageView
+                        android:id="@+id/image5"
+                        android:layout_width="match_parent"
+                        android:layout_height="194dp"
+                        android:layout_margin="2dp"
+                        android:contentDescription="It is a house image"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/house_banner"
+
+
+                        android:paddingBottom="70dp"
+
+                        />
+
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+
+</LinearLayout>

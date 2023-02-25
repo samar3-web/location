@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/addHouseLayout"
+    android:background="@color/purple_500"
+    android:paddingTop="30dp"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/addHouseMainCardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="40dp"
+        app:cardPreventCornerOverlap="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/contact_person_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contact Person Name"
+                android:inputType="textPersonName"
+                android:padding="20dp"
+                android:drawablePadding="20dp"
+                android:drawableLeft="@drawable/password"
+                android:imeOptions="actionDone"
+                />
+            <EditText
+                android:id="@+id/owner_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 android:hint="1234567890"
+                android:inputType="phone"
+                android:drawablePadding="20dp"
+                android:padding="20dp"
+                android:drawableLeft="@drawable/phone1"
+
+                android:imeOptions="actionDone"
+                />
+
+            <EditText
+                android:id="@+id/housenumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="e.g Sanvi paradise ,HouseNo. 215"
+                android:inputType="textPostalAddress"
+                android:padding="20dp"
+                android:drawablePadding="20dp"
+                android:drawableLeft="@drawable/mail"
+
+                android:imeOptions="actionDone"
+
+                />
+            <EditText
+                android:id="@+id/housestreet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="at Street /Local area "
+                android:inputType="textPostalAddress"
+                android:padding="20dp"
+                android:drawablePadding="20dp"
+                android:drawableLeft="@drawable/mail"
+
+                android:imeOptions="actionDone"
+
+                />
+            <EditText
+                android:id="@+id/housecity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="in city"
+                android:inputType="textPostalAddress"
+                android:padding="20dp"
+                android:drawablePadding="20dp"
+                android:drawableLeft="@drawable/mail"
+
+                android:imeOptions="actionDone"
+
+                />
+            <EditText
+                android:id="@+id/postnumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               android:hint="PostNumber ,e.g 561775"
+                android:inputType="number"
+                android:textAllCaps="true"
+                android:padding="20dp"
+                android:drawablePadding="20dp"
+                android:drawableLeft="@drawable/date"
+
+                android:imeOptions="actionDone"
+
+                />
+
+
+
+
+            <EditText
+                android:id="@+id/house_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="location on map"
+                android:inputType="textPostalAddress"
+                android:drawablePadding="20dp"
+                android:padding="20dp"
+                android:drawableLeft="@drawable/location"
+
+                android:imeOptions="actionDone"
+                />
+            <EditText
+                android:id="@+id/rentprice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="RentPrice ,e.g 15000"
+                android:inputType="number"
+                android:drawablePadding="20dp"
+                android:padding="20dp"
+                android:drawableLeft="@drawable/wallet"
+                  android:imeOptions="actionDone"
+                />
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:padding="10dp"
+                   >
+
+                   <Spinner
+
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/housesizespinner"
+                       android:layout_gravity="center_vertical"
+                       android:layout_marginLeft="20dp"
+                       android:layout_weight="1"
+                       android:layout_marginRight="10dp"
+                       android:tooltipText="Size"
+
+                       />
+                   <Spinner
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/houseavailalespinner"
+                       android:layout_gravity="center_vertical"
+                       android:layout_weight="1"
+                       android:layout_marginRight="20dp"
+                       android:layout_marginLeft="10dp"
+                       />
+
+               </LinearLayout>
+
+
+
+
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp"
+                 >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/houseiamge_rcv"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingBottom="20dp"
+                          ></androidx.recyclerview.widget.RecyclerView>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/addImagesBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:drawableRight="@drawable/addhouse1"
+                            android:elevation="30dp"
+                            android:text="Add Images"
+                            app:cornerRadius="200dp" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/house_save_btn"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:cornerRadius="20dp"
+                android:text="ready for rent"
+                android:textSize="20sp"
+                android:drawableRight="@drawable/logout"
+                app:elevation="60dp"
+
+                />
+
+     </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
