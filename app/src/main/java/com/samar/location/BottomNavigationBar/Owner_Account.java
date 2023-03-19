@@ -5,8 +5,12 @@ import static android.app.Activity.RESULT_OK;
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -134,6 +138,7 @@ public class Owner_Account extends Fragment {
         logout_btn = view.findViewById(R.id.owner_logout_btn);
         save_btn = view.findViewById(R.id.owner_save_btn);
         Owner_Model ownerModel = new Owner_Model();
+
         firebaseDB = new FirebaseDB();
         firestore = FirebaseFirestore.getInstance();
 
@@ -371,12 +376,15 @@ public class Owner_Account extends Fragment {
     }
 
     public void getPickImageIntent() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
-        startActivityForResult(intent, 42);
-    }
+        Intent GalleryIntent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
+
+        //Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        //intent.setType("image/");
+        //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+        startActivityForResult(GalleryIntent, 42);
+    }
+/*
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
@@ -390,18 +398,18 @@ public class Owner_Account extends Fragment {
                     ImageList.clear();
                     ImageList.add(ImageUri);
                     setProfile(ImageList.get(0).toString());
-                   /* for (int i = 0; i < mClipData.getItemCount(); i++) {
+                    for (int i = 0; i < mClipData.getItemCount(); i++) {
                         ClipData.Item item = mClipData.getItemAt(i);
                         Uri uri = item.getUri();
                         // display your images
-                        show_imageview.setImageURI(uri);
-                    }*/
-                  /*  while (currentImageSelect < countClipData) {
+                        cProfile.setImageURI(uri);
+                    }
+                   while (currentImageSelect < countClipData) {
 
                         ImageUri = data.getClipData().getItemAt(currentImageSelect).getUri();
                         ImageList.add(ImageUri);
                         currentImageSelect = currentImageSelect + 1;
-                    }*/
+                    }
                     Toast.makeText(getActivity(), "You have Selected " + ImageList.size(), Toast.LENGTH_SHORT).show();
                 } else {
 
@@ -411,9 +419,43 @@ public class Owner_Account extends Fragment {
                     Uri uri = data.getData();
                     // display your image
                     show_imageview.setImageURI(uri);*/
-
+ /*
                 }
             }
+        }
+    }
+
+
+
+  */
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode==42) {
+            String[] filePathColumn={MediaStore.Images.Media.DATA};
+            Cursor cursor = getContext().getContentResolver().query(data.getData(), filePathColumn, null, null, null);
+
+            String imagePath;
+            Uri imageUri;
+            if (cursor == null) {
+                imageUri= data.getData();
+                imagePath = data.getData().getPath();
+                ImageList.add(imageUri);
+                setProfile(ImageList.get(0).toString());
+            }
+            else {
+                cursor.moveToFirst();
+                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                imagePath = cursor.getString(idx);
+                imageUri= data.getData();
+                ImageList.add(imageUri);
+                setProfile(ImageList.get(0).toString());
+                cursor.close();
+            }
+            //Transformer la photo en Bitmap
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+            //Afficher le Bitmap
+            cProfile.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 200, 200, false));
         }
     }
 

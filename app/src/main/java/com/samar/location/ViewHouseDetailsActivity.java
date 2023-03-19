@@ -54,10 +54,10 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
 
         imageUrls=Arrays.asList(
                 house.getImage1(),
-                house.getImage1(),
-                house.getImage1(),
-                house.getImage1(),
-                house.getImage1()
+                house.getImage2(),
+                house.getImage3(),
+                house.getImage4(),
+                house.getImage5()
         );
         contact_owner=findViewById(R.id.call);
 
