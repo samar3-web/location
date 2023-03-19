@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".ViewHouseDetailsActivity">
+
+
+
+
+
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:orientation="vertical"
+            android:id="@+id/cardview_parent"
+            android:background="@color/white"
+
+            >
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardElevation="8dp"
+                    >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+                                        <!-- Media -->
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            >
+                                                <androidx.viewpager.widget.ViewPager
+                                                    android:id="@+id/housecardImage"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="250dp" />
+
+
+
+                                                <com.google.android.material.textview.MaterialTextView
+                                                    android:id="@+id/housecardcity"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_alignBottom="@+id/housecardImage"
+                                                    android:alpha="0.55"
+                                                    android:background="@color/black"
+                                                    android:padding="15dp"
+                                                    android:text="City ,Country"
+                                                    android:textColor="@color/white"
+
+                                                    android:textSize="15dp"
+                                                    android:textStyle="bold" />
+
+                                        </RelativeLayout>
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:id="@+id/collapsable"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical">
+                                          <LinearLayout
+                                              android:layout_width="match_parent"
+                                              android:layout_height="wrap_content"
+                                              android:orientation="horizontal"
+                                              android:layout_marginBottom="10dp">
+                                                  <TextView
+                                                      android:text="Owner Name"
+                                                      android:layout_width="0dp"
+                                                      android:layout_height="wrap_content"
+
+                                                      android:textSize="20sp"
+                                                      android:textStyle="bold"
+                                                      android:textAppearance="?attr/textAppearanceBody2"
+                                                      android:textColor="?android:attr/textColorSecondary"
+                                                      android:layout_weight="1"    />
+                                                  <TextView
+                                                      android:id="@+id/contactPerson"
+                                                      android:text="Owner Name"
+                                                      android:layout_width="0dp"
+                                                      android:layout_height="wrap_content"
+
+                                                      android:textSize="20sp"
+                                                      android:textStyle="bold"
+                                                      android:textAppearance="?attr/textAppearanceBody2"
+                                                      android:textColor="?android:attr/textColorSecondary"
+                                                      android:layout_weight="1"/>
+
+
+                                          </LinearLayout>
+
+                                          <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                              android:layout_marginBottom="10dp">
+                                                <TextView
+
+                                                    android:text="House No"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+
+                                                    android:textSize="20sp"
+                                                    android:textStyle="bold"
+                                                    android:textAppearance="?attr/textAppearanceBody2"
+                                                    android:textColor="?android:attr/textColorSecondary"
+                                                    android:layout_weight="1"/>
+                                                <TextView
+                                                    android:id="@+id/houseNo"
+                                                    android:text="HouseNo"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+
+                                                    android:textSize="20sp"
+                                                    android:textStyle="bold"
+                                                    android:textAppearance="?attr/textAppearanceBody2"
+                                                    android:textColor="?android:attr/textColorSecondary"
+                                                    android:layout_weight="1"/>
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:layout_marginBottom="10dp">
+                                                <TextView
+
+                                                    android:text="Location"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+
+                                                    android:textSize="20sp"
+                                                    android:textStyle="bold"
+                                                    android:textAppearance="?attr/textAppearanceBody2"
+                                                    android:textColor="?android:attr/textColorSecondary"
+                                                    android:layout_weight="1"/>
+                                                <TextView
+                                                    android:id="@+id/location"
+                                                    android:text="Loaction"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+
+                                                    android:textSize="20sp"
+                                                    android:textStyle="bold"
+                                                    android:textAppearance="?attr/textAppearanceBody2"
+                                                    android:textColor="?android:attr/textColorSecondary"
+                                                    android:layout_weight="1"/>
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:layout_marginBottom="10dp">
+                                                <TextView
+
+                                                    android:text="Street"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+
+                                                    android:textSize="20sp"
+                                                    android:textStyle="bold"
+                                                    android:textAppearance="?attr/textAppearanceBody2"
+                                                    android:textColor="?android:attr/textColorSecondary"
+                                                    android:layout_weight="1"/>
+                                                <TextView
+                                                    android:id="@+id/street"
+                                                    android:text="Street"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+
+                                                    android:textSize="20sp"
+                                                    android:textStyle="bold"
+                                                    android:textAppearance="?attr/textAppearanceBody2"
+                                                    android:textColor="?android:attr/textColorSecondary"
+                                                    android:layout_weight="1"/>
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:layout_marginBottom="10dp">
+                                                <TextView
+
+                                                    android:text="Phone Number"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+
+                                                    android:textSize="20sp"
+                                                    android:textStyle="bold"
+                                                    android:textAppearance="?attr/textAppearanceBody2"
+                                                    android:textColor="?android:attr/textColorSecondary"
+                                                    android:layout_weight="1"/>
+                                                <TextView
+                                                    android:id="@+id/phone"
+                                                    android:text="Phone Number"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+
+                                                    android:textSize="20sp"
+                                                    android:textStyle="bold"
+                                                    android:textAppearance="?attr/textAppearanceBody2"
+                                                    android:textColor="?android:attr/textColorSecondary"
+                                                    android:layout_weight="1"/>
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:layout_marginBottom="10dp">
+                                                <TextView
+
+                                                    android:text="Price"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+
+                                                    android:textSize="20sp"
+                                                    android:textStyle="bold"
+                                                    android:textAppearance="?attr/textAppearanceBody2"
+                                                    android:textColor="?android:attr/textColorSecondary"
+                                                    android:layout_weight="1"/>
+                                                <TextView
+                                                    android:id="@+id/price"
+                                                    android:text="Price"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+
+                                                    android:textSize="20sp"
+                                                    android:textStyle="bold"
+                                                    android:textAppearance="?attr/textAppearanceBody2"
+                                                    android:textColor="?android:attr/textColorSecondary"
+                                                    android:layout_weight="1"/>
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:layout_marginBottom="10dp">
+                                                <TextView
+
+                                                    android:text="House Size"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+
+                                                    android:textSize="20sp"
+                                                    android:textStyle="bold"
+                                                    android:textAppearance="?attr/textAppearanceBody2"
+                                                    android:textColor="?android:attr/textColorSecondary"
+                                                    android:layout_weight="1"/>
+                                                <TextView
+                                                    android:id="@+id/size"
+                                                    android:text="size"
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="wrap_content"
+
+                                                    android:textSize="20sp"
+                                                    android:textStyle="bold"
+                                                    android:textAppearance="?attr/textAppearanceBody2"
+                                                    android:textColor="?android:attr/textColorSecondary"
+                                                    android:layout_weight="1"/>
+
+                                        </LinearLayout>
+
+
+
+
+
+
+
+
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_margin="8dp"
+                                            android:orientation="horizontal">
+
+
+                                                <com.google.android.material.button.MaterialButton
+                                                    android:id="@+id/call"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginEnd="8dp"
+                                                    android:layout_marginRight="8dp"
+                                                    android:layout_weight="1"
+                                                    android:drawableRight="@drawable/call_icon"
+                                                    android:text="Contact Owner"
+                                                    app:cornerRadius="15dp"
+                                                    app:elevation="8dp"
+
+                                                    />
+
+
+
+
+
+                                        </LinearLayout>
+
+
+
+                                </LinearLayout>
+
+
+                        </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+</LinearLayout>

@@ -1,7 +1,10 @@
 package com.samar.location.homepage;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +17,16 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
 import com.samar.location.R;
+import com.samar.location.ViewHouseDetailsActivity;
 import com.samar.location.models.CustomGalleryAdapter;
 import com.samar.location.models.House;
 //import com.samar.location.payment.PaymentActivity;
@@ -68,6 +75,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             cga=new CustomGalleryAdapter(context,images);
             holder.gallery.setAdapter(cga);
             holder.gallery.setSpacing(5);
+
             holder.gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -80,8 +88,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
 
-            holder.housecardCity.setText(house.getCity().toUpperCase()+",INDIA");
-            holder.housecardAddress.setText("Contact : "+house.getContactPerson()+"\n"+"House   : "+house.getHouseNo()+"\n"+"Street    : "+house.getStreet()+"\n"+"Post      : "+house.getPost());
+            holder.housecardCity.setText(house.getCity().toUpperCase()+",TUNISIA");
+
             holder.housecardSize.setText(house.getSize());
             holder.housecardPrice.setText("Rs."+house.getPrice());
 
@@ -146,11 +154,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView housecardImage;
-        Button housecardSize, housecardPrice,contact_call,rentit;
+        Button housecardSize, housecardPrice,details,contact_call,rentit;
         TextView housecardCity, housecardAddress;
         MaterialCardView cardView;
         LinearLayout collapseable;
         Gallery gallery;
+
 
         public ViewHolder(View view) {
             super(view);
@@ -159,13 +168,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             housecardSize = view.findViewById(R.id.housecardsize);
             housecardPrice = view.findViewById(R.id.housecardprice);
             housecardCity = view.findViewById(R.id.housecardcity);
-            housecardAddress = view.findViewById(R.id.housecardaddress);
+
             cardView = view.findViewById(R.id.card);
             collapseable = view.findViewById(R.id.collapsable);
             gallery=view.findViewById(R.id.simpleGallery);
             contact_call=view.findViewById(R.id.contact_call);
             rentit=view.findViewById(R.id.rentit);
-
+            details= view.findViewById(R.id.view_details);
 
             Checkout.preload(context);
             cardView.setOnClickListener(new View.OnClickListener() {
@@ -187,13 +196,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
 
+
+
             contact_call.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     House house= houses.get(getAdapterPosition());
                     String phone="tel:"+house.getPhone();
+
+
                     Intent intent=new Intent(Intent.ACTION_CALL);
                     intent.setData(Uri.parse(phone));
+
                      context.startActivity(intent);
                 }
             });
@@ -211,6 +225,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     //unregisterReceiver();
                 }
             });
+            details.setPaintFlags(details.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            details.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    Intent intent = new Intent(context, ViewHouseDetailsActivity.class);
+
+                    House house= houses.get(getAdapterPosition());
+                    intent.putExtra("house",house);
+                    context.startActivity(intent);
+
+                }
+            });
 
 
         }
@@ -222,4 +250,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         
     }
+
+
 }

@@ -153,7 +153,7 @@ public class HouseListTab extends Fragment {
     }
 
     private void getHouseData(){
-        FirebaseFirestore firestore=FirebaseFirestore.getInstance();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection("HouseCollection").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -174,7 +174,7 @@ public class HouseListTab extends Fragment {
                                 house.setStreet(doc.get("street").toString());
                                 house.setPost(doc.get("post").toString());
                                 Log.d("xxxavavailability", "onComplete: "+(boolean)doc.get("availability"));
-                                house.setAvailability((boolean)doc.get("availability"));
+                                house.setAvailability( (boolean) doc.get("availability"));
                                 house.setPhone(doc.get("phone").toString());
                                 if(doc.get("image1")!=null)
                                     house.setImage1(doc.get("image1").toString());
@@ -192,7 +192,7 @@ public class HouseListTab extends Fragment {
 
 
                                   recyclerViewAdapter = new RecyclerViewAdapter(getActivity(),houses, R.layout.houses_cardview);
-                                  //setting adpater to recycler view
+                                  //setting adapter to recycler view
                                   my_rcv.setAdapter(recyclerViewAdapter);
                                   //LayoutManager for recycler view
                                   my_rcv.setLayoutManager(new LinearLayoutManager(getActivity()));

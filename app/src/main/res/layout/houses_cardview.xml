@@ -109,21 +109,38 @@
                    <Gallery
                    android:id="@+id/simpleGallery"
                    android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
+                   android:layout_height="1dp"
                    android:layout_marginTop="10dp"
                    />
-               <TextView
-                   android:id="@+id/housecardaddress"
-                   android:layout_width="wrap_content"
+               <LinearLayout
+                   android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="Contact Person Name \nHouseNo \nStreet \nPost"
-                   android:paddingLeft="10dp"
-                   android:maxLength="120"
-                   android:linksClickable="true"
-                   android:autoLink="map"
-                   android:textColorLink="@color/purple_500"
-                   android:textAppearance="?attr/textAppearanceBody2"
-                   android:textColor="?android:attr/textColorSecondary" />
+                   android:layout_margin="8dp"
+                   android:orientation="horizontal">
+
+
+
+                   <com.google.android.material.button.MaterialButton
+                       android:id="@+id/view_details"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_gravity="center"
+                       android:gravity="center"
+                       android:background="#000000FF"
+                       android:textColor="#0000ff"
+                       android:layout_margin="8dp"
+                       android:text="View Details"
+                       app:cornerRadius="15dp"
+                       app:elevation="8dp"
+
+
+
+
+                       />
+
+
+
+               </LinearLayout>
 
 
 
@@ -132,6 +149,7 @@
                    android:layout_height="wrap_content"
                    android:layout_margin="8dp"
                    android:orientation="horizontal">
+
 
                    <com.google.android.material.button.MaterialButton
                        android:id="@+id/contact_call"
@@ -160,6 +178,8 @@
                        android:layout_marginRight="8dp"
                        android:layout_weight="1"
                        />
+
+
 
                </LinearLayout>
 

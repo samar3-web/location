@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-public class LoginAdapter extends FragmentStatePagerAdapter {
+public class
+
+LoginAdapter extends FragmentStatePagerAdapter {
     private Context context;
     int totalTabs;
     public LoginAdapter(FragmentManager fm, Context context, int totalTabs)
