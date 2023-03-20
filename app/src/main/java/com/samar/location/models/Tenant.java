@@ -1,7 +1,7 @@
 package com.samar.location.models;
 
 public class Tenant {
-    String name , email , phone ,amtPaid , paymentDate , shiftingDate;
+    String name , lastName, email , phone ,amtPaid , paymentDate , shiftingDate;
 
 
     public Tenant() {
@@ -20,6 +20,14 @@ public class Tenant {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {

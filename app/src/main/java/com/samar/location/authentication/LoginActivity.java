@@ -2,6 +2,7 @@ package com.samar.location.authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -13,6 +14,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.samar.location.BottomNavigationBar.BootomNavBarMain;
 import com.samar.location.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -73,7 +75,8 @@ public class LoginActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
          if(currentUser != null) {
-           // startActivity(new Intent(LoginActivity.this,BootomNavBarMain.class));
+             Toast.makeText(getApplicationContext(),currentUser.getEmail()+" is connected",Toast.LENGTH_LONG).show();
+            startActivity(new Intent(LoginActivity.this, BootomNavBarMain.class));
          }
     }
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Owner_Model {
 
-    String name , gender, address , email , phone , password , accountType , profileUrl;
+    String name ,lastName, gender, address , email , phone , password , accountType , profileUrl;
    /* List<String> houseList;*/
 
     public String getProfileUrl() {
@@ -31,6 +31,14 @@ public class Owner_Model {
 
     public String getName() {
         return name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public void setName(String name) {

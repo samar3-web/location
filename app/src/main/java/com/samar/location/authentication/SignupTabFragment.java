@@ -28,6 +28,8 @@ import com.samar.location.R;
 public class SignupTabFragment extends Fragment {
 
     EditText email;
+    EditText name;
+    EditText lastName;
     EditText pass;
     EditText mobile_no;
     EditText con_pass;
@@ -54,6 +56,8 @@ public class SignupTabFragment extends Fragment {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.signup_fragment, container, false);
 
         email = root.findViewById(R.id.email);
+        name = root.findViewById(R.id.name);
+        lastName = root.findViewById(R.id.lastName);
         pass = root.findViewById(R.id.pass);
         mobile_no = root.findViewById(R.id.mobile_no);
         signup = root.findViewById(R.id.signup);
@@ -71,18 +75,24 @@ public class SignupTabFragment extends Fragment {
         ownerModel = new Owner_Model();
 //------------------------------------------------------------------------------------------------------------------------//
         email.setTranslationY(300);
+        name.setTranslationY(300);
+        lastName.setTranslationY(300);
         pass.setTranslationY(300);
         mobile_no.setTranslationY(300);
         con_pass.setTranslationY(300);
         signup.setTranslationY(300);
 
         email.setAlpha(v);
+        name.setAlpha(v);
+        lastName.setAlpha(v);
         pass.setAlpha(v);
         mobile_no.setAlpha(v);
         con_pass.setAlpha(v);
         signup.setAlpha(v);
 
         email.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
+        name.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
+        lastName.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
         pass.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(600).start();
         mobile_no.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(800).start();
         con_pass.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(1000).start();
@@ -93,6 +103,8 @@ public class SignupTabFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String remail = email.getText().toString();
+                String rname = name.getText().toString();
+                String rlastname = lastName.getText().toString();
                 String rpassword = pass.getText().toString();
                 String confirmpassword=con_pass.getText().toString();
                 String number = mobile_no.getText().toString();
@@ -102,7 +114,7 @@ public class SignupTabFragment extends Fragment {
                        account_type=selectedRadioButton.getText().toString();
                    }catch (Exception r){}
 
-                if( emailValidator(remail)&& passwordValidator(rpassword ,confirmpassword) &&  phoneValidator(number) && accountValidator(customer,owner))
+                if( emailValidator(remail) && nameValidator(rname) && lastNameValidator(rlastname) && passwordValidator(rpassword ,confirmpassword) &&  phoneValidator(number) && accountValidator(customer,owner))
                 {
 
 
@@ -115,6 +127,8 @@ public class SignupTabFragment extends Fragment {
                                 if(account_type=="CUSTOMER")
                                 {
                                     customerModel.setEmail(remail);
+                                    customerModel.setName(rname);
+                                    customerModel.setLastName(rlastname);
                                     customerModel.setPassword(confirmpassword);
                                     customerModel.setPhone(number);
                                     customerModel.setAccountType(account_type);
@@ -123,6 +137,8 @@ public class SignupTabFragment extends Fragment {
                                 else
                                 {
                                     ownerModel.setEmail(remail);
+                                    ownerModel.setName(rname);
+                                    ownerModel.setLastName(rlastname);
                                     ownerModel.setPassword(confirmpassword);
                                     ownerModel.setPhone(number);
                                     ownerModel.setAccountType(account_type);
@@ -162,7 +178,16 @@ public class SignupTabFragment extends Fragment {
             {email.setError("Cannot be empty"); return false;}
         return true;
     }
-
+    private boolean nameValidator(String rname) {
+        if(rname.isEmpty())
+        {name.setError("Cannot be empty"); return false;}
+        return true;
+    }
+    private boolean lastNameValidator(String rlastname) {
+        if(rlastname.isEmpty())
+        {lastName.setError("Cannot be empty"); return false;}
+        return true;
+    }
     private boolean accountValidator(RadioButton customer, RadioButton owner) {
         if(customer.isChecked()==false && owner.isChecked()==false)
            {
@@ -178,8 +203,8 @@ public class SignupTabFragment extends Fragment {
             mobile_no.setError("Cannot be Empty");
             return false;
         }
-        if(number.length()!=10)
-        {mobile_no.setError("Must be 10 Characters"); return false;}
+        if(number.length()<8)
+        {mobile_no.setError("Must be 8 Characters or higher"); return false;}
 
         return true;
     }

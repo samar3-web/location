@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class Customer_Model implements Map<String, Object> {
 
-    String name , age , gender, address, profileUrl,email, phone, password, accountType;
+    String name , lastName , age , gender, address, profileUrl,email, phone, password, accountType;
      //To Store the information of house in which tenant is staying
       House house;
 
@@ -35,6 +35,10 @@ public class Customer_Model implements Map<String, Object> {
 
     public String getName() {
         return name;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public String getAge() {
@@ -71,6 +75,10 @@ public class Customer_Model implements Map<String, Object> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public void setAge(String age) {
