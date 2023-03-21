@@ -213,7 +213,7 @@ public class FirebaseDB {
          documentReference.set(house).addOnCompleteListener(new OnCompleteListener<Void>() {
              @Override
              public void onComplete(Task<Void> task) {
-                 if(task.isSuccessful())
+                 if(task.isSuccessful()==true)
 
                    // updateHouseInOwnerData(currentUid,currentUserEmail);
                  Toast.makeText(context, "House Added Successfully", Toast.LENGTH_SHORT).show();
@@ -221,6 +221,25 @@ public class FirebaseDB {
              }
          });
       }
+
+    //updating house data from owner dashboard
+
+    public void updateHouseData(String documentId,House house, Context context){
+        firebaseFirestore=FirebaseFirestore.getInstance();
+        DocumentReference documentReference=firebaseFirestore.collection("HouseCollection").document(documentId);
+
+        Map<String, Object> updates = new HashMap<>();
+            updates.put("availability", house.isAvailability());
+            updates.put("price",house.getPrice());
+            updates.put("phone", house.getPhone());
+            updates.put("city", house.getCity());
+            updates.put("location", house.getLocation());
+            updates.put("street", house.getStreet());
+            updates.put("size", house.getSize());
+            updates.put("houseNo", house.getHouseNo());
+        documentReference.update(updates);
+
+    }
 
         private void updateHouseInOwnerData(String currentUid, String currentUserEmail) {
         firebaseFirestore=FirebaseFirestore.getInstance();

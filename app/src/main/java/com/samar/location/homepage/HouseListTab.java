@@ -119,7 +119,7 @@ public class HouseListTab extends Fragment {
                    my_rcv.addOnScrollListener(new RecyclerView.OnScrollListener() {
                        @Override
                        public void onScrollStateChanged( RecyclerView recyclerView, int newState) {
-
+                       /*
                            super.onScrollStateChanged(recyclerView, newState);
                            if (newState == RecyclerView.SCROLL_STATE_IDLE)
                            {
@@ -130,11 +130,15 @@ public class HouseListTab extends Fragment {
 
                            }
 
+                        */
+
                        }
 
                        @Override
                        public void onScrolled( RecyclerView recyclerView, int dx, int dy) {
+                           /*
                            super.onScrolled(recyclerView, dx, dy);
+
 
                            if (dy > 0 ||dy<0 )
                            {
@@ -144,8 +148,7 @@ public class HouseListTab extends Fragment {
 
                            }
 
-
-
+                            */
 
                        }
                    });
@@ -162,7 +165,7 @@ public class HouseListTab extends Fragment {
                         houses=new ArrayList<>();
                         for(DocumentSnapshot doc : task.getResult().getDocuments())
                         {
-                            if ((boolean)doc.get("availability")){
+                            if ((boolean)doc.get("availability") == true){
                                 House house=new House();
                                 house.setDocId(doc.getId());
                                 house.setLocation(doc.get("location").toString());

@@ -33,6 +33,7 @@ import com.samar.location.authentication.LoginActivity;
 import com.samar.location.databasecontoller.FirebaseDB;
 import com.samar.location.models.Customer_Model;
 import com.samar.location.models.Owner_Model;
+import com.samar.location.privateSpace.UserSpaceActivity;
 import com.samar.location.renthouse.AddHouseActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -145,15 +146,19 @@ public class Owner_Account extends Fragment {
         currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         currentUserUid=FirebaseAuth.getInstance().getCurrentUser().getUid();
         Log.d("xxxxOwnerUId", "onCreate:addHouseActivity ownerUid"+currentUserUid);
-        Button addHouseBtn = view.findViewById(R.id.addhouse_btn);
+        Button user_houses_btn = view.findViewById(R.id.user_houses_btn);
 
-        addHouseBtn.setOnClickListener(new View.OnClickListener() {
+        user_houses_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent=new Intent(getActivity(), AddHouseActivity.class);
-                intent.putExtra("currentUserUid",currentUserUid);
+                Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
+
+                Intent intent=new Intent(getActivity(), UserSpaceActivity.class);
+                 intent.putExtra("currentUserUid",currentUserUid);
                 startActivity(intent);
                 getActivity().finish();
+
+
             }
         });
 
@@ -190,6 +195,7 @@ public class Owner_Account extends Fragment {
                 //Here we are Updating the data from profile
                 if(cInput_name.getText()!=null)
                           ownerModel.setName(cInput_name.getText().toString());
+
                 RadioButton selectedRadioButton = (RadioButton) view.findViewById(radioGroup.getCheckedRadioButtonId());
                 if(selectedRadioButton!=null)
                          ownerModel.setGender(selectedRadioButton.getText().toString().toUpperCase());
