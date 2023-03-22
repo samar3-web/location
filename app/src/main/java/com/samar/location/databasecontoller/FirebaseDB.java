@@ -6,6 +6,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 //import com.example.renthouse.BottomNavigationBar.BootomNavBarMain;
+import androidx.annotation.NonNull;
+
 import com.samar.location.models.Customer_Model;
 import com.samar.location.models.House;
 import com.samar.location.models.Owner_Model;
@@ -16,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.samar.location.privateSpace.UserSpaceActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -240,6 +243,27 @@ public class FirebaseDB {
         documentReference.update(updates);
 
     }
+
+
+    public void deleteHouse(String documentId,Context context){
+        firebaseFirestore=FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("HouseCollection").document(documentId)
+                .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(context, "House Deeting Successful", Toast.LENGTH_SHORT).show();
+
+                        //Redirection to UserSpaceActivity
+                        Intent intent = new Intent(context, UserSpaceActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+
+
+                    }
+                }) ;
+    }
+
+
 
         private void updateHouseInOwnerData(String currentUid, String currentUserEmail) {
         firebaseFirestore=FirebaseFirestore.getInstance();

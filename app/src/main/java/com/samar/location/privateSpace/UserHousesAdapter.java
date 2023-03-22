@@ -24,6 +24,7 @@ import com.razorpay.Checkout;
 import com.samar.location.R;
 import com.samar.location.ViewHouseDetailsActivity;
 import com.samar.location.ViewHouseUserDetailsActivity;
+import com.samar.location.databasecontoller.FirebaseDB;
 import com.samar.location.models.CustomGalleryAdapter;
 import com.samar.location.models.House;
 
@@ -69,16 +70,8 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
         images.add(house.getImage5());
         Glide.with(context).load(house.getImage1()).into(holder.housecardImage);
         cga=new CustomGalleryAdapter(context,images);
-        holder.gallery.setAdapter(cga);
-        holder.gallery.setSpacing(5);
 
-        holder.gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Glide.with(context).load(images.get(position)).into(holder.housecardImage);
 
-            }
-        });
 
         boolean isExpanded=house.isExpanded();
 
@@ -150,11 +143,13 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView housecardImage;
-        Button housecardSize, housecardPrice,details,contact_call,rentit;
+        Button housecardSize, housecardPrice,details,btn_delete,rentit;
         TextView housecardCity, housecardAddress;
         MaterialCardView cardView;
         LinearLayout collapseable;
         Gallery gallery;
+
+        FirebaseDB firebaseDB = new FirebaseDB();
 
 
         public ViewHolder(View view) {
@@ -168,7 +163,7 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
             cardView = view.findViewById(R.id.card);
             collapseable = view.findViewById(R.id.collapsable);
             gallery=view.findViewById(R.id.simpleGallery);
-            contact_call=view.findViewById(R.id.contact_call);
+            btn_delete=view.findViewById(R.id.btn_delete);
             rentit=view.findViewById(R.id.rentit);
             details= view.findViewById(R.id.view_details);
 
@@ -194,17 +189,16 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
 
 
 
-            contact_call.setOnClickListener(new View.OnClickListener() {
+            btn_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     House house= houses.get(getAdapterPosition());
-                    String phone="tel:"+house.getPhone();
+                    String documentId = house.getDocId();
 
+                    //Delete
 
-                    Intent intent=new Intent(Intent.ACTION_CALL);
-                    intent.setData(Uri.parse(phone));
+                    firebaseDB.deleteHouse(documentId,context);
 
-                    context.startActivity(intent);
                 }
             });
 

@@ -26,7 +26,7 @@ android:padding="10dp" >
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 app:cornerRadius="200dp"
                 android:elevation="30dp"
                 android:drawableRight="@drawable/edit_pen"
@@ -45,18 +45,16 @@ android:padding="10dp" >
 
                 />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/addNew"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
+            <GridView
+                android:id="@+id/gallery"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:numColumns="2"
+                android:horizontalSpacing="5dp"
+                android:verticalSpacing="5dp"
+                android:background="#A83294"
+                android:padding="10dp"/>
 
-                android:layout_margin="10dp"
-                app:cornerRadius="200dp"
-                android:elevation="30dp"
-                android:text="add New House"
-                android:drawableRight="@drawable/addhouse1"
-                android:layout_gravity="bottom|right"
-                />
 
 
             <LinearLayout
@@ -67,11 +65,14 @@ android:padding="10dp" >
                 >
 
 
+
                 <com.google.android.material.card.MaterialCardView
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity=""
+                    android:layout_gravity="right"
+                    android:layout_marginTop="30dp"
+
                     android:padding="10dp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="300dp"
@@ -94,7 +95,7 @@ android:padding="10dp" >
                             app:cardElevation="20dp">
 
                             <com.google.android.material.imageview.ShapeableImageView
-                                android:id="@+id/owner_profile_image"
+                                android:id="@+id/face"
                                 android:layout_width="155dp"
                                 android:layout_height="150dp"
                                 android:background="@color/white"
@@ -113,7 +114,7 @@ android:padding="10dp" >
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="5dp"
-
+                     android:layout_gravity="end"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:hint="Availability"
@@ -287,6 +288,19 @@ android:padding="10dp" >
                     android:drawableLeft="@drawable/baseline_menu_open_24"
                     android:enabled="false"
                     android:imeOptions="actionDone"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/delete_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    app:cornerRadius="20dp"
+                    android:text="Delete"
+                    android:textSize="20sp"
+
+
                     />
 
 

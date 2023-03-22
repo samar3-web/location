@@ -12,6 +12,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="You have 2 Houses"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:padding="10dp"
         android:id="@+id/tv"/>
 
     <androidx.recyclerview.widget.RecyclerView

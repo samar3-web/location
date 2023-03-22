@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -55,9 +56,9 @@ import java.util.Map;
 public class ViewHouseUserDetailsActivity extends AppCompatActivity {
 
     TextView  availability;
-    ImageView cProfile;
+    ImageView face;
     EditText price, street, phone, size,houseNo, city,location;
-    Button edit_btn, save_btn;
+    Button edit_btn, save_btn,delete_btn;
     RadioGroup radioGroup;
     LinearLayout availability_layout;
     String currentUserEmail;
@@ -83,12 +84,12 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_house_user_details);
 
 
-          Button addNew= findViewById(R.id.addNew);
+         // Button addNew= findViewById(R.id.addNew);
 
 
         houseDocId =  getIntent().getStringExtra("houseDocId");
 
-
+        face = findViewById(R.id.face);
         availability = findViewById(R.id.house_availability);
         price = findViewById(R.id.price);
         phone = findViewById(R.id.owner_phone);
@@ -105,6 +106,8 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
 
         save_btn = findViewById(R.id.save_btn);
 
+        delete_btn = findViewById(R.id.delete_btn);
+
         House  myHouse = new House();
 
         firebaseDB = new FirebaseDB();
@@ -113,28 +116,13 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
         currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         String currentUserUid=FirebaseAuth.getInstance().getCurrentUser().getUid();
         Log.d("xxxxOwnerUId", "onCreate:addHouseActivity ownerUid"+currentUserUid);
-        /*
-        Button user_houses_btn = view.findViewById(R.id.user_houses_btn);
-
-
-        user_houses_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
-
-                Intent intent=new Intent(getActivity(), UserSpaceActivity.class);
-                intent.putExtra("currentUserUid",currentUserUid);
-                startActivity(intent);
-                getActivity().finish();
-
-
-            }
-        });
-
-         */
 
         //showing data details
         showHouseDetails(houseDocId);
+
+
+
+
 
 
         //------------------------edit Button code
@@ -190,7 +178,7 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
                     myHouse.setSize(size.getText().toString());
 
                 if(houseNo.getText()!=null)
-                    myHouse.setStreet(houseNo.getText().toString());
+                    myHouse.setHouseNo(houseNo.getText().toString());
 
                 //making imageview clickbable to change profile image.
 
@@ -216,6 +204,13 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
                 availability_layout.setVisibility(View.GONE);
 
 
+            }
+        });
+
+        delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebaseDB.deleteHouse(houseDocId,getApplicationContext());
             }
         });
         /*
@@ -282,8 +277,24 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
                         if (snapshot.get("houseNo") != null)
                             houseNo.setText(snapshot.get("houseNo").toString());
 
-                        if (snapshot.get("profileUrl") != null)
-                            setProfile(snapshot.get("profileUrl").toString());
+                        if (snapshot.get("image1") != null)
+                            setProfile(snapshot.get("image1").toString());
+
+                        //Aficher une Gallery des images
+
+
+                        String[] imagesUrls = new String[ 5 ];
+                        imagesUrls[0] = snapshot.get("image1").toString();
+                        imagesUrls[1] = snapshot.get("image2").toString();
+                        imagesUrls[2] = snapshot.get("image3").toString();
+                        imagesUrls[3] = snapshot.get("image4").toString();
+                        imagesUrls[4] = snapshot.get("image5").toString();
+
+                        GridView gallery = findViewById(R.id.gallery);
+                        int[] imageIds = new int[] {R.drawable.baseline_menu_open_24, R.drawable.baseline_menu_open_24, R.drawable.baseline_menu_open_24, R.drawable.baseline_menu_open_24, R.drawable.baseline_menu_open_24};
+
+                        GalleryAdapter adapter = new GalleryAdapter(getApplicationContext(), imagesUrls);
+                        gallery.setAdapter(adapter);
 
 
                     } catch (Exception e) {
@@ -302,10 +313,10 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
     }
 
 
-    private void setProfile(String profileUrl) {
+    private void setProfile(String url) {
         Glide.with(getApplicationContext())
-                .load(profileUrl)
-                .into(cProfile);
+                .load(url)
+                .into(face);
     }
 
 
@@ -467,7 +478,7 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
             //Transformer la photo en Bitmap
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
             //Afficher le Bitmap
-            cProfile.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 200, 200, false));
+            face.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 200, 200, false));
         }
     }
 

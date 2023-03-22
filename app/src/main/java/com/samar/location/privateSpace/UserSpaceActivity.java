@@ -73,7 +73,9 @@ public class UserSpaceActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(Task<QuerySnapshot> task) {
-                        Log.d("xxxxxdocs", "onComplete: of HouseData fetching "+task.getResult().getDocuments());
+                        Log.d("xxxxxdocs", "onComplete: of HouseData fetching "+task.getResult().getDocuments()
+
+                        );
                         houses=new ArrayList<>();
                         //TextView tv = findViewById(R.id.tv);
 
@@ -113,10 +115,14 @@ public class UserSpaceActivity extends AppCompatActivity {
 
                                 houses.add(house);
                             }
+
+                            TextView tv = findViewById(R.id.tv);
+                            tv.setText("You have "+houses.size()+" Houses" );
+
                             // adapter les resultat aux view
 
                             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                            adapter = new UserHousesAdapter(getApplicationContext(), houses, R.layout.houses_cardview);
+                            adapter = new UserHousesAdapter(getApplicationContext(), houses, R.layout.user_house_cardview);
                             recyclerView.setAdapter(adapter);
 
                         }}
