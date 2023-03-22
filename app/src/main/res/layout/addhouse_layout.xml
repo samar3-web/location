@@ -54,8 +54,7 @@
                 android:inputType="phone"
                 android:drawablePadding="20dp"
                 android:padding="20dp"
-                android:drawableLeft="@drawable/phone1"
-
+                android:drawableLeft="@drawable/phone_red"
                 android:imeOptions="actionDone"
                 />
 

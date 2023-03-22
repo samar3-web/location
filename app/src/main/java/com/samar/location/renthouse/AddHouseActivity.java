@@ -104,13 +104,12 @@ public class AddHouseActivity extends AppCompatActivity {
                sameUuid.equals(uuid);*/
                 house.setOwnerUid(ownerUid);
 
-
-                if (phoneValidator(phone.getText().toString()))
-                    house.setPhone(phone.getText().toString());
-               if(validator(contactPersonName.getText().toString(),houseNo.getText().toString(),street.getText().toString(),city.getText().toString(),post.getText().toString(),location.getText().toString(),
+               if(validator(contactPersonName.getText().toString(), phone.getText().toString(),houseNo.getText().toString(),street.getText().toString(),city.getText().toString(),post.getText().toString(),location.getText().toString(),
                 rentPrice.getText().toString()))
                {
+
                    house.setContactPerson(contactPersonName.getText().toString());
+                   house.setPhone(phone.getContext().toString() );
                    house.setHouseNo(houseNo.getText().toString());
                    house.setStreet(street.getText().toString());
                    house.setCity(city.getText().toString());
@@ -139,19 +138,23 @@ public class AddHouseActivity extends AppCompatActivity {
             phone.setError("Cannot be Empty");
             return false;
         }
-        if (number.length() != 10) {
-            phone.setError("Must be 10 Characters");
+        if (number.length() < 8) {
+            phone.setError("Must be 8 Characters in Minumum");
             return false;
         }
 
         return true;
     }
 
-    private boolean validator(String name, String houseno, String street_s, String city_s, String post_s, String location_s, String price_s) {
+    private boolean validator(String name,String phoneN, String houseno, String street_s, String city_s, String post_s, String location_s, String price_s) {
         if (name.isEmpty()) {
             contactPersonName.setError("Cannot be empty");
             return false;
         }
+
+        if (!phoneValidator(phoneN))
+            return false;
+
         if (houseno.isEmpty()) {
             houseNo.setError("Cannot be empty");
             return false;

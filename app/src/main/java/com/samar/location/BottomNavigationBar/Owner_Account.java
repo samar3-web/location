@@ -151,7 +151,6 @@ public class Owner_Account extends Fragment {
         user_houses_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
 
                 Intent intent=new Intent(getActivity(), UserSpaceActivity.class);
                  intent.putExtra("currentUserUid",currentUserUid);

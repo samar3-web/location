@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,9 +31,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.samar.location.BottomNavigationBar.BootomNavBarMain;
 import com.samar.location.R;
+import com.samar.location.addAnnonceActivity;
 import com.samar.location.authentication.LoginActivity;
 import com.samar.location.homepage.RecyclerViewAdapter;
 import com.samar.location.models.House;
+import com.samar.location.renthouse.AddHouseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +44,7 @@ public class UserSpaceActivity extends AppCompatActivity {
     //Global variables
     private  RecyclerView recyclerView;
     private  UserHousesAdapter adapter;
+    Button add_btn;
     List<House> houses;
     FirebaseAuth firebaseAuth;
 
@@ -50,16 +54,27 @@ public class UserSpaceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_space);
 
         recyclerView = findViewById(R.id.my_rcv);
+        add_btn = findViewById(R.id.add_btn);
 
-        String currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        //String currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
         String currentUserUid=FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-
-
+        add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), AddHouseActivity.class);
+                intent.putExtra("currentUserUid",currentUserUid);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
         getHouseData(currentUserUid);
+
+
+
 
 
     }
