@@ -109,7 +109,7 @@ public class AddHouseActivity extends AppCompatActivity {
                {
 
                    house.setContactPerson(contactPersonName.getText().toString());
-                   house.setPhone(phone.getContext().toString() );
+                   house.setPhone(phone.getText().toString() );
                    house.setHouseNo(houseNo.getText().toString());
                    house.setStreet(street.getText().toString());
                    house.setCity(city.getText().toString());
