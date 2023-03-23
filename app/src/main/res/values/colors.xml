@@ -28,5 +28,10 @@
     <color name="seafoam">#93E9BE</color>
     <color name="cardbackground">#E7F4ED</color>
     <color name="sample_map_background">#FFFFFF</color>
+    <!--colors for modern ui-->
 
+    <color name="loginBkColor">#f0f0f0</color>
+
+    <!--colros for card-->
+    <color name="whiteCardColor">#fff</color>
     </resources>

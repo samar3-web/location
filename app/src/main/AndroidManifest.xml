@@ -34,16 +34,6 @@
             android:name=".addAnnonceActivity"
             android:exported="true" />
 
-        <activity
-            android:name=".LoginActivity"
-            android:exported="true" />
-
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="true" />
-
-        <activity android:name=".MainActivity"
-            android:exported="true" />
         <activity android:name=".ViewHouseDetailsActivity"
             android:exported="true" />
 

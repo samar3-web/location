@@ -92,26 +92,7 @@ public class BootomNavBarMain extends AppCompatActivity {
                                 if (item.getItemId() == R.id.homee) {
                                     getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new HomeFragment(), "home_fragment").commit();
 
-                                } else if (item.getItemId() == R.id.sort) {
-                                    PopupMenu popupMenu = new PopupMenu(BootomNavBarMain.this, bottomNavigationView);
-                                    popupMenu.getMenuInflater().inflate(R.menu.sortmenu, popupMenu.getMenu());
-
-                                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                                        @Override
-                                        public boolean onMenuItemClick(MenuItem item) {
-                                            switch (item.getItemId())
-                                            {
-                                                case R.id.price:/* Snackbar.make(bottomNavigationView,""+item.getTitle(),1).show();*/ //new HouseListTab().sortType("PRICE"); break;
-                                                default:
-                                                    break;
-                                            }
-                                            return false;
-                                        }
-                                    });
-                                    popupMenu.show();
-
-                                    //getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new SortFragment()).commit();
-                                } else if (item.getItemId() == R.id.favourite) {
+                                }  else if (item.getItemId() == R.id.favourite) {
                                     if (accType.equals("CUSTOMER"))
                                         getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Customer_Request_List()).commit();
                                     else

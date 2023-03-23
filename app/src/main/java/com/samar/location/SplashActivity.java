@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.samar.location.authentication.LoginActivity;
+import com.samar.location.homepage.HomePage;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -58,7 +60,7 @@ public class SplashActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot ds: snapshot.getChildren()){
-                            startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                            startActivity(new Intent(SplashActivity.this, HomePage.class));
                         }
                     }
 

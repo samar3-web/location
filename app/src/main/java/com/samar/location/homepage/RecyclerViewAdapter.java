@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.Gallery;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -91,7 +92,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.housecardCity.setText(house.getCity().toUpperCase()+",TUNISIA");
 
             holder.housecardSize.setText(house.getSize());
-            holder.housecardPrice.setText("Rs."+house.getPrice());
+            holder.housecardPrice.setText(house.getPrice()+".TND");
 
             holder.collapseable.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
 
@@ -154,7 +155,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView housecardImage;
-        Button housecardSize, housecardPrice,details,contact_call,rentit;
+        //Button details,rentit;
+        TextView housecardPrice,housecardSize;
         TextView housecardCity, housecardAddress;
         MaterialCardView cardView;
         LinearLayout collapseable;
@@ -172,9 +174,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             cardView = view.findViewById(R.id.card);
             collapseable = view.findViewById(R.id.collapsable);
             gallery=view.findViewById(R.id.simpleGallery);
-            contact_call=view.findViewById(R.id.contact_call);
-            rentit=view.findViewById(R.id.rentit);
-            details= view.findViewById(R.id.view_details);
+            //contact_call=view.findViewById(R.id.contact_call);
+            //rentit=view.findViewById(R.id.rentit);
+            //details= view.findViewById(R.id.view_details);
 
             Checkout.preload(context);
             cardView.setOnClickListener(new View.OnClickListener() {
@@ -198,7 +200,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
 
-            contact_call.setOnClickListener(new View.OnClickListener() {
+            /*contact_call.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     House house= houses.get(getAdapterPosition());
@@ -211,8 +213,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                      context.startActivity(intent);
                 }
             });
-
-            rentit.setOnClickListener(new View.OnClickListener() {
+*/
+            /*rentit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     House house= houses.get(getAdapterPosition());
@@ -224,9 +226,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                    // startPayment();
                     //unregisterReceiver();
                 }
-            });
-            details.setPaintFlags(details.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-            details.setOnClickListener(new View.OnClickListener() {
+            });*/
+            //details.setPaintFlags(details.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            housecardImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 

@@ -8,13 +8,6 @@
 
 
     <item
-        android:id="@+id/sort"
-        android:enabled="true"
-        android:icon="@drawable/sorting"
-        android:title="sort" />
-
-
-    <item
         android:id="@+id/favourite"
         android:enabled="true"
         android:icon="@drawable/favourite"

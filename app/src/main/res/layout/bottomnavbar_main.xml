@@ -33,13 +33,13 @@
             android:id="@+id/bottomnavbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
             app:menu="@menu/bottomnavbar_items"
             android:layout_alignParentBottom="true"
             android:animateLayoutChanges="true"
             app:elevation="8dp"
             app:hideOnScroll="true"
-
+            app:cardCornerRadius="20dp"
+            android:layout_marginBottom="2dp"
             />
 
 
