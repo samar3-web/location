@@ -23,6 +23,8 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 
@@ -35,6 +37,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.razorpay.Checkout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -66,12 +69,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         House house = houses.get(position);
-            images=new ArrayList();
-            images.add(house.getImage1());
-            images.add(house.getImage2());
-            images.add(house.getImage3());
-            images.add(house.getImage4());
-            images.add(house.getImage5());
+            images= Arrays.asList(
+                    house.getImage1(),
+                    house.getImage2(),
+                    house.getImage3(),
+                    house.getImage4(),
+                    house.getImage5()
+            );
+
+
+
+              /*
             Glide.with(context).load(house.getImage1()).into(holder.housecardImage);
             cga=new CustomGalleryAdapter(context,images);
             holder.gallery.setAdapter(cga);
@@ -87,6 +95,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             boolean isExpanded=house.isExpanded();
 
+               */
+
+        ImageAdapter adapter = new ImageAdapter(context, images);
+        holder. viewPager.setAdapter(adapter);
 
 
             holder.housecardCity.setText(house.getCity().toUpperCase()+",TUNISIA");
@@ -94,7 +106,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.housecardSize.setText(house.getSize());
             holder.housecardPrice.setText(house.getPrice()+".TND");
 
-            holder.collapseable.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+            //holder.collapseable.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
 
         }
 
@@ -154,26 +166,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView housecardImage;
+        ViewPager viewPager;
         //Button details,rentit;
         TextView housecardPrice,housecardSize;
         TextView housecardCity, housecardAddress;
         MaterialCardView cardView;
         LinearLayout collapseable;
-        Gallery gallery;
+
 
 
         public ViewHolder(View view) {
             super(view);
             //Getting all the views
-            housecardImage = view.findViewById(R.id.housecardImage);
+            viewPager = view.findViewById(R.id.housecardImage);
             housecardSize = view.findViewById(R.id.housecardsize);
             housecardPrice = view.findViewById(R.id.housecardprice);
             housecardCity = view.findViewById(R.id.housecardcity);
 
             cardView = view.findViewById(R.id.card);
             collapseable = view.findViewById(R.id.collapsable);
-            gallery=view.findViewById(R.id.simpleGallery);
+
             //contact_call=view.findViewById(R.id.contact_call);
             //rentit=view.findViewById(R.id.rentit);
             //details= view.findViewById(R.id.view_details);
@@ -182,10 +194,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Intent intent = new Intent(context, ViewHouseDetailsActivity.class);
+
+                    House house= houses.get(getAdapterPosition());
+                    intent.putExtra("house",house);
+                    context.startActivity(intent);
+                    /*
                     House house = houses.get(getAdapterPosition());
                     house.setExpanded(!house.isExpanded());
                     notifyItemChanged(getAdapterPosition());
                   //  List<SlideModel> slideModelList = new ArrayList<>();
+
+                     */
 
                 }
             });
@@ -228,6 +248,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });*/
             //details.setPaintFlags(details.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            /*
             housecardImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -242,6 +263,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
 
+             */
+
 
         }
 
@@ -251,6 +274,41 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
         
+    }
+
+    private static class ImageAdapter extends PagerAdapter {
+
+        private Context context;
+        private List<String> imageUrls;
+
+        public ImageAdapter(Context context, List<String> imageUrls) {
+            this.context = context;
+            this.imageUrls = imageUrls;
+        }
+
+        @Override
+        public int getCount() {
+            return imageUrls.size();
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            ImageView imageView = new ImageView(context);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            Glide.with(context).load(imageUrls.get(position)).into(imageView);
+            container.addView(imageView);
+            return imageView;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView((ImageView) object);
+        }
     }
 
 

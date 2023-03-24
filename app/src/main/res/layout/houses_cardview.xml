@@ -34,15 +34,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 >
-                <ImageView
+                <androidx.viewpager.widget.ViewPager
                     android:id="@+id/housecardImage"
                     android:layout_width="match_parent"
-                    android:layout_height="210dp"
-                    android:animateLayoutChanges="true"
-                     android:scaleType="fitXY"
-                    app:cardCornerRadius="8dp"
-
-                    />
+                    android:layout_height="250dp" />
 
 
                 <TextView
@@ -118,48 +113,49 @@
                     android:textStyle="bold" />
 
             </RelativeLayout>
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:id="@+id/collapsable"
-               android:orientation="vertical">
-
-                   <Gallery
-                   android:id="@+id/simpleGallery"
-                   android:layout_width="match_parent"
-                   android:layout_height="1dp"
-                   android:layout_marginTop="10dp"
-                   />
-               <!--
+            <!--
                <LinearLayout
                    android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_margin="8dp"
-                   android:orientation="horizontal">
+                   android:layout_height="match_parent"
+                   android:id="@+id/collapsable"
+                   android:orientation="vertical">
+
+                                      <Gallery
+                                      android:id="@+id/simpleGallery"
+                                      android:layout_width="match_parent"
+                                      android:layout_height="1dp"
+                                      android:layout_marginTop="10dp"
+                                      />
+
+                                  <LinearLayout
+                                      android:layout_width="match_parent"
+                                      android:layout_height="wrap_content"
+                                      android:layout_margin="8dp"
+                                      android:orientation="horizontal">
 
 
 
-                   <com.google.android.material.button.MaterialButton
-                       android:id="@+id/view_details"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_gravity="center"
-                       android:gravity="center"
-                       android:background="#000000FF"
-                       android:textColor="#0000ff"
-                       android:layout_margin="8dp"
-                       android:text="View Details"
-                       app:cornerRadius="15dp"
-                       app:elevation="8dp"
+                                      <com.google.android.material.button.MaterialButton
+                                          android:id="@+id/view_details"
+                                          android:layout_width="wrap_content"
+                                          android:layout_height="wrap_content"
+                                          android:layout_gravity="center"
+                                          android:gravity="center"
+                                          android:background="#000000FF"
+                                          android:textColor="#0000ff"
+                                          android:layout_margin="8dp"
+                                          android:text="View Details"
+                                          app:cornerRadius="15dp"
+                                          app:elevation="8dp"
 
 
 
 
-                       />
+                                          />
 
 
 
-               </LinearLayout> !-->
+                                  </LinearLayout> !-->
 
 
 
@@ -200,11 +196,13 @@
 
 
 
-               </LinearLayout> !-->
+               </LinearLayout>
+
 
 
 
            </LinearLayout>
+           !-->
 
 
         </LinearLayout>
