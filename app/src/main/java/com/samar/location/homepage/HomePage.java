@@ -34,7 +34,6 @@ public class HomePage extends AppCompatActivity {
         home_viewpager.setAdapter(homeTabs_adpater);
 
         //click on tabs to show tab
-
         home_tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
