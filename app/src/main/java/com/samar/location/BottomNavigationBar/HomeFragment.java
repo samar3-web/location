@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,21 +13,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.samar.location.R;
+import com.samar.location.databasecontoller.FirebaseDB;
 import com.samar.location.homepage.HomeTabs_Adpater;
 import com.google.android.material.tabs.TabLayout;
 import com.samar.location.homepage.RecyclerViewAdapter;
 import com.samar.location.models.House;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +48,7 @@ public class HomeFragment extends Fragment {
 
     //Global variables
     RecyclerView my_rcv;
+    ImageView userFace;
     RecyclerViewAdapter recyclerViewAdapter;
     List<House> houses;
     public Bundle bundle;
@@ -106,6 +118,10 @@ public class HomeFragment extends Fragment {
 
         my_rcv = view.findViewById(R.id.my_rcv);
 
+        userFace = view.findViewById(R.id.userFace);
+
+        displayUserFace();
+
 
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomnavbar);
 
@@ -154,7 +170,10 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        //Old version
+
+
+
+        //Old version with Map
          /*
         View view =inflater.inflate(R.layout.fragment_home, container, false);
         home_tabs = view.findViewById(R.id.my_tablayout);
@@ -207,6 +226,7 @@ public class HomeFragment extends Fragment {
 
 
     }
+
 
     private void getHouseData(){
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -261,5 +281,38 @@ public class HomeFragment extends Fragment {
                     }
                 });
 
+    }
+
+
+
+    private void displayUserFace() {
+        String currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("USERDATA").document(currentUserEmail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    Map<String, Object> snapshot = task.getResult().getData();
+                    try {
+                        if (snapshot.get("profileUrl") != null) {
+                            String profileUrl = snapshot.get("profileUrl").toString();
+                            //dispay image
+                            setProfile(profileUrl);
+                        }
+
+                    } catch (Exception e) {
+
+                    }
+
+
+                }
+            }
+        });
+    }
+
+    private void setProfile(String profileUrl) {
+        Glide.with(getActivity())
+                .load(profileUrl)
+                .into(userFace);
     }
 }

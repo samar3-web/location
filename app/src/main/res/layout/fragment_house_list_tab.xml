@@ -35,6 +35,7 @@
                     android:layout_marginBottom="8dp">
 
                     <TextView
+                        android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/calibri"
@@ -42,15 +43,53 @@
                         android:textColor="#000000"
                         android:textSize="24sp"
                         android:textStyle="bold" />
+                    />
 
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_alignParentTop="true"
+
+                    <com.google.android.material.card.MaterialCardView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        app:cardBackgroundColor="@color/colorPrimary"
                         android:layout_alignParentEnd="true"
-                        android:src="@drawable/user_img" />
+                        app:cardCornerRadius="300dp"
+                        android:layout_marginTop="5dp"
+                        android:padding="10dp"
+                        app:cardElevation="20dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            >
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/card"
+                                android:layout_width="41dp"
+                                android:layout_height="44dp"
+                                android:layout_gravity="center"
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="200dp"
+                                app:cardElevation="20dp">
+
+                                <com.google.android.material.imageview.ShapeableImageView
+                                    android:id="@+id/userFace"
+                                    android:layout_width="61dp"
+                                    android:layout_height="64dp"
+                                    android:background="@color/white"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/b" />
+                            </com.google.android.material.card.MaterialCardView>
+                        </LinearLayout>
+
+
+
+                    </com.google.android.material.card.MaterialCardView>
 
                 </RelativeLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
