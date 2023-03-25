@@ -153,10 +153,8 @@ public class Owner_Account extends Fragment {
             public void onClick(View v) {
 
                 Intent intent=new Intent(getActivity(), UserSpaceActivity.class);
-                 intent.putExtra("currentUserUid",currentUserUid);
+                intent.putExtra("currentUserUid",currentUserUid);
                 startActivity(intent);
-                getActivity().finish();
-
 
             }
         });

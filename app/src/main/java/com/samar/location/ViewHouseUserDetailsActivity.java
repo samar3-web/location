@@ -1,8 +1,10 @@
 package com.samar.location;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -73,7 +75,7 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
 
    public static String houseDocId;
 
-
+   Context context;
 
 
 
@@ -210,9 +212,22 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebaseDB.deleteHouse(houseDocId,getApplicationContext());
+                new AlertDialog.Builder(v.getContext())
+                        .setMessage("You are sure you want to delete this House?")
+                        .setCancelable(false)
+                        .setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Si l'utilisateur clique sur "Oui", l'application se ferme
+                                firebaseDB.deleteHouse(houseDocId, v.getContext());
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show();
             }
         });
+
         /*
 
         cProfile.setOnClickListener(new View.OnClickListener() {

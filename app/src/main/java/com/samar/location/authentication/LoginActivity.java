@@ -31,6 +31,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loginl);
 
+        //Redirection to BootomNavBarMain class if user is connected
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if(currentUser != null) {
+
+            startActivity(new Intent(LoginActivity.this, BootomNavBarMain.class));
+            Toast.makeText(getApplicationContext(),currentUser.getEmail()+" is connected",Toast.LENGTH_LONG).show();
+            finish();
+        }
+
+
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
            //Creating instance of firebase auth
@@ -69,14 +80,4 @@ public class LoginActivity extends AppCompatActivity {
         tabLayout.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(100).start();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-         if(currentUser != null) {
-             Toast.makeText(getApplicationContext(),currentUser.getEmail()+" is connected",Toast.LENGTH_LONG).show();
-            startActivity(new Intent(LoginActivity.this, BootomNavBarMain.class));
-         }
-    }
 }

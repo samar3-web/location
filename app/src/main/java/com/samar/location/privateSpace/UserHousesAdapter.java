@@ -199,6 +199,7 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
 
                     firebaseDB.deleteHouse(documentId,context);
 
+
                 }
             });
 
@@ -226,6 +227,8 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
                     String houseDocId= houses.get(getAdapterPosition()).getDocId();
                     intent.putExtra("houseDocId",houseDocId);
                     v.getContext().startActivity(intent);
+
+
 
                 }
             });

@@ -1,5 +1,6 @@
 package com.samar.location.authentication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,9 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.samar.location.BottomNavigationBar.BootomNavBarMain;
 import com.samar.location.databasecontoller.FirebaseDB;
 import com.samar.location.models.Customer_Model;
 import com.samar.location.models.Owner_Model;
@@ -44,7 +48,7 @@ public class SignupTabFragment extends Fragment {
     Owner_Model ownerModel;
     FirebaseFirestore firebaseFirestore;
 
-    private FirebaseAuth auth;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +72,7 @@ public class SignupTabFragment extends Fragment {
 
   //----------------------------------------------------------------------------------------------------------------------------------//
         //creating instance of firebase auth
-        auth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseDB = new FirebaseDB();
         customerModel=new Customer_Model();
@@ -118,12 +122,12 @@ public class SignupTabFragment extends Fragment {
                 {
 
 
-                    auth.createUserWithEmailAndPassword(remail,rpassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    firebaseAuth.createUserWithEmailAndPassword(remail,rpassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete( Task<AuthResult> task) {
                             if(task.isSuccessful())
                             {
-                                Toast.makeText(getActivity(), "Signup completed.", Toast.LENGTH_SHORT).show();
+
                                 if(account_type=="CUSTOMER")
                                 {
                                     customerModel.setEmail(remail);
@@ -132,7 +136,8 @@ public class SignupTabFragment extends Fragment {
                                     customerModel.setPassword(confirmpassword);
                                     customerModel.setPhone(number);
                                     customerModel.setAccountType(account_type);
-                                    firebaseDB.setData(firebaseFirestore,customerModel, auth.getCurrentUser().getUid());
+                                    firebaseDB.setData(firebaseFirestore,customerModel, firebaseAuth.getCurrentUser().getUid());
+
                                 }
                                 else
                                 {
@@ -142,15 +147,23 @@ public class SignupTabFragment extends Fragment {
                                     ownerModel.setPassword(confirmpassword);
                                     ownerModel.setPhone(number);
                                     ownerModel.setAccountType(account_type);
-                                    firebaseDB.setData(firebaseFirestore,ownerModel ,auth.getCurrentUser().getUid());
+                                    firebaseDB.setData(firebaseFirestore,ownerModel ,firebaseAuth.getCurrentUser().getUid());
                                 }
 
+                                Toast.makeText(getActivity(), "Signup completed.", Toast.LENGTH_SHORT).show();
 
+                                //Login the New USER
+                                loginUser(remail, rpassword,account_type);
 
+                                /*
+
+                                //Request Login
 
                                 TabLayout tabs = (TabLayout)((LoginActivity)getActivity()).findViewById(R.id.tab_layout);
 
                                 tabs.getTabAt(0).select();
+
+                                 */
 
                             }
                             else
@@ -234,7 +247,31 @@ public class SignupTabFragment extends Fragment {
 
     }
 
+    private void loginUser(String userEmail, String userPassword, String accountType) {
+
+        firebaseAuth.signInWithEmailAndPassword(userEmail,userPassword)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+
+                        Intent intent = new Intent(getActivity(), BootomNavBarMain.class);
+                        intent.putExtra("accountType",accountType);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(Exception e) {
+                        Toast.makeText(getActivity(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 }
+
+
+
+
   /*auth.createUserWithEmailAndPassword(remail,rpassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 @Override
 public void onComplete( Task<AuthResult> task) {

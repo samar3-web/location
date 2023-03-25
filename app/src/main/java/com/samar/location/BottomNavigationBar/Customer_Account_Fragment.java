@@ -134,6 +134,7 @@ public class Customer_Account_Fragment extends Fragment {
         female=view.findViewById(R.id.female);
         edit_btn=view.findViewById(R.id.edit_btn);
         logout_btn=view.findViewById(R.id.customer_logout_btn);
+
         save_btn=view.findViewById(R.id.save_btn);
         customerModel=new Customer_Model();
         firebaseDB=new FirebaseDB();
