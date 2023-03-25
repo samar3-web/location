@@ -19,10 +19,12 @@ public class GalleryAdapter extends BaseAdapter {
 
         private Context mContext;
         private String[] mImageUrls;
+        private ImageView mDisplayer;
 
-        public GalleryAdapter(Context context, String[] imageUrls) {
+        public GalleryAdapter(Context context, String[] imageUrls, ImageView displayer) {
             mContext = context;
             mImageUrls = imageUrls;
+            mDisplayer = displayer;
         }
 
         @Override
@@ -54,10 +56,29 @@ public class GalleryAdapter extends BaseAdapter {
             } else {
                 imageButton = (ImageButton) convertView;
             }
+
+
             Glide.with(mContext)
                     .load(mImageUrls[position])
                     .into(imageButton);
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Glide.with(mContext)
+                            .load(mImageUrls[position])
+                            .into(mDisplayer);
+                }
+            });
 
             return imageButton;
         }
+
+        private void displayImage(String url,ImageView displayer){
+            Glide.with(mContext)
+                    .load(url)
+                    .into(displayer);
+
+        }
     }
+
+

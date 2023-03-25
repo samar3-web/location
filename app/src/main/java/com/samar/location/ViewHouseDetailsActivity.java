@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +40,9 @@ import java.util.List;
 
 public class ViewHouseDetailsActivity  extends AppCompatActivity {
 
-    private ViewPager viewPager;
+    private ImageView housecardImage;
+
+    GridView gallery;
     Button contact_owner;
     TextView housecardcity,contactPerson,houseNo,location,street,phone,price,size;
      List<String> imageUrls ;
@@ -49,7 +52,9 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_house_details);
 
-        viewPager = findViewById(R.id.housecardImage);
+        housecardImage = findViewById(R.id.housecardImage);
+
+        gallery = findViewById(R.id.gallery);
         House house = (House) getIntent().getSerializableExtra("house");
 
         imageUrls=Arrays.asList(
@@ -59,6 +64,20 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
                 house.getImage4(),
                 house.getImage5()
         );
+        String[] imagesUrl =new String[5];
+
+               imagesUrl[0] = house.getImage1();
+               imagesUrl[1] = house.getImage2();
+               imagesUrl[2] =  house.getImage3();
+               imagesUrl[3] = house.getImage4();
+               imagesUrl[4] = house.getImage5();
+
+
+        Glide.with(getApplicationContext())
+                .load( imagesUrl[0])
+                .into(housecardImage);
+
+
         contact_owner=findViewById(R.id.call);
 
         housecardcity = findViewById(R.id.housecardcity);
@@ -95,8 +114,8 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
 
         //
 
-        ImageAdapter adapter = new ImageAdapter(this, imageUrls);
-        viewPager.setAdapter(adapter);
+        GalleryAdapter adapter = new GalleryAdapter(getApplicationContext(), imagesUrl, housecardImage );
+        gallery.setAdapter(adapter);
     }
 
     private static class ImageAdapter extends PagerAdapter {

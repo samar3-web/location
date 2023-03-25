@@ -308,7 +308,7 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
                         GridView gallery = findViewById(R.id.gallery);
                         int[] imageIds = new int[] {R.drawable.baseline_menu_open_24, R.drawable.baseline_menu_open_24, R.drawable.baseline_menu_open_24, R.drawable.baseline_menu_open_24, R.drawable.baseline_menu_open_24};
 
-                        GalleryAdapter adapter = new GalleryAdapter(getApplicationContext(), imagesUrls);
+                        GalleryAdapter adapter = new GalleryAdapter(getApplicationContext(), imagesUrls,face);
                         gallery.setAdapter(adapter);
 
 
