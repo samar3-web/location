@@ -12,7 +12,7 @@
 
         <color name="colorGray01">#c9c9c9</color>
         <color name="colorGray02">#959595</color>
-
+    <color name="blackTextColor">#000</color>
         <color name="black">#FF000000</color>
         <color name="white">#FFFFFFFF</color>
         <!--colors for light mode-->
