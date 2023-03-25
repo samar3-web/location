@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
+
     >
     <ScrollView
         android:layout_width="match_parent"
@@ -12,7 +13,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            >
         <com.google.android.material.card.MaterialCardView
 
         android:layout_width="match_parent"
@@ -51,24 +53,26 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="20dp"
+            android:background="@drawable/profile_bk"
             >
+
             <com.google.android.material.card.MaterialCardView
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="131dp"
+                android:layout_height="135dp"
                 android:layout_gravity="center_horizontal"
+                android:padding="10dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="300dp"
-                android:padding="10dp"
                 app:cardElevation="20dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    >
+                    android:orientation="vertical">
+
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/card"
                         android:layout_width="wrap_content"
@@ -80,13 +84,12 @@
 
                         <com.google.android.material.imageview.ShapeableImageView
                             android:id="@+id/customer_profile_image"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:background="@color/white"
-                            android:src="@mipmap/ic_launcher_round" />
+                            android:src="@drawable/profile_round" />
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
-
 
 
             </com.google.android.material.card.MaterialCardView>
@@ -146,7 +149,7 @@
                 android:inputType="textPersonName"
                 android:padding="20dp"
                 android:drawablePadding="20dp"
-                android:drawableLeft="@drawable/mail"
+                android:drawableLeft="@drawable/e"
                  android:visibility="gone"
                 />
 
@@ -181,9 +184,9 @@
                         android:id="@+id/male"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:buttonTint="@color/purple_500"
+                        android:buttonTint="@color/colorPrimary"
                         android:text="Male"
-                        android:textColor="@color/purple_500"
+                        android:textColor="@color/colorPrimary"
                         android:paddingHorizontal="5dp"
                         android:imeOptions="actionDone"
                         />
@@ -192,85 +195,149 @@
                         android:id="@+id/female"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:buttonTint="@color/purple_500"
+                        android:buttonTint="@color/colorPrimary"
                         android:text="Female"
                         android:paddingHorizontal="5dp"
                         android:imeOptions="actionDone"
-                        android:textColor="@color/purple_500"
+                        android:textColor="@color/colorPrimary"
                         />
                 </RadioGroup>
 
             </LinearLayout>
+            <RelativeLayout style="@style/profileDetailsLayout">
+                <ImageView
+                    android:id="@+id/emailImageView"
+                    android:src="@drawable/ic_email"
+                    android:layout_marginStart="20dp"
+                    style="@style/profileDetailsImage" />
+
+                <TextView
+                    android:text="Email"
+                    android:layout_toRightOf="@id/emailImageView"
+                    style="@style/profileDetailsTextMain" />
+
+                <EditText
+                    android:id="@+id/customer_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="email@gmail.com"
+                    android:inputType="textEmailAddress"
+                    android:padding="20dp"
+                    android:enabled="false"
+                    android:imeOptions="actionDone"
+                    android:layout_toRightOf="@id/emailImageView"
 
 
+                    />
 
-            <EditText
-                android:id="@+id/customer_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="email@gmail.com"
-                android:inputType="textEmailAddress"
-                android:padding="20dp"
-                android:drawablePadding="20dp"
-                android:drawableLeft="@drawable/mail"
-                android:enabled="false"
-                android:imeOptions="actionDone"
+            </RelativeLayout>
 
-                />
-            <EditText
-                android:id="@+id/custmer_accountType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CUSTOMER"
-                android:inputType="textCapWords"
-                android:textAllCaps="true"
-                android:padding="20dp"
-                android:drawablePadding="20dp"
-                android:drawableLeft="@drawable/date"
-                android:enabled="false"
-                android:imeOptions="actionDone"
+            <RelativeLayout style="@style/profileDetailsLayout">
+                <ImageView
+                    android:id="@+id/AccountImageView"
+                    android:src="@drawable/ic_name"
+                    android:layout_marginStart="20dp"
+                    style="@style/profileDetailsImage" />
 
-                />
+                <TextView
+                    android:text="Account Type"
+                    android:layout_toRightOf="@id/AccountImageView"
+                    style="@style/profileDetailsTextMain" />
 
-            <EditText
-                android:id="@+id/customer_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="10000000000"
-                android:inputType="phone"
-                android:drawablePadding="20dp"
-                android:padding="20dp"
-                android:drawableLeft="@drawable/phone1"
-                android:enabled="false"
-                android:imeOptions="actionDone"
+                <EditText
+                    android:id="@+id/custmer_accountType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CUSTOMER"
+                    android:inputType="textCapWords"
+                    android:textAllCaps="true"
+                    android:padding="20dp"
+                    android:enabled="false"
+                    android:imeOptions="actionDone"
+                    android:layout_toRightOf="@id/AccountImageView"
 
-                />
+                    />
+            </RelativeLayout>
 
-            <EditText
-                android:id="@+id/customer_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="  new Delhi, red fort"
-                android:inputType="textPassword"
-                android:padding="20dp"
-                android:drawablePadding="20dp"
-                android:drawableLeft="@drawable/password"
-                android:enabled="false"
-                android:imeOptions="actionDone"
-                />
+            <RelativeLayout style="@style/profileDetailsLayout">
+                <ImageView
+                    android:id="@+id/phone"
+                    android:src="@drawable/ic_mobile"
+                    android:layout_marginStart="20dp"
+                    style="@style/profileDetailsImage" />
 
-            <EditText
-                android:id="@+id/customer_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="e.g New Airport Road"
-                android:inputType="textPostalAddress"
-                android:drawablePadding="20dp"
-                android:padding="20dp"
-                android:drawableLeft="@drawable/location"
-                android:enabled="false"
-                android:imeOptions="actionDone"
-                />
+                <TextView
+                    android:text="Phone number"
+                    android:layout_toRightOf="@id/phone"
+                    style="@style/profileDetailsTextMain" />
+
+                <EditText
+                    android:id="@+id/customer_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="10000000000"
+                    android:inputType="phone"
+                    android:drawablePadding="20dp"
+                    android:padding="20dp"
+                    android:enabled="false"
+                    android:imeOptions="actionDone"
+                    android:layout_toRightOf="@id/phone"
+
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/profileDetailsLayout">
+                <ImageView
+                    android:id="@+id/pass"
+                    android:src="@drawable/ic_mobile"
+                    android:layout_marginStart="20dp"
+                    style="@style/profileDetailsImage" />
+
+                <TextView
+                    android:text="Password"
+                    android:layout_toRightOf="@id/pass"
+                    style="@style/profileDetailsTextMain" />
+
+                <EditText
+                    android:id="@+id/customer_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="  new Delhi, red fort"
+                    android:inputType="textPassword"
+                    android:padding="20dp"
+                    android:enabled="false"
+                    android:imeOptions="actionDone"
+                    android:layout_toRightOf="@id/pass"
+
+                    />
+            </RelativeLayout>
+            <RelativeLayout style="@style/profileDetailsLayout">
+                <ImageView
+                    android:id="@+id/address"
+                    android:src="@drawable/ic_address"
+                    android:layout_marginStart="20dp"
+                    style="@style/profileDetailsImage" />
+
+                <TextView
+                    android:text="Address"
+                    android:layout_toRightOf="@id/address"
+                    style="@style/profileDetailsTextMain" />
+
+                <EditText
+                    android:id="@+id/customer_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="e.g New Airport Road"
+                    android:inputType="textPostalAddress"
+                    android:drawablePadding="20dp"
+                    android:padding="20dp"
+                    android:enabled="false"
+                    android:imeOptions="actionDone"
+                    android:layout_toRightOf="@id/address"
+
+                    />
+            </RelativeLayout>
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/customer_logout_btn"
@@ -284,6 +351,9 @@
                 android:drawableRight="@drawable/logout"
 
                 />
+
+
+
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
