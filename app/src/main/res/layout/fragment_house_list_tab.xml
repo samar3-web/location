@@ -51,10 +51,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        app:cardBackgroundColor="@color/colorPrimary"
+                        app:cardBackgroundColor="@color/white"
                         android:layout_alignParentEnd="true"
                         app:cardCornerRadius="300dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="2dp"
                         android:padding="10dp"
                         app:cardElevation="20dp">
 
@@ -63,12 +63,12 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_gravity="center"
-                            android:layout_margin="5dp"
+                            android:layout_margin="2dp"
                             >
                             <com.google.android.material.card.MaterialCardView
                                 android:id="@+id/card"
-                                android:layout_width="41dp"
-                                android:layout_height="44dp"
+                                android:layout_width="31dp"
+                                android:layout_height="34dp"
                                 android:layout_gravity="center"
                                 app:cardBackgroundColor="@color/white"
                                 app:cardCornerRadius="200dp"
@@ -76,8 +76,8 @@
 
                                 <com.google.android.material.imageview.ShapeableImageView
                                     android:id="@+id/userFace"
-                                    android:layout_width="61dp"
-                                    android:layout_height="64dp"
+                                    android:layout_width="41dp"
+                                    android:layout_height="44dp"
                                     android:background="@color/white"
                                     android:layout_gravity="center"
                                     android:src="@drawable/b" />
