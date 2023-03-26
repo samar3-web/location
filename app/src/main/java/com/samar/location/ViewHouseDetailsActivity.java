@@ -60,17 +60,13 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
         imageUrls=Arrays.asList(
                 house.getImage1(),
                 house.getImage2(),
-                house.getImage3(),
-                house.getImage4(),
-                house.getImage5()
+                house.getImage3()
         );
-        String[] imagesUrl =new String[5];
+        String[] imagesUrl =new String[3];
 
                imagesUrl[0] = house.getImage1();
                imagesUrl[1] = house.getImage2();
                imagesUrl[2] =  house.getImage3();
-               imagesUrl[3] = house.getImage4();
-               imagesUrl[4] = house.getImage5();
 
 
         Glide.with(getApplicationContext())
@@ -85,7 +81,6 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
         houseNo= findViewById(R.id.houseNo);
         location = findViewById(R.id.location);
         street= findViewById(R.id.street);
-        phone= findViewById(R.id.phone);
         price = findViewById(R.id.price);
         size = findViewById(R.id.size);
 
@@ -95,7 +90,6 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
         location.setText(house.getLocation());
 
         street.setText(house.getStreet());
-        phone.setText(house.getPhone());
         price.setText(house.getPrice() + "DT");
         size.setText(house.getSize());
 
