@@ -141,9 +141,9 @@ public class HomeFragment extends Fragment {
 
         searchEt = view.findViewById(R.id.searchEt);
         filtreBtn = view.findViewById(R.id.filtreBtn);
-/*
 
-        List<String> filterOptions = Arrays.asList("No Filter", "Date", "Price", "Size");
+
+        List<String> filterOptions = Arrays.asList("None", "Price", "Size");
         Spinner filtersSpinner = view.findViewById(R.id.filters_spinner);
         ArrayAdapter<String> filtersAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, filterOptions);
         filtersSpinner.setAdapter(filtersAdapter);
@@ -151,34 +151,28 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedFilter = filterOptions.get(position);
-                switch (selectedFilter) {
-                    case "No Filter":
-                  //      recyclerViewAdapter.filterByNoFilter();
-                        break;
-                    *//*case "Date":
-                        recyclerViewAdapter.filterByDate();
-                        break;
-                    case "Price":
-                        recyclerViewAdapter.filterByPrice();
-                        break;
-                    case "Size":
-                        recyclerViewAdapter.filterBySize();
-                        break;*//*
+                Toast.makeText(getContext(),selectedFilter,Toast.LENGTH_SHORT).show();
+                if (recyclerViewAdapter != null) {
+                    recyclerViewAdapter.sortData(selectedFilter);
                 }
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
-        });*/
+        });
 
 
 
         filtreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"searchEt.getText().toString()",Toast.LENGTH_SHORT).show();
-                Log.d("aaaaaaaaaaaaaaaaa","aaaaaaaaaaaaaaaaaaaaaaa");
+                if (filtersSpinner.getVisibility() == View.VISIBLE) {
+                    filtersSpinner.setVisibility(View.GONE);
+                } else {
+                    filtersSpinner.setVisibility(View.VISIBLE);
+                }
             }
         });
 

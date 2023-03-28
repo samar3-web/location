@@ -39,6 +39,8 @@ import com.razorpay.Checkout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
@@ -76,9 +78,40 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         houses.addAll(filteredList);
         notifyDataSetChanged();
     }
-    public void filterByNoFilter() {
-        houses.clear();
-        houses.addAll(listFull);
+    public void sortData(String sortBy) {
+        switch (sortBy.toLowerCase()) {
+            /*case "date":
+                Collections.sort(houses, new Comparator<House>() {
+                    @Override
+                    public int compare(House o1, House o2) {
+                        return o1.getDate().compareTo(o2.getDate());
+                    }
+                });
+                break;*/
+            case "price":
+                Collections.sort(houses, new Comparator<House>() {
+                    @Override
+                    public int compare(House o1, House o2) {
+
+                        return o1.getPrice().compareTo(o2.getPrice());
+                    }
+                });
+                break;
+            case "size":
+                Collections.sort(houses, new Comparator<House>() {
+                    @Override
+                    public int compare(House o1, House o2) {
+                        return o1.getSize().compareTo(o2.getSize());
+                    }
+                });
+                break;
+            case "none":
+                houses.clear();
+                houses.addAll(listFull);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid sortBy argument: " + sortBy);
+        }
         notifyDataSetChanged();
     }
 
