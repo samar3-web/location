@@ -176,6 +176,9 @@ public class HouseListTab extends Fragment {
                                 house.setHouseNo(doc.get("houseNo").toString());
                                 house.setStreet(doc.get("street").toString());
                                 house.setPost(doc.get("post").toString());
+
+                                house.setOwnerUid(doc.get("ownerUid").toString());
+
                                 Log.d("xxxavavailability", "onComplete: "+(boolean)doc.get("availability"));
                                 house.setAvailability( (boolean) doc.get("availability"));
                                 house.setPhone(doc.get("phone").toString());

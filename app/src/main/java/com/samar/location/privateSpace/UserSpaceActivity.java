@@ -59,6 +59,7 @@ public class UserSpaceActivity extends AppCompatActivity {
 
         //String currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
+
         String currentUserUid=FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         add_btn.setOnClickListener(new View.OnClickListener() {

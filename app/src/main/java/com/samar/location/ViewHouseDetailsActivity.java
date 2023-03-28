@@ -43,7 +43,7 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
     private ImageView housecardImage;
 
     GridView gallery;
-    Button contact_owner;
+    Button contact_owner,chat;
     TextView housecardcity,contactPerson,houseNo,location,street,phone,price,size;
      List<String> imageUrls ;
 
@@ -75,6 +75,7 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
 
 
         contact_owner=findViewById(R.id.call);
+        chat = findViewById(R.id.chat);
 
         housecardcity = findViewById(R.id.housecardcity);
         contactPerson = findViewById(R.id.contactPerson);
@@ -103,6 +104,19 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
                 intent.setData(Uri.parse(phone));
 
                 startActivity(intent);
+            }
+        });
+
+        //
+
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getApplicationContext(), DiscussionActivity.class);
+                intent.putExtra("ownerUid",house.getOwnerUid() );
+                startActivity(intent);
+
             }
         });
 

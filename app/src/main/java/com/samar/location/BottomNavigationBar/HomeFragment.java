@@ -252,6 +252,8 @@ public class HomeFragment extends Fragment {
                                 Log.d("xxxavavailability", "onComplete: "+(boolean)doc.get("availability"));
                                 house.setAvailability( (boolean) doc.get("availability"));
                                 house.setPhone(doc.get("phone").toString());
+                                house.setOwnerUid(doc.get("ownerUid").toString());
+
                                 if(doc.get("image1")!=null)
                                     house.setImage1(doc.get("image1").toString());
                                 if(doc.get("image2")!=null)

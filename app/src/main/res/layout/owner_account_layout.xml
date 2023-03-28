@@ -133,7 +133,7 @@
                         android:textSize="20sp"
                         android:hint="gender"
                         android:textColorHint="@color/white"
-
+                        android:visibility="gone"
                         />
 
                 </LinearLayout>
