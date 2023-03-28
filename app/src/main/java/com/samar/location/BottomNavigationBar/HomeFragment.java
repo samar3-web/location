@@ -1,11 +1,18 @@
 package com.samar.location.BottomNavigationBar;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,6 +43,7 @@ import com.samar.location.models.House;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -73,6 +81,8 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ImageView filtreBtn;
+    private TextView searchEt;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -129,9 +139,69 @@ public class HomeFragment extends Fragment {
 
         getHouseData();
 
+        searchEt = view.findViewById(R.id.searchEt);
+        filtreBtn = view.findViewById(R.id.filtreBtn);
+/*
+
+        List<String> filterOptions = Arrays.asList("No Filter", "Date", "Price", "Size");
+        Spinner filtersSpinner = view.findViewById(R.id.filters_spinner);
+        ArrayAdapter<String> filtersAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, filterOptions);
+        filtersSpinner.setAdapter(filtersAdapter);
+        filtersSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedFilter = filterOptions.get(position);
+                switch (selectedFilter) {
+                    case "No Filter":
+                  //      recyclerViewAdapter.filterByNoFilter();
+                        break;
+                    *//*case "Date":
+                        recyclerViewAdapter.filterByDate();
+                        break;
+                    case "Price":
+                        recyclerViewAdapter.filterByPrice();
+                        break;
+                    case "Size":
+                        recyclerViewAdapter.filterBySize();
+                        break;*//*
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });*/
 
 
 
+        filtreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"searchEt.getText().toString()",Toast.LENGTH_SHORT).show();
+                Log.d("aaaaaaaaaaaaaaaaa","aaaaaaaaaaaaaaaaaaaaaaa");
+            }
+        });
+
+
+// Ajouter le TextWatcher
+        searchEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Mettre à jour les éléments de RecyclerView en fonction de la recherche
+                 //recyclerViewAdapter.getFilter().filter(s.toString());
+                recyclerViewAdapter.filter(s.toString());
+              //  Toast.makeText(getContext(),s.toString(),Toast.LENGTH_SHORT).show();
+              //  Log.d("EditText :     ",s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
 
 
         my_rcv.addOnScrollListener(new RecyclerView.OnScrollListener() {

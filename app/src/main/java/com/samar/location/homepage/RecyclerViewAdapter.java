@@ -57,6 +57,34 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         listFull=new ArrayList<>(houses);
     }
 
+    public void filter(String text) {
+        List<House> filteredList = new ArrayList<>();
+        if (text.isEmpty()) {
+            filteredList.addAll(listFull);
+        } else {
+            String searchText = text.toLowerCase();
+            for (House house : listFull) {
+                if (house.getLocation().toLowerCase().contains(searchText) || house.getSize().toLowerCase().contains(searchText)
+                        || house.getPrice().toLowerCase().contains(searchText) || house.getCity().toLowerCase().contains(searchText)
+                        || house.getContactPerson().toLowerCase().contains(searchText) || house.getHouseNo().toLowerCase().contains(searchText)
+                        || house.getStreet().toLowerCase().contains(searchText) || house.getPost().toLowerCase().contains(searchText)) {
+                    filteredList.add(house);
+                }
+            }
+        }
+        houses.clear();
+        houses.addAll(filteredList);
+        notifyDataSetChanged();
+    }
+    public void filterByNoFilter() {
+        houses.clear();
+        houses.addAll(listFull);
+        notifyDataSetChanged();
+    }
+
+
+
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);

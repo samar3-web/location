@@ -1,5 +1,6 @@
 package com.samar.location.privateSpace;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -88,6 +89,7 @@ public class UserSpaceActivity extends AppCompatActivity {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection("HouseCollection").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("SuspiciousIndentation")
                     @Override
                     public void onComplete(Task<QuerySnapshot> task) {
                         Log.d("xxxxxdocs", "onComplete: of HouseData fetching "+task.getResult().getDocuments()
@@ -106,18 +108,30 @@ public class UserSpaceActivity extends AppCompatActivity {
 
                                 House house=new House();
                                 house.setDocId(doc.getId());
-                                house.setLocation(doc.get("location").toString());
+                                if(doc.get("location")!=null)
+
+                                 house.setLocation(doc.get("location").toString());
+
+                                if(doc.get("size")!=null)
                                 house.setSize(doc.get("size").toString());
+                                if(doc.get("price")!=null)
                                 house.setPrice((doc.get("price")).toString());
+                                if(doc.get("city")!=null)
                                 house.setCity(doc.get("city").toString());
+                                if(doc.get("contactPerson")!=null)
                                 house.setContactPerson(doc.get("contactPerson").toString());
+                                if(doc.get("houseNo")!=null)
                                 house.setHouseNo(doc.get("houseNo").toString());
+                                if(doc.get("street")!=null)
                                 house.setStreet(doc.get("street").toString());
+                                if(doc.get("post")!=null)
                                 house.setPost(doc.get("post").toString());
 
                                 Log.d("xxxavavailability", "onComplete: "+(boolean)doc.get("availability"));
 
+                                if(doc.get("availability")!=null)
                                 house.setAvailability( (boolean) doc.get("availability"));
+                                if(doc.get("phone")!=null)
                                 house.setPhone(doc.get("phone").toString());
                                 if(doc.get("image1")!=null)
                                     house.setImage1(doc.get("image1").toString());

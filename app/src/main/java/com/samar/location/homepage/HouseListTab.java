@@ -2,6 +2,8 @@ package com.samar.location.homepage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,6 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -56,6 +60,8 @@ public class HouseListTab extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private EditText searchEt;
+    private ImageView filtreBtn;
 
     public HouseListTab() {
         // Required empty public constructor
@@ -103,6 +109,7 @@ public class HouseListTab extends Fragment {
                     View view = inflater.inflate(R.layout.fragment_house_list_tab, container, false);
 
                     my_rcv = view.findViewById(R.id.my_rcv);
+                    searchEt = view.findViewById(R.id.searchEt);
 
 
                    BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomnavbar);
@@ -112,7 +119,34 @@ public class HouseListTab extends Fragment {
                    getHouseData();
 
 
+                   filtreBtn = view.findViewById(R.id.filtreBtn);
 
+                   filtreBtn.setOnClickListener(new View.OnClickListener() {
+                       @Override
+                       public void onClick(View v) {
+                           Toast.makeText(getContext(),searchEt.getText().toString(),Toast.LENGTH_SHORT).show();
+                           Log.d("aaaaaaaaaaaaaaaaa","aaaaaaaaaaaaaaaaaaaaaaa");
+                       }
+                   });
+
+// Ajouter le TextWatcher
+        searchEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Mettre à jour les éléments de RecyclerView en fonction de la recherche
+               // recyclerViewAdapter.getFilter().filter(s.toString());
+                Toast.makeText(getContext(),s.toString(),Toast.LENGTH_SHORT).show();
+                Log.d("EditText :     ",s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
 
 
 
