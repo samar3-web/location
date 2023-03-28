@@ -114,7 +114,7 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(getApplicationContext(), DiscussionActivity.class);
-                intent.putExtra("ownerUid",house.getOwnerUid() );
+                intent.putExtra("ownerEmail",house.getOwnerEmail() );
                 startActivity(intent);
 
             }

@@ -49,10 +49,15 @@ public class AddHouseActivity extends AppCompatActivity {
     String documentUid;
     Intent intent;
 
+    FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addhouse_layout);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
         contactPersonName = findViewById(R.id.contact_person_name);
         phone = findViewById(R.id.owner_phone);
         houseNo = findViewById(R.id.housenumber);
@@ -66,8 +71,10 @@ public class AddHouseActivity extends AppCompatActivity {
         houseSize = findViewById(R.id.housesizespinner);
         available = findViewById(R.id.houseavailalespinner);
         addHouse_rcv = findViewById(R.id.houseiamge_rcv);
-        intent = getIntent();
-        String ownerUid = intent.getStringExtra("currentUserUid");
+
+        String userEmail = firebaseAuth.getCurrentUser().getEmail();
+        String ownerUid = firebaseAuth.getCurrentUser().getUid();
+
         Log.d("xxxxOwnerUId", "onCreate:addHouseActivity ownerUid" + ownerUid);
         house = new House();
         //setting item in size spinner
@@ -103,6 +110,7 @@ public class AddHouseActivity extends AppCompatActivity {
                /* UUID sameUuid = UUID.fromString(uuidAsString);
                sameUuid.equals(uuid);*/
                 house.setOwnerUid(ownerUid);
+                house.setOwnerEmail(userEmail);
 
                if(validator(contactPersonName.getText().toString(), phone.getText().toString(),houseNo.getText().toString(),street.getText().toString(),city.getText().toString(),post.getText().toString(),location.getText().toString(),
                 rentPrice.getText().toString()))
@@ -117,6 +125,7 @@ public class AddHouseActivity extends AppCompatActivity {
                    house.setLocation(location.getText().toString());
                    house.setPrice(rentPrice.getText().toString());
                    house.setSize(houseSize.getSelectedItem().toString());
+
                    if (available.getSelectedItem().toString().equals("YES"))
                        house.setAvailability(true);
                    else

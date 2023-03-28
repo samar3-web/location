@@ -1,23 +1,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/colorGray02">
+    android:background="@color/colorGray02"
+    android:id="@+id/messageView"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:text="message_user"
+        android:text="Sender"
         android:id="@+id/message_user"
         android:textStyle="normal|bold" />
-
     <TextView
+        android:id="@+id/message_receiver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/message_user"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/message_time"
-        android:text="message_time"/>
+        android:layout_alignBaseline="@+id/message_user"
+       android:layout_toEndOf="@+id/message_user"
+        android:layout_marginStart="5dp"
+        android:text="to Receiver"
+        android:textStyle="normal|bold" />
+
+
+
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,5 +37,16 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp"
         android:text="message_text"/>
+
+
+    <TextView
+        android:id="@+id/message_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/message_text"
+        android:layout_marginTop="1dp"
+        android:gravity="end"
+        android:text="message_time" />
 
 </RelativeLayout>
