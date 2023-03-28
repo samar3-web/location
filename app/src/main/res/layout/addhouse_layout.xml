@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/addHouseLayout"
-    android:background="@color/purple_500"
+    android:background="@color/colorPrimary"
     android:paddingTop="30dp"
     >
 
@@ -44,6 +44,7 @@
                 android:padding="20dp"
                 android:drawablePadding="20dp"
                 android:drawableLeft="@drawable/password"
+                android:drawableTint="@color/colorPrimary"
                 android:imeOptions="actionDone"
                 />
             <EditText
@@ -54,6 +55,7 @@
                 android:inputType="phone"
                 android:drawablePadding="20dp"
                 android:padding="20dp"
+                android:drawableTint="@color/colorPrimary"
                 android:drawableLeft="@drawable/phone_red"
                 android:imeOptions="actionDone"
                 />
@@ -65,6 +67,7 @@
                 android:hint="e.g Sanvi paradise ,HouseNo. 215"
                 android:inputType="textPostalAddress"
                 android:padding="20dp"
+                android:drawableTint="@color/colorPrimary"
                 android:drawablePadding="20dp"
                 android:drawableLeft="@drawable/mail"
 
@@ -80,7 +83,7 @@
                 android:padding="20dp"
                 android:drawablePadding="20dp"
                 android:drawableLeft="@drawable/mail"
-
+                android:drawableTint="@color/colorPrimary"
                 android:imeOptions="actionDone"
 
                 />
@@ -93,7 +96,7 @@
                 android:padding="20dp"
                 android:drawablePadding="20dp"
                 android:drawableLeft="@drawable/mail"
-
+                android:drawableTint="@color/colorPrimary"
                 android:imeOptions="actionDone"
 
                 />
@@ -107,7 +110,7 @@
                 android:padding="20dp"
                 android:drawablePadding="20dp"
                 android:drawableLeft="@drawable/date"
-
+                android:drawableTint="@color/colorPrimary"
                 android:imeOptions="actionDone"
 
                 />
@@ -124,7 +127,7 @@
                 android:drawablePadding="20dp"
                 android:padding="20dp"
                 android:drawableLeft="@drawable/location"
-
+                android:drawableTint="@color/colorPrimary"
                 android:imeOptions="actionDone"
                 />
             <EditText
@@ -137,6 +140,7 @@
                 android:padding="20dp"
                 android:drawableLeft="@drawable/wallet"
                   android:imeOptions="actionDone"
+                android:drawableTint="@color/colorPrimary"
                 />
 
                <LinearLayout

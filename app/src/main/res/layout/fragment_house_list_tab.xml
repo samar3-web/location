@@ -99,6 +99,7 @@
                     android:weightSum="100">
 
                     <EditText
+                        android:id="@+id/searchEt"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="80"
@@ -106,16 +107,24 @@
                         android:drawableLeft="@drawable/ic_search_gray_24dp"
                         android:drawablePadding="8dp"
                         android:fontFamily="@font/calibri"
-                        android:hint="start entering the address"
+                        android:hint="start searching houses"
                         android:padding="12dp"
+                        android:textColor="@color/black"
                         android:textColorHint="#9ea1b0" />
 
                     <ImageView
+                        android:id="@+id/filtreBtn"
                         android:layout_width="0dp"
                         android:layout_height="28dp"
                         android:layout_gravity="center"
                         android:layout_weight="20"
-                        android:src="@drawable/filter_icon" />
+                        android:src="@drawable/filter_icon"
+                        android:clickable="true"/>
+                    <Spinner
+                        android:id="@+id/filters_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
 
                 </LinearLayout>
             </LinearLayout>
