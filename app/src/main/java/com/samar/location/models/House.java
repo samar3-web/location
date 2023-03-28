@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 public class House  implements Serializable {
-    String houseNo ,street,city,post, location , price , size  , contactPerson,phone ,ownerUid , docId;
+    String houseNo ,street,city,post, location , price , size  , contactPerson,phone ,ownerUid ,ownerEmail, docId;
 
     public String getDocId() {
         return docId;
@@ -108,6 +108,16 @@ public class House  implements Serializable {
     public void setOwnerUid(String ownerUid) {
         this.ownerUid = ownerUid;
     }
+
+
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
+    }
+
+
 
     public String getImage1() {
         return image1;

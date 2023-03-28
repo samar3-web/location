@@ -253,6 +253,10 @@ public class HomeFragment extends Fragment {
                                 house.setAvailability( (boolean) doc.get("availability"));
                                 house.setPhone(doc.get("phone").toString());
                                 house.setOwnerUid(doc.get("ownerUid").toString());
+                                if(doc.get("ownerEmail")!=null){
+                                    house.setOwnerEmail( doc.get("ownerEmail").toString() );
+                                }
+
 
                                 if(doc.get("image1")!=null)
                                     house.setImage1(doc.get("image1").toString());
