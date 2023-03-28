@@ -12,101 +12,84 @@ android:padding="10dp" >
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-        <com.google.android.material.card.MaterialCardView
+        <RelativeLayout
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            app:cardBackgroundColor="#DA2C67"
             app:cardCornerRadius="2dp"
             app:cardElevation="30dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/edit_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_margin="10dp"
-                app:cornerRadius="200dp"
-                android:elevation="30dp"
-                android:drawableRight="@drawable/edit_pen"
-                />
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/save_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_margin="20dp"
-                app:cornerRadius="200dp"
-                android:elevation="30dp"
-                android:text="save"
-                android:drawableRight="@drawable/edit_pen"
-                android:visibility="gone"
-
-                />
-
-            <GridView
-                android:id="@+id/gallery"
-                android:layout_width="180dp"
-                android:layout_height="match_parent"
-                android:numColumns="2"
-                android:horizontalSpacing="5dp"
-                android:verticalSpacing="5dp"
-                android:background="#A83294"
-                android:padding="10dp"/>
-
-
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="20dp"
-                >
-
-
-
-                <com.google.android.material.card.MaterialCardView
-
-                    android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginTop="30dp"
-
-                    android:padding="10dp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="300dp"
-                    app:cardElevation="20dp">
-
+                    android:orientation="vertical">
+                    <!-- Media -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
                         android:orientation="vertical">
 
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/card"
-                            android:layout_width="157dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="200dp"
-                            app:cardElevation="20dp">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/edit_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignEnd="@+id/face"
+                                android:layout_margin="10dp"
+                                app:cornerRadius="200dp"
+                                android:elevation="30dp"
+                                android:drawableRight="@drawable/edit_pen"
+                                />
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/save_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_margin="20dp"
+                                app:cornerRadius="200dp"
+                                android:elevation="30dp"
+                                android:text="save"
+                                android:drawableRight="@drawable/edit_pen"
+                                android:visibility="gone"
 
-                            <com.google.android.material.imageview.ShapeableImageView
+                                />
+                            <!-- Media -->
+                            <ImageView
                                 android:id="@+id/face"
-                                android:layout_width="155dp"
-                                android:layout_height="150dp"
-                                android:background="@color/white"
-                                android:src="@mipmap/ic_launcher_round" />
-                        </com.google.android.material.card.MaterialCardView>
+                                android:layout_width="match_parent"
+                                android:layout_height="194dp"
+                                android:contentDescription="It is a house image"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/house_banner"
+
+                                />
+
+                        </RelativeLayout>
                     </LinearLayout>
 
 
-                </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
 
 
+
+
+
+                <GridView
+                    android:id="@+id/gallery"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:columnWidth="90dp"
+                    android:horizontalSpacing="10dp"
+                    android:numColumns="auto_fit"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="10dp" />
 
                 <TextView
                     android:id="@+id/house_availability"
@@ -114,17 +97,17 @@ android:padding="10dp" >
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="5dp"
-                     android:layout_gravity="end"
-                    android:textColor="@color/white"
+                    android:layout_gravity="end"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:hint="Availability"
-                    android:textColorHint="@color/white"
+                    android:textColorHint="@color/black"
 
                     />
 
             </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        </RelativeLayout>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -177,9 +160,9 @@ android:padding="10dp" >
                             android:id="@+id/valable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/purple_500"
+                            android:buttonTint="@color/colorPrimary"
                             android:text="True"
-                            android:textColor="@color/purple_500"
+                            android:textColor="@color/colorPrimary"
                             android:paddingHorizontal="5dp"
                             android:imeOptions="actionDone"
                             />
@@ -188,11 +171,11 @@ android:padding="10dp" >
                             android:id="@+id/invalable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/purple_500"
+                            android:buttonTint="@color/colorPrimary"
                             android:text="False"
                             android:paddingHorizontal="5dp"
                             android:imeOptions="actionDone"
-                            android:textColor="@color/purple_500"
+                            android:textColor="@color/colorPrimary"
                             />
                     </RadioGroup>
 
@@ -208,6 +191,7 @@ android:padding="10dp" >
                     android:textAllCaps="true"
                     android:padding="20dp"
                     android:drawablePadding="20dp"
+                    android:drawableTint="@color/colorPrimary"
                     android:drawableLeft="@drawable/bitcoin"
                     android:enabled="false"
                     android:imeOptions="actionDone"
@@ -222,6 +206,7 @@ android:padding="10dp" >
                     android:inputType="phone"
                     android:drawablePadding="20dp"
                     android:padding="20dp"
+                    android:drawableTint="@color/colorPrimary"
                     android:drawableLeft="@drawable/phone_red"
                     android:enabled="false"
                     android:imeOptions="actionDone"
@@ -235,6 +220,7 @@ android:padding="10dp" >
                     android:inputType="textPostalAddress"
                     android:drawablePadding="20dp"
                     android:padding="20dp"
+                    android:drawableTint="@color/colorPrimary"
                     android:drawableLeft="@drawable/location"
                     android:enabled="false"
                     android:imeOptions="actionDone"
@@ -247,6 +233,7 @@ android:padding="10dp" >
                     android:inputType="textPostalAddress"
                     android:drawablePadding="20dp"
                     android:padding="20dp"
+                    android:drawableTint="@color/colorPrimary"
                     android:drawableLeft="@drawable/location"
                     android:enabled="false"
                     android:imeOptions="actionDone"
@@ -261,6 +248,7 @@ android:padding="10dp" >
                     android:inputType="textPostalAddress"
                     android:drawablePadding="20dp"
                     android:padding="20dp"
+                    android:drawableTint="@color/colorPrimary"
                     android:drawableLeft="@drawable/location"
                     android:enabled="false"
                     android:imeOptions="actionDone"
@@ -273,6 +261,7 @@ android:padding="10dp" >
                     android:inputType="textPostalAddress"
                     android:drawablePadding="20dp"
                     android:padding="20dp"
+                    android:drawableTint="@color/colorPrimary"
                     android:drawableLeft="@drawable/baseline_numbers_24"
                     android:enabled="false"
                     android:imeOptions="actionDone"
@@ -285,6 +274,7 @@ android:padding="10dp" >
                     android:inputType="textPostalAddress"
                     android:drawablePadding="20dp"
                     android:padding="20dp"
+                    android:drawableTint="@color/colorPrimary"
                     android:drawableLeft="@drawable/baseline_menu_open_24"
                     android:enabled="false"
                     android:imeOptions="actionDone"
@@ -310,7 +300,6 @@ android:padding="10dp" >
         </com.google.android.material.card.MaterialCardView>
 
         </ScrollView>
-
     </LinearLayout>
 
 
