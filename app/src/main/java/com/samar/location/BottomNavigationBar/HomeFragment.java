@@ -187,7 +187,9 @@ public class HomeFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // Mettre à jour les éléments de RecyclerView en fonction de la recherche
                  //recyclerViewAdapter.getFilter().filter(s.toString());
-                recyclerViewAdapter.filter(s.toString());
+                if (recyclerViewAdapter != null) {
+                    recyclerViewAdapter.filter(s.toString());
+                }
               //  Toast.makeText(getContext(),s.toString(),Toast.LENGTH_SHORT).show();
               //  Log.d("EditText :     ",s.toString());
             }
