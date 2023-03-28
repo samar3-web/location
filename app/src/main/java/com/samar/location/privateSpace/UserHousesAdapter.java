@@ -80,9 +80,9 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
         holder.housecardCity.setText(house.getCity().toUpperCase()+",TUNISIA");
 
         holder.housecardSize.setText(house.getSize());
-        holder.housecardPrice.setText("Rs."+house.getPrice());
+        holder.housecardPrice.setText(house.getPrice()+"TND");
 
-        holder.collapseable.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        //holder.collapseable.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
 
     }
 
@@ -162,10 +162,10 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
 
             cardView = view.findViewById(R.id.card);
             collapseable = view.findViewById(R.id.collapsable);
-            gallery=view.findViewById(R.id.simpleGallery);
+
             btn_delete=view.findViewById(R.id.btn_delete);
             rentit=view.findViewById(R.id.rentit);
-            details= view.findViewById(R.id.view_details);
+
 
             Checkout.preload(context);
             cardView.setOnClickListener(new View.OnClickListener() {
@@ -203,7 +203,7 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
                 }
             });
 
-            rentit.setOnClickListener(new View.OnClickListener() {
+            /*rentit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     House house= houses.get(getAdapterPosition());
@@ -215,9 +215,9 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
                     // startPayment();
                     //unregisterReceiver();
                 }
-            });
-            details.setPaintFlags(details.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-            details.setOnClickListener(new View.OnClickListener() {
+            });*/
+            //details.setPaintFlags(details.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            housecardImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
