@@ -28,6 +28,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.interfaces.ItemClickListener;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.samar.location.R;
 import com.samar.location.ViewHouseDetailsActivity;
 import com.samar.location.models.CustomGalleryAdapter;
@@ -51,7 +54,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     List<House> listFull;
     CustomGalleryAdapter cga;
     List images;
+    ImageSlider imageSlider;
 
+    ArrayList imageList;
     public RecyclerViewAdapter(Context context, List houses, int customlayout_id) {
         this.context = context;
         this.houses = houses;
@@ -153,8 +158,34 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     house.getImage4(),
                     house.getImage5()
             );
+        imageList = new ArrayList<SlideModel>();
+        if(house.getImage1()!=null)
+        imageList.add(new SlideModel(house.getImage1(), null, null));
+        if(house.getImage2()!=null)
+        imageList.add(new SlideModel(house.getImage2(), null, null));
+        if(house.getImage3()!=null)
+        imageList.add(new SlideModel(house.getImage3(), null, null));
+        if(house.getImage4()!=null)
+        imageList.add(new SlideModel(house.getImage4(), null, null));
+        if(house.getImage5()!=null)
+        imageList.add(new SlideModel(house.getImage5(), null, null));
 
+        imageSlider.startSliding(2000); // with new period
 
+       // imageSlider = (ImageSlider) findViewById(R.id.image_slider);
+
+        /*for (String i : site.getImgs()) {
+            imageList.add(new SlideModel(i, null, null));
+
+        }*/
+       /* imageSlider.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onItemSelected(int position) {
+                // Vous pouvez ajouter votre code ici
+                Toast.makeText(context, "hello",Toast.LENGTH_SHORT);
+            }
+        });
+        imageSlider.setImageList(imageList);*/
 
               /*
             Glide.with(context).load(house.getImage1()).into(holder.housecardImage);
@@ -174,8 +205,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                */
 
-        ImageAdapter adapter = new ImageAdapter(context, images);
-        holder. viewPager.setAdapter(adapter);
+        /*ImageAdapter adapter = new ImageAdapter(context, images);
+        holder. viewPager.setAdapter(adapter);*/
 
 
             holder.housecardCity.setText(house.getCity().toUpperCase()+",TUNISIA");
@@ -262,6 +293,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             cardView = view.findViewById(R.id.card);
             collapseable = view.findViewById(R.id.collapsable);
+
+
+            imageSlider = view.findViewById(R.id.image_slider);
 
             //contact_call=view.findViewById(R.id.contact_call);
             //rentit=view.findViewById(R.id.rentit);
