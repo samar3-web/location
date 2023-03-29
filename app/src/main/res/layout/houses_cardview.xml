@@ -37,7 +37,18 @@
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/housecardImage"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp" />
+                    android:layout_height="250dp"
+                    app:iss_auto_cycle="true"
+                    app:iss_period="1000"
+                    app:iss_delay="0"/>
+                <com.denzcoskun.imageslider.ImageSlider
+                    android:id="@+id/image_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:overScrollMode="never">
+
+                </com.denzcoskun.imageslider.ImageSlider>
+
 
 
                 <TextView

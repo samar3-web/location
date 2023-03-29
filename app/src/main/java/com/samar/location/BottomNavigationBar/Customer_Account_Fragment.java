@@ -2,8 +2,10 @@ package com.samar.location.BottomNavigationBar;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -215,10 +217,20 @@ public class Customer_Account_Fragment extends Fragment {
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                getActivity().finish();
-                Toast.makeText(getActivity(), "Logging Out", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getActivity(), LoginActivity.class));
+                new AlertDialog.Builder(getContext())
+                        .setMessage("Are you sure you want to logout from the application?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                FirebaseAuth.getInstance().signOut();
+                                getActivity().finish();
+                                Toast.makeText(getActivity(), "Logging Out", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getActivity(), LoginActivity.class));
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
             }
         });
 

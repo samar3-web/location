@@ -12,7 +12,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="0dp">
 
@@ -40,7 +40,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/calibri"
                         android:text="Explore"
-                        android:textColor="#000000"
+                        android:textColor="@color/blackTextColor"
                         android:textSize="24sp"
                         android:textStyle="bold" />
                     />
@@ -110,7 +110,7 @@
                         android:hint="start searching houses"
                         android:padding="12dp"
                         android:textColor="@color/black"
-                        android:textColorHint="#9ea1b0" />
+                        android:textColorHint="@color/colorGray02" />
 
                     <ImageView
                         android:id="@+id/filtreBtn"
@@ -137,8 +137,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"
-            app:tabSelectedTextColor="#000000"
-            app:tabTextColor="#9ea1b0">
+            app:tabSelectedTextColor="@color/blackTextColor"
+            app:tabTextColor="@color/colorGray02">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

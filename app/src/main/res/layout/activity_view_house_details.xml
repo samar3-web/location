@@ -44,7 +44,21 @@
                                                 <RelativeLayout
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content">
+                                                        <com.google.android.material.card.MaterialCardView
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:layout_margin="18dp"
+                                                            app:cardCornerRadius="20dp"
+                                                            app:cardElevation="8dp">
 
+                                                        <ImageView
+                                                            android:id="@+id/back_home"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:src="@drawable/back_to_home_button"
+                                                            android:layout_alignParentTop="true"
+                                                            />
+                                                        </com.google.android.material.card.MaterialCardView>
                                                         <!-- Media -->
                                                         <ImageView
                                                             android:id="@+id/housecardImage"
@@ -55,20 +69,21 @@
                                                             app:srcCompat="@drawable/house_banner"
 
                                                             />
+
                                                         <!--profile image-->
                                                         <com.google.android.material.card.MaterialCardView
                                                             android:id="@+id/profile_cardview"
                                                             android:layout_width="wrap_content"
                                                             android:layout_height="wrap_content"
                                                             android:layout_alignEnd="@+id/housecardImage"
-                                                            android:layout_margin="8dp"
+                                                            android:layout_margin="18dp"
                                                             app:cardBackgroundColor="@color/colorPrimary"
-                                                            app:cardCornerRadius="100dp"
+                                                            app:cardCornerRadius="20dp"
                                                             app:cardElevation="8dp">
 
                                                                 <ImageView
-                                                                    android:layout_width="50dp"
-                                                                    android:layout_height="50dp"
+                                                                    android:layout_width="40dp"
+                                                                    android:layout_height="40dp"
                                                                     android:src="@drawable/ic_baseline_favorite_24"
                                                                     android:layout_alignParentTop="true"
                                                                     app:tint="@color/white"/>
@@ -86,37 +101,14 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:id="@+id/collapsable"
-                                    android:layout_marginTop="10dp"
                                     android:orientation="vertical">
-
-
 
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:orientation="horizontal"
-                                            android:layout_marginBottom="10dp">
-                                                <TextView
-                                                    android:text="City"
-                                                    android:layout_width="0dp"
-                                                    android:layout_height="wrap_content"
+                                            >
 
-                                                    android:textSize="20sp"
-                                                    android:textStyle="bold"
-                                                    android:textAppearance="?attr/textAppearanceBody2"
-                                                    android:textColor="?android:attr/textColorSecondary"
-                                                    android:layout_weight="1"    />
-                                                <TextView
-                                                    android:id="@+id/housecardcity"
-                                                    android:text="City Name"
-                                                    android:layout_width="0dp"
-                                                    android:layout_height="wrap_content"
-
-                                                    android:textSize="20sp"
-                                                    android:textStyle="bold"
-                                                    android:textAppearance="?attr/textAppearanceBody2"
-                                                    android:textColor="?android:attr/textColorSecondary"
-                                                    android:layout_weight="1"/>
 
                                                 <GridView
                                                     android:id="@+id/gallery"
@@ -132,69 +124,53 @@
                                         </LinearLayout>
                                           <LinearLayout
                                               android:layout_width="match_parent"
-                                              android:layout_height="40dp"
+                                              android:layout_height="wrap_content"
                                               android:orientation="horizontal"
-                                              android:layout_marginBottom="10dp">
+                                              android:layout_marginBottom="8dp">
                                                   <TextView
-                                                      android:text="Owner Name"
                                                       android:layout_width="wrap_content"
                                                       android:layout_height="wrap_content"
-                                                      android:id="@+id/contactPerson"
-                                                      android:textAppearance="?attr/textAppearanceHeadline6"
-                                                      android:drawablePadding="5dp"
-                                                      android:drawableLeft="@drawable/landlord"/>
-
-                                                  <TextView
-                                                      android:id="@+id/size"
-                                                      android:layout_width="255dp"
-                                                      android:layout_height="wrap_content"
-                                                      android:layout_marginStart="20dp"
                                                       android:layout_marginLeft="16dp"
                                                       android:layout_marginEnd="60dp"
                                                       android:layout_marginRight="3dp"
-                                                      android:drawableLeft="@drawable/house_size"
-                                                      android:drawablePadding="7dp"
-                                                      android:text="4BHK"
+                                                      android:text="Price"
+                                                      android:textSize="18dp"
                                                       app:cornerRadius="15dp"
-
+                                                      android:drawableLeft="@drawable/house_price"
+                                                      android:drawablePadding="7dp"
                                                       app:elevation="8dp" />
+                                                  <TextView
+                                                      android:id="@+id/price"
+                                                      android:layout_width="wrap_content"
+                                                      android:layout_height="wrap_content"
+                                                      android:layout_marginEnd="6dp"
+                                                      android:layout_marginRight="6dp"
+                                                      android:text="$1000"
+                                                      android:textSize="20dp"
+                                                      android:textColor="#191970"
+                                                      app:cornerRadius="15dp"
+                                                      app:elevation="8dp"
+                                                      android:fontFamily="@font/calibri"/>
+
 
                                           </LinearLayout>
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:orientation="horizontal"
-                                            android:layout_marginBottom="10dp">
-
+                                            android:layout_marginBottom="8dp">
                                                 <TextView
-                                                    android:id="@+id/price"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
-                                                    android:layout_marginEnd="6dp"
-                                                    android:layout_marginRight="6dp"
-                                                    android:text="$1000"
-                                                    android:drawablePadding="5dp"
-                                                    android:drawableLeft="@drawable/home_price"
-                                                    android:drawableTint="@color/colorPrimary"
-                                                    android:textColor="@color/colorPrimary"
+                                                    android:layout_marginLeft="16dp"
+                                                    android:layout_marginEnd="60dp"
+                                                    android:layout_marginRight="3dp"
+                                                    android:text="Price"
+                                                    android:textSize="18dp"
                                                     app:cornerRadius="15dp"
-
+                                                    android:drawableLeft="@drawable/location_h"
+                                                    android:drawablePadding="7dp"
                                                     app:elevation="8dp" />
-
-                                        </LinearLayout>
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="horizontal"
-                                            android:layout_marginBottom="10dp">
-
-                                        </LinearLayout>
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="horizontal"
-                                            android:layout_marginBottom="10dp">
                                                 <TextView
                                                     android:id="@+id/street"
                                                     android:layout_width="wrap_content"
@@ -204,10 +180,61 @@
                                                     android:layout_marginEnd="60dp"
                                                     android:layout_marginRight="3dp"
                                                     android:text="Street"
-                                                    android:drawablePadding="5dp"
-                                                    android:drawableLeft="@drawable/street_number"
                                                     app:cornerRadius="15dp"
+                                                    android:textSize="20dp"
+                                                    android:textColor="#191970"
+                                                    android:fontFamily="@font/calibri"
+                                                    app:elevation="8dp" />
+                                        </LinearLayout>
 
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:layout_marginBottom="10dp">
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginLeft="16dp"
+                                                    android:layout_marginEnd="60dp"
+                                                    android:layout_marginRight="3dp"
+                                                    android:text="Area"
+                                                    android:textSize="18dp"
+                                                    app:cornerRadius="15dp"
+                                                    android:drawableLeft="@drawable/house_size"
+                                                    android:drawablePadding="7dp"
+                                                    app:elevation="8dp" />
+                                                <TextView
+                                                    android:id="@+id/size"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginLeft="16dp"
+                                                    android:layout_marginEnd="60dp"
+                                                    android:layout_marginRight="3dp"
+                                                    android:textColor="#191970"
+                                                    android:text="4BHK"
+                                                    app:cornerRadius="15dp"
+                                                    app:elevation="8dp" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:layout_marginBottom="10dp">
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginLeft="16dp"
+                                                    android:layout_marginEnd="60dp"
+                                                    android:layout_marginRight="3dp"
+                                                    android:text="House Number"
+                                                    android:textSize="18dp"
+                                                    app:cornerRadius="15dp"
+                                                    android:drawableLeft="@drawable/price"
+
+                                                    android:drawablePadding="7dp"
                                                     app:elevation="8dp" />
                                                 <TextView
                                                     android:id="@+id/houseNo"
@@ -216,8 +243,7 @@
                                                     android:layout_marginEnd="6dp"
                                                     android:layout_marginRight="6dp"
                                                     android:text="house number"
-                                                    android:drawablePadding="5dp"
-                                                    android:drawableLeft="@drawable/home_price"
+                                                    android:textColor="#191970"
                                                     app:cornerRadius="15dp"
                                                     app:elevation="8dp" />
 
@@ -228,16 +254,25 @@
                                             android:orientation="horizontal"
                                             android:layout_marginBottom="10dp">
                                                 <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginRight="6dp"
+                                                    android:text="Location"
+                                                    android:textSize="18dp"
+                                                    app:cornerRadius="15dp"
+                                                    android:drawableLeft="@drawable/home_location"
+                                                    android:drawablePadding="7dp"
+                                                    app:elevation="8dp" />
+                                                <TextView
                                                     android:id="@+id/location"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
-                                                    android:layout_marginTop="8dp"
+                                                    android:layout_marginEnd="6dp"
+                                                    android:layout_marginRight="6dp"
                                                     android:maxLength="70"
-                                                    android:drawablePadding="5dp"
-                                                    android:drawableLeft="@drawable/house_local"
+                                                    android:textColor="#191970"
                                                     android:text=" local address will be here"
-                                                    android:textAppearance="?attr/textAppearanceBody2"
-                                                    android:textColor="?android:attr/textColorSecondary" />
+                                                     />
 
                                         </LinearLayout>
 
@@ -251,46 +286,12 @@
 
 
 
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_margin="8dp"
-                                            android:orientation="horizontal">
 
-
-                                                <com.google.android.material.button.MaterialButton
-                                                    android:id="@+id/call"
-                                                    android:layout_width="match_parent"
-                                                    android:layout_height="wrap_content"
-                                                    android:layout_marginEnd="8dp"
-                                                    android:layout_marginRight="8dp"
-                                                    android:layout_weight="1"
-                                                    android:text="Apply"
-                                                    app:cornerRadius="15dp"
-                                                    app:elevation="8dp"
-                                                    android:backgroundTint="@color/black"
-                                                    />
-
-                                                <Button
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content"
-                                                    android:clickable="true"
-                                                    android:text="chat"
-                                                    android:id="@+id/chat"
-                                                    android:tint="@android:color/white"
-                                                    android:layout_alignParentBottom="true"
-                                                    android:layout_alignParentEnd="true"
-                                                    app:fabSize="mini" />
-
-
-
-
-
-                                        </LinearLayout>
 
 
 
                                 </LinearLayout>
+
 
                 </ScrollView>
                         </LinearLayout>
@@ -302,7 +303,74 @@
 
         </LinearLayout>
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:cardCornerRadius="20dp"
+            android:layout_marginBottom="8dp"
+            app:cardElevation="8dp"
 
+            >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:orientation="horizontal">
+
+
+
+                        <TextView
+                            android:text="Owner Name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/contactPerson"
+                            android:textAppearance="?attr/textAppearanceHeadline6"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/landlord"/>
+
+                        <Button
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            app:icon="@drawable/ic_baseline_chat_24"
+                            app:iconGravity="textStart"
+                            android:id="@+id/chat"
+                            android:layout_marginLeft="20dp"
+                            android:tint="@android:color/white"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            app:fabSize="mini"
+                            android:drawableTint="#0000FF"
+                            android:backgroundTint="#322584EC"
+                            app:cornerRadius="45dp"/>
+
+                        <Button
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            app:icon="@drawable/baseline_call_24"
+                            app:iconGravity="textStart"
+                            android:id="@+id/call"
+                            android:layout_marginLeft="20dp"
+                            android:tint="@android:color/white"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            app:fabSize="mini"
+                            app:cornerRadius="45dp"
+                            android:drawableTint="#0000FF"
+                            android:backgroundTint="#2731EA4A"
+
+                            />
+
+
+
+
+
+
+                </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>>
 
 
 

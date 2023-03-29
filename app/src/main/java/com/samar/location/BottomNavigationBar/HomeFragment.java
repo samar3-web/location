@@ -143,7 +143,7 @@ public class HomeFragment extends Fragment {
         filtreBtn = view.findViewById(R.id.filtreBtn);
 
 
-        List<String> filterOptions = Arrays.asList("None", "Price", "Size");
+        List<String> filterOptions = Arrays.asList("None", "Available","Price", "Size");
         Spinner filtersSpinner = view.findViewById(R.id.filters_spinner);
         ArrayAdapter<String> filtersAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, filterOptions);
         filtersSpinner.setAdapter(filtersAdapter);
@@ -187,7 +187,9 @@ public class HomeFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // Mettre à jour les éléments de RecyclerView en fonction de la recherche
                  //recyclerViewAdapter.getFilter().filter(s.toString());
-                recyclerViewAdapter.filter(s.toString());
+                if (recyclerViewAdapter != null) {
+                    recyclerViewAdapter.filter(s.toString());
+                }
               //  Toast.makeText(getContext(),s.toString(),Toast.LENGTH_SHORT).show();
               //  Log.d("EditText :     ",s.toString());
             }
