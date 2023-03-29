@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -113,7 +114,12 @@ public class BootomNavBarMain extends AppCompatActivity {
                                     else
                                         getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new FavouriteFragment()).commit();
 
-                                } else {
+                                }else if(item.getItemId() == R.id.chat){
+
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new ChatFragment()).commit();
+                                }
+
+                                else {
                                     if (accType.equals("CUSTOMER"))
                                         getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Customer_Account_Fragment()).commit();
                                     else
