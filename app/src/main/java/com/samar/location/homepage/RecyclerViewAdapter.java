@@ -186,7 +186,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });*/
         imageSlider.setImageList(imageList);
-
+       /* imageSlider.setItemClickListener( i -> {
+            Toast.makeText(imageSlider.getContext(), "hello "+i,Toast.LENGTH_SHORT);
+            System.out.println("Clicked on " + i);
+        });*/
               /*
             Glide.with(context).load(house.getImage1()).into(holder.housecardImage);
             cga=new CustomGalleryAdapter(context,images);
