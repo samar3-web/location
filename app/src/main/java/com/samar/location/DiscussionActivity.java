@@ -20,6 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.samar.location.models.Message;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,10 +39,10 @@ public class DiscussionActivity extends AppCompatActivity {
         database= FirebaseDatabase.getInstance();
 
        fab =findViewById(R.id.fab);
-        //A completer !!!
 
         // Retrieve the data from the intent
-        String ownerEmail =  (String) getIntent().getStringExtra("ownerEmail");
+
+        String friendEmail =  (String) getIntent().getStringExtra("friendEmail");
 
         String currentUser = firebaseAuth.getCurrentUser().getEmail();
 
@@ -55,7 +57,7 @@ public class DiscussionActivity extends AppCompatActivity {
 
                         .push()
                         .setValue(new Message(input.getText().toString(),
-                                currentUser,ownerEmail )
+                                currentUser,friendEmail )
                         );
                 // Clear the input
                 input.setText("");
@@ -65,7 +67,7 @@ public class DiscussionActivity extends AppCompatActivity {
 
 
         // Load chat room contents
-        displayChatMessages(currentUser , ownerEmail);
+        displayChatMessages(currentUser , friendEmail);
     }
 
     private void displayChatMessages(String me,String owner) {
@@ -90,11 +92,19 @@ public class DiscussionActivity extends AppCompatActivity {
                     )
                         messages.add(message);
                 }
-                // Utiliser la liste de messages ici
 
+                // Tri
+                Comparator<Message> messageComparator = new Comparator<Message>() {
+                    @Override
+                    public int compare(Message m1, Message m2) {
+                        // Triez les messages en fonction de leur temps décroissant
+                        return Long.compare(m2.getTime(), m1.getTime());
+                    }
+                };
+                Collections.sort(messages, messageComparator);
+
+                //adapter
                 ChatAdapter adapter = new ChatAdapter(getApplicationContext(),  messages) ;
-
-
                 listOfMessages.setAdapter(adapter);
             }
 

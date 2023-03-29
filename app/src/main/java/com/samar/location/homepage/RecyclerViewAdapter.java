@@ -212,7 +212,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder. viewPager.setAdapter(adapter);*/
 
 
-            holder.housecardCity.setText(house.getCity().toUpperCase()+",TUNISIA");
+            holder.housecardCity.setText(house.getCity().toUpperCase()+", TUNISIA");
 
             holder.housecardSize.setText(house.getSize());
             holder.housecardPrice.setText(house.getPrice()+".TND");
@@ -300,10 +300,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             imageSlider = view.findViewById(R.id.image_slider);
 
-            //contact_call=view.findViewById(R.id.contact_call);
-            //rentit=view.findViewById(R.id.rentit);
-            //details= view.findViewById(R.id.view_details);
-
             Checkout.preload(context);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -313,13 +309,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     House house= houses.get(getAdapterPosition());
                     intent.putExtra("house",house);
                     context.startActivity(intent);
-                    /*
-                    House house = houses.get(getAdapterPosition());
-                    house.setExpanded(!house.isExpanded());
-                    notifyItemChanged(getAdapterPosition());
-                  //  List<SlideModel> slideModelList = new ArrayList<>();
-
-                     */
 
                 }
             });
@@ -332,52 +321,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
 
-
-
-            /*contact_call.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    House house= houses.get(getAdapterPosition());
-                    String phone="tel:"+house.getPhone();
-
-
-                    Intent intent=new Intent(Intent.ACTION_CALL);
-                    intent.setData(Uri.parse(phone));
-
-                     context.startActivity(intent);
-                }
-            });
-*/
-            /*rentit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    House house= houses.get(getAdapterPosition());
-
-                  //  Intent intent=new Intent(context, PaymentActivity.class);
-//                    Bundle bundle=new Bundle();
-                   // intent.putExtra("house",house);
-                 //   context.startActivity(intent);
-                   // startPayment();
-                    //unregisterReceiver();
-                }
-            });*/
-            //details.setPaintFlags(details.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-            /*
-            housecardImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                    Intent intent = new Intent(context, ViewHouseDetailsActivity.class);
-
-                    House house= houses.get(getAdapterPosition());
-                    intent.putExtra("house",house);
-                    context.startActivity(intent);
-
-                }
-            });
-
-             */
 
 
         }

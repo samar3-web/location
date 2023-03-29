@@ -55,6 +55,8 @@ import com.samar.location.models.Owner_Model;
 import com.samar.location.privateSpace.UserSpaceActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -109,13 +111,10 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
-        //  Button addHouseButton= view.findViewById(R.id.addHouseButton);
 
         list_of_discussions= view.findViewById(R.id.list_of_discussions);
-
-
 
         firebaseDB = new FirebaseDB();
         firestore = FirebaseFirestore.getInstance();
@@ -146,6 +145,17 @@ public class ChatFragment extends Fragment {
 
                         myMessages.add(message);
                 }
+
+                // Tri
+                Comparator<Message> messageComparator = new Comparator<Message>() {
+                    @Override
+                    public int compare(Message m1, Message m2) {
+                        // tri DESC
+                        return Long.compare(m2.getTime(), m1.getTime());
+                    }
+                };
+                Collections.sort(myMessages, messageComparator);
+
                 getDiscussions(me,myMessages);
 
             }
@@ -157,14 +167,6 @@ public class ChatFragment extends Fragment {
         };
 
         messagesRef.addValueEventListener(messagesListener);
-
-
-
-
-
-
-
-
 
     }
 
@@ -182,14 +184,21 @@ public class ChatFragment extends Fragment {
             }
         }
 
+        // Tri
+        Comparator<Discussions> discussionsComparator = new Comparator<Discussions>() {
+            @Override
+            public int compare(Discussions d1, Discussions d2) {
+                return Long.compare(d2.getTime(), d1.getTime());
+            }
+        };
+        Collections.sort(friendsDiscussions, discussionsComparator);
+
         //adapter les friends Discussions
 
         FriendDiscussionAdapter adapter = new FriendDiscussionAdapter(getContext(),  friendsDiscussions) ;
 
 
         list_of_discussions.setAdapter(adapter);
-
-
 
 
     }
@@ -206,7 +215,6 @@ public class ChatFragment extends Fragment {
 
         return exist;
     }
-
 
 }
 
