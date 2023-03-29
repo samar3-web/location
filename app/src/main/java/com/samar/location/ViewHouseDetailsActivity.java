@@ -44,7 +44,7 @@ import java.util.List;
 
 public class ViewHouseDetailsActivity  extends AppCompatActivity {
 
-    private ImageView housecardImage;
+    private ImageView housecardImage,back;
 
     GridView gallery;
     Button contact_owner,chat;
@@ -58,7 +58,7 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
         setContentView(R.layout.activity_view_house_details);
 
         housecardImage = findViewById(R.id.housecardImage);
-
+        back = findViewById(R.id.back_home);
         gallery = findViewById(R.id.gallery);
         House house = (House) getIntent().getSerializableExtra("house");
 
@@ -82,7 +82,6 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
         contact_owner=findViewById(R.id.call);
         chat = findViewById(R.id.chat);
 
-        housecardcity = findViewById(R.id.housecardcity);
         contactPerson = findViewById(R.id.contactPerson);
         houseNo= findViewById(R.id.houseNo);
         location = findViewById(R.id.location);
@@ -90,7 +89,7 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
         price = findViewById(R.id.price);
         size = findViewById(R.id.size);
 
-        housecardcity.setText(house.getCity());
+
         contactPerson.setText(house.getContactPerson());
         houseNo.setText(house.getHouseNo());
         location.setText(house.getLocation());
@@ -117,6 +116,12 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
         });
 
         //
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
