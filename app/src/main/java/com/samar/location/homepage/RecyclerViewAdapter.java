@@ -88,6 +88,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     }
                 });
                 break;*/
+            case "available":
+                Collections.sort(houses, new Comparator<House>() {
+                    @Override
+                    public int compare(House o1, House o2) {
+                        // Compare the available status of the houses
+                        if (o1.isAvailability() && !o2.isAvailability()) {
+                            return -1;
+                        } else if (!o1.isAvailability() && o2.isAvailability()) {
+                            return 1;
+                        } else {
+                            // If both houses have the same availability status, compare their prices
+                            return o1.getPrice().compareTo(o2.getPrice());
+                        }
+                    }
+                });
+                break;
             case "price":
                 Collections.sort(houses, new Comparator<House>() {
                     @Override

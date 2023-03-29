@@ -143,7 +143,7 @@ public class HomeFragment extends Fragment {
         filtreBtn = view.findViewById(R.id.filtreBtn);
 
 
-        List<String> filterOptions = Arrays.asList("None", "Price", "Size");
+        List<String> filterOptions = Arrays.asList("None", "Available","Price", "Size");
         Spinner filtersSpinner = view.findViewById(R.id.filters_spinner);
         ArrayAdapter<String> filtersAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, filterOptions);
         filtersSpinner.setAdapter(filtersAdapter);
