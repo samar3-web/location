@@ -184,8 +184,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 // Vous pouvez ajouter votre code ici
                 Toast.makeText(context, "hello",Toast.LENGTH_SHORT);
             }
-        });
-        imageSlider.setImageList(imageList);*/
+        });*/
+        imageSlider.setImageList(imageList);
 
               /*
             Glide.with(context).load(house.getImage1()).into(holder.housecardImage);
