@@ -59,12 +59,12 @@ import java.util.Map;
  */
 public class Owner_Account extends Fragment {
 
-    TextView cName, cGenderAge;
+    TextView cName;
     ImageView cProfile;
-    EditText cEmail, cAccountType, cPhone, cPassword, cLocation, cInput_name;
+    EditText cEmail, cAccountType, cPhone, cLocation, cInput_name;
     Button edit_btn, logout_btn, save_btn;
-    RadioGroup radioGroup;
-    LinearLayout gender_layout;
+
+
     String currentUserEmail;
     Customer_Model customerModel;
     FirebaseDB firebaseDB;
@@ -121,22 +121,20 @@ public class Owner_Account extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.owner_account_layout, container, false);
-        //  Button addHouseButton= view.findViewById(R.id.addHouseButton);
+
 
 
         cName = view.findViewById(R.id.owner_name);
-        cGenderAge = view.findViewById(R.id.owner_gender);
+
         cProfile = view.findViewById(R.id.owner_profile_image);
         cEmail = view.findViewById(R.id.owner_email);
         cAccountType = view.findViewById(R.id.owner_accountType);
         cPhone = view.findViewById(R.id.owner_phone);
-        cPassword = view.findViewById(R.id.owner_password);
+
         cLocation = view.findViewById(R.id.owner_address);
         cInput_name = view.findViewById(R.id.owner_name_input);
-        radioGroup = view.findViewById(R.id.owner_gender_input);
-        gender_layout = view.findViewById(R.id.gender_layout);
-        male = view.findViewById(R.id.male);
-        female = view.findViewById(R.id.female);
+
+
         edit_btn = view.findViewById(R.id.owner_edit_btn);
         logout_btn = view.findViewById(R.id.owner_logout_btn);
         save_btn = view.findViewById(R.id.owner_save_btn);
@@ -179,7 +177,7 @@ public class Owner_Account extends Fragment {
                 // cPassword.setEnabled(true);
                 cLocation.setEnabled(true);
                 cInput_name.setVisibility(View.VISIBLE);
-                gender_layout.setVisibility(View.VISIBLE);
+
                 cProfile.setEnabled(true);
 
 
@@ -195,9 +193,7 @@ public class Owner_Account extends Fragment {
                 if(cInput_name.getText()!=null)
                           ownerModel.setName(cInput_name.getText().toString());
 
-                RadioButton selectedRadioButton = (RadioButton) view.findViewById(radioGroup.getCheckedRadioButtonId());
-                if(selectedRadioButton!=null)
-                         ownerModel.setGender(selectedRadioButton.getText().toString().toUpperCase());
+
                 if(cPhone.getText()!=null)
                             ownerModel.setPhone(cPhone.getText().toString());
                 if (cLocation.getText()!=null)
@@ -205,6 +201,7 @@ public class Owner_Account extends Fragment {
                 //making imageview clickbable to change profile image.
 
                 uploadProfileToStorage();
+
                 firebaseDB.updateProfileData(FirebaseAuth.getInstance().getCurrentUser().getEmail(), ownerModel);
 
                 // showDataOnProfile();
@@ -216,11 +213,11 @@ public class Owner_Account extends Fragment {
 
                 cProfile.setEnabled(false);
                 cInput_name.setVisibility(View.GONE);
-                gender_layout.setVisibility(View.GONE);
+
 
                 edit_btn.setVisibility(View.VISIBLE);
                 save_btn.setVisibility(View.GONE);
-
+                showDataOnProfile();
 
             }
         });
@@ -280,17 +277,6 @@ public class Owner_Account extends Fragment {
                             cInput_name.setText(snapshot.get("name").toString());
                         }
 
-                        if (snapshot.get("gender") != null) {
-                            cGenderAge.setText(snapshot.get("gender").toString() + " ");
-                            if (snapshot.get("gender").toString().equals("FEMALE"))
-                                female.setChecked(true);
-                            else
-                                male.setChecked(true);
-                        }
-
-
-                      /*  if(snapshot.get("age")!=null)
-                            cGenderAge.append(snapshot.get("name").toString());*/
 
                         if (snapshot.get("address") != null)
                             cLocation.append(snapshot.get("address").toString());
@@ -300,7 +286,7 @@ public class Owner_Account extends Fragment {
 
 
                         cEmail.setText(snapshot.get("email").toString());
-                        cPassword.setText(snapshot.get("password").toString());
+
                         cPhone.setText(snapshot.get("phone").toString());
                         cAccountType.setText(snapshot.get("accountType").toString());
                     } catch (Exception e) {
@@ -403,50 +389,7 @@ public class Owner_Account extends Fragment {
         //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
         startActivityForResult(GalleryIntent, 42);
     }
-/*
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == 42) {
-                if (data.getClipData() != null) {
 
-                    ClipData mClipData = data.getClipData();
-                    int countClipData = data.getClipData().getItemCount();
-                    int currentImageSelect = 0;
-                    ImageUri = data.getClipData().getItemAt(currentImageSelect).getUri();
-                    ImageList.clear();
-                    ImageList.add(ImageUri);
-                    setProfile(ImageList.get(0).toString());
-                    for (int i = 0; i < mClipData.getItemCount(); i++) {
-                        ClipData.Item item = mClipData.getItemAt(i);
-                        Uri uri = item.getUri();
-                        // display your images
-                        cProfile.setImageURI(uri);
-                    }
-                   while (currentImageSelect < countClipData) {
-
-                        ImageUri = data.getClipData().getItemAt(currentImageSelect).getUri();
-                        ImageList.add(ImageUri);
-                        currentImageSelect = currentImageSelect + 1;
-                    }
-                    Toast.makeText(getActivity(), "You have Selected " + ImageList.size(), Toast.LENGTH_SHORT).show();
-                } else {
-
-                    Toast.makeText(getActivity(), "Please Select Images", Toast.LENGTH_SHORT).show();
-
-                  /*else if (data.getData() != null) {
-                    Uri uri = data.getData();
-                    // display your image
-                    show_imageview.setImageURI(uri);*/
- /*
-                }
-            }
-        }
-    }
-
-
-
-  */
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

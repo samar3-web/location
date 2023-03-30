@@ -8,8 +8,6 @@ public class Message {
     private String senderEmail;
     private String receiverEmail;
 
-
-
     private long time;
 
     //Constructor

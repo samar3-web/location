@@ -67,6 +67,7 @@ public class ChatFragment extends Fragment {
     FirebaseDB firebaseDB;
     FirebaseFirestore firestore;
     FirebaseDatabase database;
+    DatabaseReference messagesRef;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -130,7 +131,7 @@ public class ChatFragment extends Fragment {
     private void displayChatDiscussions(String me) {
 
         database = FirebaseDatabase.getInstance();
-        DatabaseReference messagesRef = database.getReference("MESSAGES");
+        messagesRef = database.getReference("MESSAGES");
 
         ValueEventListener messagesListener = new ValueEventListener() {
             @Override
@@ -139,9 +140,9 @@ public class ChatFragment extends Fragment {
 
                 for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
                     Message message = messageSnapshot.getValue(Message.class);
-                    //verifier que le message est a ou de moi
+                    //verifier que le message est pour moi
 
-                    if( me.equals(message.getSenderEmail() ) || me.equals(message.getReceiverEmail()) )
+                    if( me.equals(message.getSenderEmail()) || me.equals(message.getReceiverEmail()) )
 
                         myMessages.add(message);
                 }
@@ -176,22 +177,14 @@ public class ChatFragment extends Fragment {
         List<Discussions> friendsDiscussions = new ArrayList<>();
 
         for (Message message : myMessages) {
-            String friendEmail = me.equals(message.getSenderEmail()) ? message.getReceiverEmail() : message.getSenderEmail();
+            String friendEmail= me.equals(message.getSenderEmail()) ? message.getReceiverEmail() : message.getSenderEmail();
 
             if (!exist(friendEmail, friendsDiscussions)) {
+
                 friendsDiscussions.add(new Discussions(message.getText(),friendEmail, message.getTime()));
 
             }
         }
-
-        // Tri
-        Comparator<Discussions> discussionsComparator = new Comparator<Discussions>() {
-            @Override
-            public int compare(Discussions d1, Discussions d2) {
-                return Long.compare(d2.getTime(), d1.getTime());
-            }
-        };
-        Collections.sort(friendsDiscussions, discussionsComparator);
 
         //adapter les friends Discussions
 

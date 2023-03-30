@@ -177,12 +177,9 @@ public class FirebaseDB {
         Map<String,Object> map = new HashMap<>();
         String name=model.getName();
         String phone=model.getPhone();
-        String gender =model.getGender();
         String address=model.getAddress();
-        String profileUrl=model.getProfileUrl();
         map.put("name",name);
         map.put("phone",phone);
-        map.put("gender",gender);
         map.put("address",address);
         documentReference.update(map);
     }

@@ -56,12 +56,12 @@ import java.util.Map;
  */
 public class Customer_Account_Fragment extends Fragment {
 
-    TextView cName, cGenderAge ;
+    TextView cName;
     ImageView cProfile;
-    EditText cEmail , cAccountType , cPhone , cPassword ,cLocation , cInput_name;
+    EditText cEmail , cAccountType , cPhone ,cLocation , cInput_name;
     Button edit_btn , logout_btn, save_btn;
     RadioGroup radioGroup;
-    LinearLayout gender_layout;
+
     String currentUserEmail;
     Customer_Model customerModel;
     FirebaseDB firebaseDB;
@@ -122,18 +122,16 @@ public class Customer_Account_Fragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_customer__account_, container, false);
 
         cName = view.findViewById(R.id.customer_name);
-        cGenderAge = view.findViewById(R.id.customer_gender);
+
         cProfile = view.findViewById(R.id.customer_profile_image);
         cEmail = view.findViewById(R.id.customer_email);
         cAccountType = view.findViewById(R.id.custmer_accountType);
         cPhone = view.findViewById(R.id.customer_phone);
-        cPassword = view.findViewById(R.id.customer_password);
+
         cLocation = view.findViewById(R.id.customer_address);
         cInput_name=view.findViewById(R.id.customer_name_input);
-        radioGroup=view.findViewById(R.id.customer_gender_input);
-        gender_layout=view.findViewById(R.id.gender_layout);
-        male=view.findViewById(R.id.male);
-        female=view.findViewById(R.id.female);
+
+
         edit_btn=view.findViewById(R.id.edit_btn);
         logout_btn=view.findViewById(R.id.customer_logout_btn);
 
@@ -158,7 +156,7 @@ public class Customer_Account_Fragment extends Fragment {
                 // cPassword.setEnabled(true);
                  cLocation.setEnabled(true);
                  cInput_name.setVisibility(View.VISIBLE);
-                 gender_layout.setVisibility(View.VISIBLE);
+
                  cProfile.setEnabled(true);
 
 
@@ -172,15 +170,12 @@ public class Customer_Account_Fragment extends Fragment {
 
                 //Here we are Updating the data from profile
               if(cInput_name.getText()!=null)
-                customerModel.setName(cInput_name.getText().toString());
+                    customerModel.setName(cInput_name.getText().toString());
 
-                RadioButton selectedRadioButton  = (RadioButton)view.findViewById(radioGroup.getCheckedRadioButtonId());
-                if(selectedRadioButton!=null)
-                           customerModel.setGender(selectedRadioButton.getText().toString().toUpperCase());
                 if(cPhone.getText()!=null)
-                              customerModel.setPhone(cPhone.getText().toString());
+                    customerModel.setPhone(cPhone.getText().toString());
                 if (cLocation.getText()!=null)
-                          customerModel.setAddress(cLocation.getText().toString());
+                    customerModel.setAddress(cLocation.getText().toString());
                 //making imageview clickbable to change profile image.
 
                 uploadProfileToStorage();
@@ -195,10 +190,12 @@ public class Customer_Account_Fragment extends Fragment {
 
                 cProfile.setEnabled(false);
                 cInput_name.setVisibility(View.GONE);
-                gender_layout.setVisibility(View.GONE);
+
 
                 edit_btn.setVisibility(View.VISIBLE);
                 save_btn.setVisibility(View.GONE);
+
+                showDataOnProfile();
 
 
             }
@@ -324,17 +321,6 @@ public class Customer_Account_Fragment extends Fragment {
                                    cName.setText(snapshot.get("name").toString());
                                  cInput_name.setText(snapshot.get("name").toString());}
 
-                            if(snapshot.get("gender")!=null)
-                            {cGenderAge.setText(snapshot.get("gender").toString()+" ");
-                              if(snapshot.get("gender").toString().equals("FEMALE"))
-                                  female.setChecked(true);
-                              else
-                                  male.setChecked(true);
-                            }
-
-
-                            if(snapshot.get("age")!=null)
-                                cGenderAge.append(snapshot.get("name").toString());
 
                             if(snapshot.get("address")!=null)
                                 cLocation.append(snapshot.get("address").toString());
@@ -344,7 +330,7 @@ public class Customer_Account_Fragment extends Fragment {
 
 
                             cEmail.setText(snapshot.get("email").toString());
-                            cPassword.setText(snapshot.get("password").toString());
+
                             cPhone.setText(snapshot.get("phone").toString());
                         }catch (Exception e)
                         {

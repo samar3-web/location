@@ -88,7 +88,12 @@ public class FriendDiscussionAdapter extends BaseAdapter {
         viewHolder.friend.setText(discussion.getFriendEmail());
         viewHolder.message_text.setText(discussion.getText());
         viewHolder.message_time.setText(dateString);
-        displayFriendName(discussion, viewHolder);
+
+
+           // displayFriendName(position, discussion, viewHolder);
+
+
+
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,32 +109,44 @@ public class FriendDiscussionAdapter extends BaseAdapter {
 
 
 
-    private void displayFriendName(Discussions discussion, ViewHolder viewHolder) {
 
+
+
+
+
+
+
+    private void displayFriendName(int position, Discussions discussion, ViewHolder viewHolder) {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseFirestore.collection("USERDATA").document( discussion.getFriendEmail() ).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        firebaseFirestore.collection("USERDATA").document(discussion.getFriendEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     Map<String, Object> snapshot = task.getResult().getData();
                     try {
-                        if ((snapshot.get("name") != null)&& !snapshot.get("name").toString().equals(""))  {
-
-                            viewHolder.friend.setText(snapshot.get("name").toString());
+                        if ((snapshot.get("name") != null) && !snapshot.get("name").toString().equals("")) {
+                            // Vérifiez si les données de Firestore correspondent à l'élément actuellement en cours de traitement dans la méthode getView
+                            if (snapshot.get("email").equals(discussion.getFriendEmail())) {
+                                // Vérifier si le message Toast a déjà été affiché pour cet élément
+                                if (discussion.isDisplayed()) {
+                                    return;
+                                }
+                                Toast.makeText(context, snapshot.get("name").toString(), Toast.LENGTH_LONG).show();
+                                viewHolder.friend.setText(snapshot.get("name").toString());
+                                discussion.setDisplayed(true);
+                            }
                         }
-                        else{
-                            viewHolder.friend.setText( discussion.getFriendEmail() );
-                        }
-
                     } catch (Exception e) {
-
+                        // Gérer les exceptions ici
                     }
-
-
                 }
             }
         });
     }
+
+
+
+
 
 
 
@@ -142,5 +159,10 @@ public class FriendDiscussionAdapter extends BaseAdapter {
         TextView message_time;
 
     }
+
+    public interface Callback<T> {
+        void onResult(T result);
+    }
+
 }
 
