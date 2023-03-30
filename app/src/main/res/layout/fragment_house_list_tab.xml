@@ -118,13 +118,8 @@
                         android:layout_height="28dp"
                         android:layout_gravity="center"
                         android:layout_weight="20"
-                        android:src="@drawable/filter_icon"
+                        android:src="@drawable/filter"
                         android:clickable="true"/>
-                    <Spinner
-                        android:id="@+id/filters_spinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"/>
 
                 </LinearLayout>
             </LinearLayout>

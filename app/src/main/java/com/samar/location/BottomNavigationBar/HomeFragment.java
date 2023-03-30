@@ -5,11 +5,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,6 +85,7 @@ public class HomeFragment extends Fragment {
     private String mParam2;
     private ImageView filtreBtn;
     private TextView searchEt;
+    private PopupMenu popupMenu;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -142,37 +145,55 @@ public class HomeFragment extends Fragment {
         searchEt = view.findViewById(R.id.searchEt);
         filtreBtn = view.findViewById(R.id.filtreBtn);
 
+        popupMenu = new PopupMenu(getContext(), filtreBtn);
+        popupMenu.getMenu().add(1,1,1,"No filter");
+        popupMenu.getMenu().add(1,1,2,"Filter by Availablilty");
+        popupMenu.getMenu().add(1,1,3,"Filter by Price");
+        popupMenu.getMenu().add(1,1,4,"Filter by Size");
 
-        List<String> filterOptions = Arrays.asList("None", "Available","Price", "Size");
-        Spinner filtersSpinner = view.findViewById(R.id.filters_spinner);
-        ArrayAdapter<String> filtersAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, filterOptions);
-        filtersSpinner.setAdapter(filtersAdapter);
-        filtersSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedFilter = filterOptions.get(position);
-                Toast.makeText(getContext(),selectedFilter,Toast.LENGTH_SHORT).show();
-                if (recyclerViewAdapter != null) {
-                    recyclerViewAdapter.sortData(selectedFilter);
-                }
 
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+
 
 
 
         filtreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (filtersSpinner.getVisibility() == View.VISIBLE) {
-                    filtersSpinner.setVisibility(View.GONE);
-                } else {
-                    filtersSpinner.setVisibility(View.VISIBLE);
+                popupMenu.show();
+
+            }
+        });
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                String item = menuItem.getTitle().toString();
+                int order = menuItem.getOrder();
+                switch (order) {
+                    case 1:
+                        // effectuer l'action pour supprimer le filtre
+                        if (recyclerViewAdapter != null) {
+                            recyclerViewAdapter.sortData("none");
+                        }
+                        break;
+                    case 2:
+                        if (recyclerViewAdapter != null) {
+                            recyclerViewAdapter.sortData("available");
+                        }
+                        break;
+                    case 3:
+                        if (recyclerViewAdapter != null) {
+                            recyclerViewAdapter.sortData("price");
+                        }
+                        break;
+                    case 4:
+                        if (recyclerViewAdapter != null) {
+                            recyclerViewAdapter.sortData("size");
+                        }
+                        break;
+
                 }
+                return true;
             }
         });
 
