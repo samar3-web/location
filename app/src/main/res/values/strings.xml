@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">location</string>
+    <string name="app_name">Location</string>
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
     <dimen name="headerTextSize">25sp</dimen>
