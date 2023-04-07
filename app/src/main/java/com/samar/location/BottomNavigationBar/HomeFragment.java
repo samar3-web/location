@@ -336,25 +336,19 @@ public class HomeFragment extends Fragment {
                                 house.setHouseNo(doc.get("houseNo").toString());
                                 house.setStreet(doc.get("street").toString());
                                 house.setPost(doc.get("post").toString());
-                                Log.d("xxxavavailability", "onComplete: "+(boolean)doc.get("availability"));
+
                                 house.setAvailability( (boolean) doc.get("availability"));
                                 house.setPhone(doc.get("phone").toString());
-                                house.setOwnerUid(doc.get("ownerUid").toString());
+                               // house.setOwnerUid(doc.get("ownerUid").toString());
                                 if(doc.get("ownerEmail")!=null){
                                     house.setOwnerEmail( doc.get("ownerEmail").toString() );
                                 }
 
+                                if(doc.get("images") != null){
+                                    List<String> images = (List<String>) doc.get("images");
 
-                                if(doc.get("image1")!=null)
-                                    house.setImage1(doc.get("image1").toString());
-                                if(doc.get("image2")!=null)
-                                    house.setImage2(doc.get("image2").toString());
-                                if(doc.get("image3")!=null)
-                                    house.setImage3(doc.get("image3").toString());
-                                if(doc.get("image4")!=null)
-                                    house.setImage4(doc.get("image4").toString());
-                                if(doc.get("image5")!=null)
-                                    house.setImage5(doc.get("image5").toString());
+                                    house.setImages(images);
+                                }
 
                                 houses.add(house);
                             }

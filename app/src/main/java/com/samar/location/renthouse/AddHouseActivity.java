@@ -73,9 +73,9 @@ public class AddHouseActivity extends AppCompatActivity {
         addHouse_rcv = findViewById(R.id.houseiamge_rcv);
 
         String userEmail = firebaseAuth.getCurrentUser().getEmail();
-        String ownerUid = firebaseAuth.getCurrentUser().getUid();
+        //String ownerUid = firebaseAuth.getCurrentUser().getUid();
 
-        Log.d("xxxxOwnerUId", "onCreate:addHouseActivity ownerUid" + ownerUid);
+
         house = new House();
         //setting item in size spinner
         ArrayAdapter<CharSequence> sizeAdapter = ArrayAdapter.createFromResource(AddHouseActivity.this
@@ -109,7 +109,7 @@ public class AddHouseActivity extends AppCompatActivity {
                 documentUid = uuid.toString();
                /* UUID sameUuid = UUID.fromString(uuidAsString);
                sameUuid.equals(uuid);*/
-                house.setOwnerUid(ownerUid);
+               // house.setOwnerUid(ownerUid);
                 house.setOwnerEmail(userEmail);
 
                if(validator(contactPersonName.getText().toString(), phone.getText().toString(),houseNo.getText().toString(),street.getText().toString(),city.getText().toString(),post.getText().toString(),location.getText().toString(),
@@ -228,16 +228,12 @@ public class AddHouseActivity extends AppCompatActivity {
         }
     }
 
-    private void storeLinksInFiretore(ArrayList urlStrings) {
-        house.setImage1(urlStrings.get(0).toString());
-        if (urlStrings.size() > 1)
-            house.setImage2(urlStrings.get(1).toString());
-        if (urlStrings.size() > 2)
-            house.setImage3(urlStrings.get(2).toString());
-        if (urlStrings.size() > 3)
-            house.setImage4(urlStrings.get(3).toString());
-        if (urlStrings.size() > 4)
-            house.setImage5(urlStrings.get(4).toString());
+    private void storeLinksInFiretore(ArrayList<String> urlStrings) {
+
+        String[] images =  urlStrings.toArray(new String[ urlStrings.size() ]);
+
+        house.setImages(urlStrings);
+
         FirebaseDB firebaseDB = new FirebaseDB();
         firebaseDB.saveHouseData(documentUid, house, AddHouseActivity.this, FirebaseAuth.getInstance().getCurrentUser().getEmail());
         progressDialog.dismiss();
@@ -258,9 +254,6 @@ public class AddHouseActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == 42) {
-                if (data.getClipData() != null && data.getClipData().getItemCount() <= 5) {
-
-                    ClipData mClipData = data.getClipData();
                     int countClipData = data.getClipData().getItemCount();
                     int currentImageSlect = 0;
 
@@ -276,10 +269,7 @@ public class AddHouseActivity extends AppCompatActivity {
                     addHouseAdapter = new AddHouseAdapter(AddHouseActivity.this, ImageList);
                     addHouse_rcv.setAdapter(addHouseAdapter);
                     addHouse_rcv.setLayoutManager(new GridLayoutManager(AddHouseActivity.this, 2));
-                } else {
 
-                    Toast.makeText(AddHouseActivity.this, "Please select 5 or less Images", Toast.LENGTH_SHORT).show();
-                }
             }
         }
     }

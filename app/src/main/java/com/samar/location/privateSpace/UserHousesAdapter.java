@@ -63,17 +63,15 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
     public void onBindViewHolder(UserHousesAdapter.ViewHolder holder, int position) {
         House house = houses.get(position);
         images=new ArrayList();
-        images.add(house.getImage1());
-        images.add(house.getImage2());
-        images.add(house.getImage3());
-        images.add(house.getImage4());
-        images.add(house.getImage5());
-        Glide.with(context).load(house.getImage1()).into(holder.housecardImage);
+        for(int i = 0; i<house.getImages().size();i++)
+            images.add(house.getImages().get(i));
+
+        Glide.with(context).load(house.getImages().get(0)).into(holder.housecardImage);
         cga=new CustomGalleryAdapter(context,images);
 
 
 
-        boolean isExpanded=house.isExpanded();
+
 
 
 

@@ -63,15 +63,15 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
         House house = (House) getIntent().getSerializableExtra("house");
 
         imageUrls=Arrays.asList(
-                house.getImage1(),
-                house.getImage2(),
-                house.getImage3()
+                house.getImages().get(0),
+                house.getImages().get(1),
+                house.getImages().get(2)
         );
         String[] imagesUrl =new String[3];
 
-               imagesUrl[0] = house.getImage1();
-               imagesUrl[1] = house.getImage2();
-               imagesUrl[2] =  house.getImage3();
+               imagesUrl[0] =   house.getImages().get(0);
+               imagesUrl[1] =   house.getImages().get(1);
+               imagesUrl[2] =    house.getImages().get(2);
 
 
         Glide.with(getApplicationContext())

@@ -58,7 +58,7 @@ public class UserSpaceActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.my_rcv);
         add_btn = findViewById(R.id.add_btn);
 
-        //String currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        String currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
 
         String currentUserUid=FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -74,7 +74,7 @@ public class UserSpaceActivity extends AppCompatActivity {
         });
 
 
-        getHouseData(currentUserUid);
+        getHouseData(currentUserEmail);
 
 
 
@@ -85,7 +85,7 @@ public class UserSpaceActivity extends AppCompatActivity {
 
 
 
-    private void getHouseData(String currentUserUid){
+    private void getHouseData(String currentUserEmail){
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection("HouseCollection").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -103,7 +103,7 @@ public class UserSpaceActivity extends AppCompatActivity {
                         {
 
 
-                            if (doc.get("ownerUid").toString().equals(currentUserUid)){
+                            if (doc.get("ownerEmail").toString().equals(currentUserEmail)){
 
 
                                 House house=new House();
@@ -133,16 +133,10 @@ public class UserSpaceActivity extends AppCompatActivity {
                                 house.setAvailability( (boolean) doc.get("availability"));
                                 if(doc.get("phone")!=null)
                                 house.setPhone(doc.get("phone").toString());
-                                if(doc.get("image1")!=null)
-                                    house.setImage1(doc.get("image1").toString());
-                                if(doc.get("image2")!=null)
-                                    house.setImage2(doc.get("image2").toString());
-                                if(doc.get("image3")!=null)
-                                    house.setImage3(doc.get("image3").toString());
-                                if(doc.get("image4")!=null)
-                                    house.setImage4(doc.get("image4").toString());
-                                if(doc.get("image5")!=null)
-                                    house.setImage5(doc.get("image5").toString());
+
+                                if(doc.get("images") != null){
+                                    house.setImages( (List<String>) doc.get("images") );
+                                }
 
                                 houses.add(house);
                             }

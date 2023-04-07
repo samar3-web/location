@@ -1,7 +1,9 @@
 package com.samar.location.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class House  implements Serializable {
     String houseNo ,street,city,post, location , price , size  , contactPerson,phone ,ownerUid ,ownerEmail, docId;
@@ -14,17 +16,19 @@ public class House  implements Serializable {
         this.docId = docId;
     }
 
-    String image1 , image2 , image3, image4 , image5;
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    List<String> images = new ArrayList<>();
      private boolean expanded ,availability;
      Tenant tenant;
 
-    public Tenant getTenant() {
-        return tenant;
-    }
-
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
-    }
 
     public House() {
     }
@@ -119,46 +123,6 @@ public class House  implements Serializable {
 
 
 
-    public String getImage1() {
-        return image1;
-    }
-
-    public void setImage1(String image1) {
-        this.image1 = image1;
-    }
-
-    public String getImage2() {
-        return image2;
-    }
-
-    public void setImage2(String image2) {
-        this.image2 = image2;
-    }
-
-    public String getImage3() {
-        return image3;
-    }
-
-    public void setImage3(String image3) {
-        this.image3 = image3;
-    }
-
-    public String getImage4() {
-        return image4;
-    }
-
-    public void setImage4(String image4) {
-        this.image4 = image4;
-    }
-
-    public String getImage5() {
-        return image5;
-    }
-
-    public void setImage5(String image5) {
-        this.image5 = image5;
-    }
-
     public boolean isExpanded() {
         return expanded;
     }
@@ -197,11 +161,6 @@ public class House  implements Serializable {
                 ", contactPerson='" + contactPerson + '\'' +
                 ", phone='" + phone + '\'' +
                 ", ownerUid='" + ownerUid + '\'' +
-                ", image1='" + image1 + '\'' +
-                ", image2='" + image2 + '\'' +
-                ", image3='" + image3 + '\'' +
-                ", image4='" + image4 + '\'' +
-                ", image5='" + image5 + '\'' +
                 ", expanded=" + expanded +
                 ", availabilty=" + availability +
                 '}';

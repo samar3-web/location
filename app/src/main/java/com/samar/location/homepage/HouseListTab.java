@@ -211,21 +211,16 @@ public class HouseListTab extends Fragment {
                                 house.setStreet(doc.get("street").toString());
                                 house.setPost(doc.get("post").toString());
 
-                                house.setOwnerUid(doc.get("ownerUid").toString());
+                               // house.setOwnerUid(doc.get("ownerUid").toString());
 
-                                Log.d("xxxavavailability", "onComplete: "+(boolean)doc.get("availability"));
                                 house.setAvailability( (boolean) doc.get("availability"));
                                 house.setPhone(doc.get("phone").toString());
-                                if(doc.get("image1")!=null)
-                                    house.setImage1(doc.get("image1").toString());
-                                if(doc.get("image2")!=null)
-                                    house.setImage2(doc.get("image2").toString());
-                                if(doc.get("image3")!=null)
-                                    house.setImage3(doc.get("image3").toString());
-                                if(doc.get("image4")!=null)
-                                    house.setImage4(doc.get("image4").toString());
-                                if(doc.get("image5")!=null)
-                                    house.setImage5(doc.get("image5").toString());
+                                if(doc.get("images") != null){
+                                    house.setImages( (List<String>) doc.get("images") );
+                                }
+
+
+
 
                                 houses.add(house);
                             }

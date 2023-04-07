@@ -213,7 +213,7 @@ public class FirebaseDB {
          documentReference.set(house).addOnCompleteListener(new OnCompleteListener<Void>() {
              @Override
              public void onComplete(Task<Void> task) {
-                 if(task.isSuccessful()==true)
+                 if(task.isSuccessful())
 
                    // updateHouseInOwnerData(currentUid,currentUserEmail);
                  Toast.makeText(context, "House Added Successfully", Toast.LENGTH_SHORT).show();

@@ -151,24 +151,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         House house = houses.get(position);
-            images= Arrays.asList(
-                    house.getImage1(),
-                    house.getImage2(),
-                    house.getImage3(),
-                    house.getImage4(),
-                    house.getImage5()
-            );
+            images= house.getImages();
         imageList = new ArrayList<SlideModel>();
-        if(house.getImage1()!=null)
-        imageList.add(new SlideModel(house.getImage1(), null, null));
-        if(house.getImage2()!=null)
-        imageList.add(new SlideModel(house.getImage2(), null, null));
-        if(house.getImage3()!=null)
-        imageList.add(new SlideModel(house.getImage3(), null, null));
-        if(house.getImage4()!=null)
-        imageList.add(new SlideModel(house.getImage4(), null, null));
-        if(house.getImage5()!=null)
-        imageList.add(new SlideModel(house.getImage5(), null, null));
+        for(int i=0;i<images.size();i++){
+            if(images.get(i) !=null)
+                imageList.add(new SlideModel( (String) images.get(i), null, null));
+        }
+
 
         imageSlider.startSliding(2000); // with new period
 
