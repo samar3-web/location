@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.samar.location.R;
+import com.samar.location.authentication.LoginActivity;
 import com.samar.location.databasecontoller.FirebaseDB;
 import com.samar.location.homepage.RecyclerViewAdapter;
 
@@ -105,6 +106,7 @@ public class BootomNavBarMain extends AppCompatActivity {
                             @Override
                             public boolean onNavigationItemSelected(MenuItem item) {
 
+
                                 if (item.getItemId() == R.id.homee) {
                                     getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new HomeFragment(), "home_fragment").commit();
 
@@ -131,6 +133,13 @@ public class BootomNavBarMain extends AppCompatActivity {
 
 
                     } else {
+                        Toast.makeText(getApplicationContext(),"NO DATA FOUND FOR THIS USER !!!",Toast.LENGTH_LONG).show();
+
+                        FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class) );
+                        finish();
+
+
                         Log.d("xxxxxx", "onComplete: NO DATA");
                     }
                 }
