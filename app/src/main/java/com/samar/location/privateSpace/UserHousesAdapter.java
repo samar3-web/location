@@ -1,6 +1,8 @@
 package com.samar.location.privateSpace;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -166,38 +168,29 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
 
 
             Checkout.preload(context);
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    House house = houses.get(getAdapterPosition());
-                    house.setExpanded(!house.isExpanded());
-                    notifyItemChanged(getAdapterPosition());
-                    //  List<SlideModel> slideModelList = new ArrayList<>();
-
-                }
-            });
-            housecardCity.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    House house = houses.get(getAdapterPosition());
-                    house.setExpanded(!house.isExpanded());
-                    notifyItemChanged(getAdapterPosition());
-                }
-            });
-
 
 
             btn_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    House house= houses.get(getAdapterPosition());
-                    String documentId = house.getDocId();
+                    new AlertDialog.Builder(v.getContext())
+                            .setMessage("You are sure you want to delete this House?")
+                            .setCancelable(false)
+                            .setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                    //Delete
 
-                    firebaseDB.deleteHouse(documentId,context);
+                                    String documentId = houses.get(getAdapterPosition()).getDocId();
 
+                                    //Delete
 
+                                    firebaseDB.deleteHouse(documentId,context);
+
+                                }
+                            })
+                            .setNegativeButton("Cancel", null)
+                            .show();
                 }
             });
 

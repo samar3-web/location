@@ -6,7 +6,35 @@ import java.util.Comparator;
 import java.util.List;
 
 public class House  implements Serializable {
-    String houseNo ,street,city,post, location , price , size  , contactPerson,phone ,ownerUid ,ownerEmail, docId;
+
+
+    String houseNo;
+    String street;
+    String city;
+    String post;
+    String location;
+    String price;
+    String size;
+    String contactPerson;
+    String phone;
+    String ownerUid;
+    String ownerEmail;
+    String docId;
+    long views;
+    List<String> images = new ArrayList<>();
+    private boolean authorized ,availability;
+
+    public House() {
+    }
+
+
+    public long getViews() {
+        return views;
+    }
+
+    public void setViews(long views) {
+        this.views = views;
+    }
 
     public String getDocId() {
         return docId;
@@ -25,13 +53,11 @@ public class House  implements Serializable {
         this.images = images;
     }
 
-    List<String> images = new ArrayList<>();
-     private boolean expanded ,availability;
-     Tenant tenant;
 
 
-    public House() {
-    }
+
+
+
 
     public String getHouseNo() {
         return houseNo;
@@ -123,12 +149,12 @@ public class House  implements Serializable {
 
 
 
-    public boolean isExpanded() {
-        return expanded;
+    public boolean isAuthorized() {
+        return authorized;
     }
 
-    public void setExpanded(boolean expanded) {
-        this.expanded = expanded;
+    public void setAuthorized(boolean authorized) {
+        this.authorized = authorized;
     }
 
     public boolean isAvailability() {
@@ -140,29 +166,6 @@ public class House  implements Serializable {
     }
 
 
-    public static Comparator<House> HousePriceAscending = new Comparator<House>() {
-        @Override
-        public int compare(House h1, House h2) {
-            return Integer.parseInt(h1.getPrice())- Integer.parseInt(h2.getPrice());
-        }
-    };
 
 
-    @Override
-    public String toString() {
-        return "House{" +
-                "houseNo='" + houseNo + '\'' +
-                ", street='" + street + '\'' +
-                ", city='" + city + '\'' +
-                ", post='" + post + '\'' +
-                ", location='" + location + '\'' +
-                ", price='" + price + '\'' +
-                ", size='" + size + '\'' +
-                ", contactPerson='" + contactPerson + '\'' +
-                ", phone='" + phone + '\'' +
-                ", ownerUid='" + ownerUid + '\'' +
-                ", expanded=" + expanded +
-                ", availabilty=" + availability +
-                '}';
-    }
 }

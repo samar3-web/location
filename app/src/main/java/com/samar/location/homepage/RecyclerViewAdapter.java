@@ -31,8 +31,11 @@ import com.bumptech.glide.Glide;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.google.firebase.auth.FirebaseAuth;
 import com.samar.location.R;
 import com.samar.location.ViewHouseDetailsActivity;
+import com.samar.location.ViewHouseUserDetailsActivity;
+import com.samar.location.databasecontoller.FirebaseDB;
 import com.samar.location.models.CustomGalleryAdapter;
 import com.samar.location.models.House;
 //import com.samar.location.payment.PaymentActivity;
@@ -45,6 +48,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
         implements Filterable {
@@ -52,16 +56,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     int customlayout_id;
     List<House> houses; //list
     List<House> listFull;
-    CustomGalleryAdapter cga;
+
     List images;
     ImageSlider imageSlider;
 
     ArrayList imageList;
+
+    String user;
+
+    FirebaseDB firebaseDB;
+
+
     public RecyclerViewAdapter(Context context, List houses, int customlayout_id) {
         this.context = context;
         this.houses = houses;
         this.customlayout_id = customlayout_id;
         listFull=new ArrayList<>(houses);
+        this.user =  FirebaseAuth.getInstance().getCurrentUser().getEmail();
     }
 
     public void filter(String text) {
@@ -159,26 +170,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
 
-        imageSlider.startSliding(2000); // with new period
-
-       // imageSlider = (ImageSlider) findViewById(R.id.image_slider);
-
-        /*for (String i : site.getImgs()) {
-            imageList.add(new SlideModel(i, null, null));
-
-        }*/
-       /* imageSlider.setItemClickListener(new ItemClickListener() {
-            @Override
-            public void onItemSelected(int position) {
-                // Vous pouvez ajouter votre code ici
-                Toast.makeText(context, "hello",Toast.LENGTH_SHORT);
-            }
-        });*/
+        imageSlider.startSliding(5000); // with new period
         imageSlider.setImageList(imageList);
-       /* imageSlider.setItemClickListener( i -> {
-            Toast.makeText(imageSlider.getContext(), "hello "+i,Toast.LENGTH_SHORT);
-            System.out.println("Clicked on " + i);
-        });*/
+
               /*
             Glide.with(context).load(house.getImage1()).into(holder.housecardImage);
             cga=new CustomGalleryAdapter(context,images);
@@ -193,20 +187,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
 
-            boolean isExpanded=house.isExpanded();
-
                */
 
-        /*ImageAdapter adapter = new ImageAdapter(context, images);
-        holder. viewPager.setAdapter(adapter);*/
+
 
 
             holder.housecardCity.setText(house.getCity().toUpperCase()+", TUNISIA");
-
             holder.housecardSize.setText(house.getSize());
             holder.housecardPrice.setText(house.getPrice()+".TND");
 
-            //holder.collapseable.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+            holder.housecardviews.setText( Long.toString(house.getViews()) );
+
 
         }
 
@@ -268,8 +259,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         ViewPager viewPager;
         //Button details,rentit;
-        TextView housecardPrice,housecardSize;
-        TextView housecardCity, housecardAddress;
+        TextView housecardPrice,housecardSize,housecardviews;
+        TextView housecardCity;
         MaterialCardView cardView;
         LinearLayout collapseable;
 
@@ -282,6 +273,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             housecardSize = view.findViewById(R.id.housecardsize);
             housecardPrice = view.findViewById(R.id.housecardprice);
             housecardCity = view.findViewById(R.id.housecardcity);
+            housecardviews = view.findViewById(R.id.housecardviews);
 
             cardView = view.findViewById(R.id.card);
             collapseable = view.findViewById(R.id.collapsable);
@@ -293,22 +285,33 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, ViewHouseDetailsActivity.class);
-
                     House house= houses.get(getAdapterPosition());
-                    intent.putExtra("house",house);
+                    //check if this house is for the current user
+
+                    Intent intent;
+                    if ( Objects.equals(user, house.getOwnerEmail())   ){
+                        intent = new Intent(context, ViewHouseUserDetailsActivity.class);
+                        intent.putExtra("houseDocId",house.getDocId());
+
+
+
+
+
+                    }else {
+                        //update views number
+                        house.setViews(house.getViews() + 1 );
+                        firebaseDB = new FirebaseDB();
+                        firebaseDB.updateHouseData(house.getDocId(),house,context);
+
+                        intent = new Intent(context, ViewHouseDetailsActivity.class);
+                        intent.putExtra("house", house);
+                    }
                     context.startActivity(intent);
 
+
                 }
             });
-            housecardCity.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    House house = houses.get(getAdapterPosition());
-                    house.setExpanded(!house.isExpanded());
-                    notifyItemChanged(getAdapterPosition());
-                }
-            });
+
 
 
 
@@ -322,40 +325,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         
     }
 
-    private static class ImageAdapter extends PagerAdapter {
 
-        private Context context;
-        private List<String> imageUrls;
-
-        public ImageAdapter(Context context, List<String> imageUrls) {
-            this.context = context;
-            this.imageUrls = imageUrls;
-        }
-
-        @Override
-        public int getCount() {
-            return imageUrls.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            ImageView imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            Glide.with(context).load(imageUrls.get(position)).into(imageView);
-            container.addView(imageView);
-            return imageView;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((ImageView) object);
-        }
-    }
 
 
 }

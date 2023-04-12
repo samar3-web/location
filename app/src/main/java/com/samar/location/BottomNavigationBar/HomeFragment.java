@@ -325,7 +325,7 @@ public class HomeFragment extends Fragment {
                         houses=new ArrayList<>();
                         for(DocumentSnapshot doc : task.getResult().getDocuments())
                         {
-                            if ((boolean)doc.get("availability") == true){
+                            if ((boolean)doc.get("availability") == true && (boolean)doc.get("authorized")){
                                 House house=new House();
                                 house.setDocId(doc.getId());
                                 house.setLocation(doc.get("location").toString());
@@ -338,15 +338,17 @@ public class HomeFragment extends Fragment {
                                 house.setPost(doc.get("post").toString());
 
                                 house.setAvailability( (boolean) doc.get("availability"));
+
                                 house.setPhone(doc.get("phone").toString());
-                               // house.setOwnerUid(doc.get("ownerUid").toString());
-                                if(doc.get("ownerEmail")!=null){
-                                    house.setOwnerEmail( doc.get("ownerEmail").toString() );
-                                }
+
+                                house.setOwnerEmail( doc.get("ownerEmail").toString() );
+
+                                house.setAuthorized((boolean) doc.get("authorized") );
+
+                                house.setViews((long) doc.get("views") );
 
                                 if(doc.get("images") != null){
                                     List<String> images = (List<String>) doc.get("images");
-
                                     house.setImages(images);
                                 }
 

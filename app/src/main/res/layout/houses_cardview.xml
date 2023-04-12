@@ -105,9 +105,24 @@
                     android:layout_marginEnd="-48dp"
                     android:layout_marginRight="-48dp"
                     android:fontFamily="@font/calibri"
-                    android:text=""
+                    android:padding="6dp"
                     android:textColor="#0C0C0C"
                     android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/housecardviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/calibri"
+                    android:textColor="#0C0C0C"
+                    android:layout_alignEnd="@+id/housecardsize"
+                    android:layout_alignRight="@id/housecardsize"
+                    android:layout_marginEnd="-68dp"
+                    android:textSize="16sp"
+                    android:padding="6dp"
+                    android:textAlignment="textStart"
+                    android:drawableLeft="@drawable/eyes" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -26,13 +26,10 @@ import java.util.Map;
 public class FirebaseDB {
 
     FirebaseFirestore firebaseFirestore;
-    String currentUserEmail;
     boolean dataAdded = false;
-    String setDataException;
+
     String collection = "USERDATA", document = null;
-    String accountType;
-    Customer_Model customerModel;
-    DocumentSnapshot snapshot;
+
 
    /* public FirebaseDB() {
        currentUserEmail =FirebaseAuth.getInstance().getCurrentUser().getEmail();
@@ -135,42 +132,6 @@ public class FirebaseDB {
         });
     }
 
-   /* public String getAccountType(String currentUserEmail) {
-
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseFirestore.collection(collection).document(currentUserEmail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                     snapshot = task.getResult();
-                    if (snapshot.exists()) {
-
-                        Log.d("xxxxx", "onComplete: 1" + snapshot.get("accountType").toString());
-                        String var=snapshot.get("accountType").toString();
-                          if(var.equals("OWNER"))
-                              accountType="OWNER";
-                          else
-                              accountType="CUSTOMER";
-
-                        Log.d("xxxxxx", "onComplete 2  accountType  "+accountType);
-
-                    } else {
-                        Log.d("xxxxxx", "onComplete: NO DATA");
-                    }
-                }
-            }
-        });
-
-        Log.d("xxxxxx", "onComplete: NO DATA 3"+accountType);
-
-        return accountType;
-    }*/
-
-
-    //storing images in cloud storage and set their url in firestore data base
-    //updating existing profile data;
-
-    //Updating the key:value pair in existing document
     public void updateProfileData(String currentUserEmail , Customer_Model model)
     {   firebaseFirestore=FirebaseFirestore.getInstance();
         DocumentReference documentReference=firebaseFirestore.collection(collection).document(currentUserEmail);
@@ -237,6 +198,7 @@ public class FirebaseDB {
             updates.put("street", house.getStreet());
             updates.put("size", house.getSize());
             updates.put("houseNo", house.getHouseNo());
+            updates.put("views", house.getViews());
         documentReference.update(updates);
 
     }

@@ -40,7 +40,7 @@ public class AddHouseActivity extends AppCompatActivity {
     Spinner houseSize, available;
     RecyclerView addHouse_rcv;
     AddHouseAdapter addHouseAdapter;
-    List selectedImages;
+
     House house;
     private Uri ImageUri;
     ArrayList ImageList = new ArrayList();
@@ -89,8 +89,6 @@ public class AddHouseActivity extends AppCompatActivity {
         availableAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         available.setAdapter(availableAdapter);
 
-        //Setting house image adapter and recyclerview
-        //selectedImages = new ArrayList<>();
 
 
         addImagesBtn.setOnClickListener(new View.OnClickListener() {
@@ -107,10 +105,10 @@ public class AddHouseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 UUID uuid = UUID.randomUUID();
                 documentUid = uuid.toString();
-               /* UUID sameUuid = UUID.fromString(uuidAsString);
-               sameUuid.equals(uuid);*/
-               // house.setOwnerUid(ownerUid);
+
                 house.setOwnerEmail(userEmail);
+                house.setViews(0);
+                house.setAuthorized(false);
 
                if(validator(contactPersonName.getText().toString(), phone.getText().toString(),houseNo.getText().toString(),street.getText().toString(),city.getText().toString(),post.getText().toString(),location.getText().toString(),
                 rentPrice.getText().toString()))
