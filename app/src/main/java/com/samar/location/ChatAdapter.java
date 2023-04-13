@@ -12,6 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import androidx.core.content.ContextCompat;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -91,8 +93,15 @@ public class ChatAdapter extends BaseAdapter {
 
 
         //verifier que l user envoie ce message
-        if (user.equals(message.getSenderEmail()))
+        if (user.equals(message.getSenderEmail())) {
             UiMyMessage(viewHolder.messageView);
+
+
+
+        }
+        else{
+            UIrecieverMessage(viewHolder.messageView);
+        }
 
 
         //background color
@@ -102,21 +111,37 @@ public class ChatAdapter extends BaseAdapter {
     }
 
     private void UiMyMessage(RelativeLayout rl){
-        // Récupération de la vue
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
 
-    //TextView messageTextView = (TextView) findViewById(R.id.message_text);
 
-    // Création des paramètres de mise en page
-    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.WRAP_CONTENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT
-    );
-    rl.setGravity(Gravity.END);
-   // layoutParams.addRule(RelativeLayout.ALIGN_END,RelativeLayout.TRUE);
-                                rl.setLayoutParams(layoutParams);
+        // layoutParams.addRule(RelativeLayout.ALIGN_END,RelativeLayout.TRUE);
+        rl.setLayoutParams(layoutParams);
+                                rl.setGravity(Gravity.RIGHT);
                                 rl.setBackgroundColor(Color.rgb(0,0,255));
+                                rl.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.backgound_sent_message) );
+
 }
 
+    private void UIrecieverMessage(RelativeLayout rl){
+        // Récupération de la vue
+
+        //TextView messageTextView = (TextView) findViewById(R.id.message_text);
+
+        // Création des paramètres de mise en page
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        rl.setGravity(Gravity.LEFT);
+
+        // layoutParams.addRule(RelativeLayout.ALIGN_END,RelativeLayout.TRUE);
+        rl.setLayoutParams(layoutParams);
+        rl.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.background_receiver_message) );
+
+    }
     private void displayReceiverName(Message message, ViewHolder viewHolder) {
 
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();

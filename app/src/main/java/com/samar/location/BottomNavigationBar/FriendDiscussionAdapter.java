@@ -72,6 +72,7 @@ public class FriendDiscussionAdapter extends BaseAdapter {
             viewHolder.friend = convertView.findViewById(R.id.friend);
             viewHolder.message_text = convertView.findViewById(R.id.message_text);
             viewHolder.message_time = convertView.findViewById(R.id.message_time);
+            viewHolder.profile = convertView.findViewById(R.id.img_thumbnail);
 
             convertView.setTag(viewHolder);
 
@@ -81,7 +82,7 @@ public class FriendDiscussionAdapter extends BaseAdapter {
 
         Discussions discussion = getItem(position);
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         String dateString = dateFormat.format(new Date(discussion.getTime()));
 
 
@@ -154,6 +155,7 @@ public class FriendDiscussionAdapter extends BaseAdapter {
 
 
     private static class ViewHolder {
+        public View profile;
         TextView friend;
         TextView message_text;
         TextView message_time;

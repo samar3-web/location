@@ -1,16 +1,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorGray02"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/backgound_sent_message"
     android:id="@+id/messageView"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp">
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="20dp"
+    android:padding="12dp"
+    android:layout_marginTop="12dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:text="Sender"
+
+        android:textColor="@color/white"
         android:id="@+id/message_user"
         android:textStyle="normal|bold" />
     <TextView
@@ -21,6 +26,7 @@
        android:layout_toEndOf="@+id/message_user"
         android:layout_marginStart="5dp"
         android:text="to Receiver"
+        android:textColor="@color/white"
         android:textStyle="normal|bold" />
 
 
@@ -36,6 +42,7 @@
         android:id="@+id/message_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp"
+        android:textColor="@color/white"
         android:text="message_text"/>
 
 
@@ -43,10 +50,7 @@
         android:id="@+id/message_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_below="@+id/message_text"
-        android:layout_marginTop="1dp"
-        android:gravity="end"
+        android:textColor="@color/black"
         android:text="message_time" />
 
 </RelativeLayout>

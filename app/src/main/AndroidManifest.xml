@@ -18,6 +18,7 @@
         android:roundIcon="@drawable/animelogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Location.NoActionBar"
+        android:requestLegacyExternalStorage="true"
         >
 
         <activity
