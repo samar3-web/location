@@ -22,6 +22,16 @@ public class House  implements Serializable {
     String docId;
     long views;
     List<String> images = new ArrayList<>();
+
+    public List<String> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<String> requests) {
+        this.requests = requests;
+    }
+
+    List<String> requests = new ArrayList<>();
     private boolean authorized ,availability;
 
     public House() {

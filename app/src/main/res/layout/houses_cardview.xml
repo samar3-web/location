@@ -51,15 +51,16 @@
 
 
 
-                <TextView
+                <ImageView
+                    android:id="@+id/favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="10"
-                    android:drawableLeft="@drawable/heart"
+                    android:background="#000000ff"
+                    android:src="@drawable/no_favorite"
                     android:fontFamily="@font/calibri"
                     android:padding="6dp"
                     android:layout_alignParentRight="true"
-                    android:textAlignment="textStart"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -116,9 +117,12 @@
                     android:fontFamily="@font/calibri"
                     android:textColor="#0C0C0C"
                     android:layout_alignEnd="@+id/housecardsize"
+
                     android:layout_alignRight="@id/housecardsize"
                     android:layout_marginEnd="-68dp"
+
                     android:textSize="16sp"
+
                     android:padding="6dp"
                     android:textAlignment="textStart"
                     android:drawableLeft="@drawable/eyes" />
@@ -139,96 +143,7 @@
                     android:textStyle="bold" />
 
             </RelativeLayout>
-            <!--
-               <LinearLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:id="@+id/collapsable"
-                   android:orientation="vertical">
 
-                                      <Gallery
-                                      android:id="@+id/simpleGallery"
-                                      android:layout_width="match_parent"
-                                      android:layout_height="1dp"
-                                      android:layout_marginTop="10dp"
-                                      />
-
-                                  <LinearLayout
-                                      android:layout_width="match_parent"
-                                      android:layout_height="wrap_content"
-                                      android:layout_margin="8dp"
-                                      android:orientation="horizontal">
-
-
-
-                                      <com.google.android.material.button.MaterialButton
-                                          android:id="@+id/view_details"
-                                          android:layout_width="wrap_content"
-                                          android:layout_height="wrap_content"
-                                          android:layout_gravity="center"
-                                          android:gravity="center"
-                                          android:background="#000000FF"
-                                          android:textColor="#0000ff"
-                                          android:layout_margin="8dp"
-                                          android:text="View Details"
-                                          app:cornerRadius="15dp"
-                                          app:elevation="8dp"
-
-
-
-
-                                          />
-
-
-
-                                  </LinearLayout> !-->
-
-
-
-              <!-- <LinearLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_margin="8dp"
-                   android:orientation="horizontal">
-
-
-                   <com.google.android.material.button.MaterialButton
-                       android:id="@+id/contact_call"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_marginEnd="8dp"
-                       android:layout_marginRight="8dp"
-                       android:layout_weight="1"
-                       android:drawableRight="@drawable/call_icon"
-                       android:text="Contact"
-                       app:cornerRadius="15dp"
-                       app:elevation="8dp"
-
-                       />
-
-                   <com.google.android.material.button.MaterialButton
-                       android:id="@+id/rentit"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:text="Rent it"
-                       app:cornerRadius="15dp"
-                       app:elevation="8dp"
-                       app:backgroundTint="@color/green"
-                       android:layout_marginEnd="8dp"
-                        android:drawableLeft="@drawable/home"
-                       android:layout_marginRight="8dp"
-                       android:layout_weight="1"
-                       />
-
-
-
-               </LinearLayout>
-
-
-
-
-           </LinearLayout>
-           !-->
 
 
         </LinearLayout>

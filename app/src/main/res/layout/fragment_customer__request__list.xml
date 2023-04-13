@@ -1,187 +1,176 @@
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".BottomNavigationBar.Customer_Request_List"
+    tools:context=".homepage.HouseListTab"
     android:paddingBottom="20dp"
     android:orientation="vertical"
-    android:id="@+id/recycler_paremt"
-    android:padding="5dp"
-    >
+    android:id="@+id/recycler_paremt">
 
     <!-- TODO: Update blank fragment layout -->
-
-   <!-- <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/my_rcv"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        />-->
+        android:background="@color/white"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp"
-        android:layout_marginBottom="8dp"
-        app:cardElevation="8dp"
-        >
-
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:theme="@style/AppTheme.Toolbar">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <!-- Media -->
+
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    >
-                    <ImageView
-                        android:id="@+id/house_Images"
-                        android:layout_width="match_parent"
-                        android:layout_height="210dp"
-                        android:background="@drawable/house_banner"
-                        android:animateLayoutChanges="true"
-                        android:scaleType="fitXY"
-                        />
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="8dp">
 
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/house_city"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/house_Images"
-                        android:alpha="0.65"
-                        android:background="@color/black"
-                        android:padding="15dp"
-                        android:text="City ,Country"
-                        android:textColor="@color/white"
-
-                        android:textSize="15dp"
+                        android:fontFamily="@font/calibri"
+                        android:text="Explore"
+                        android:textColor="@color/blackTextColor"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
+                    />
+
+
+                    <com.google.android.material.card.MaterialCardView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        app:cardBackgroundColor="@color/white"
+                        android:layout_alignParentEnd="true"
+                        app:cardCornerRadius="300dp"
+                        android:layout_marginTop="2dp"
+                        android:padding="10dp"
+                        app:cardElevation="20dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="center"
+                            android:layout_margin="2dp"
+                            >
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/card"
+                                android:layout_width="31dp"
+                                android:layout_height="34dp"
+                                android:layout_gravity="center"
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="200dp"
+                                app:cardElevation="20dp">
+
+                                <com.google.android.material.imageview.ShapeableImageView
+                                    android:id="@+id/userFace"
+                                    android:layout_width="41dp"
+                                    android:layout_height="44dp"
+                                    android:background="@color/white"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/b" />
+                            </com.google.android.material.card.MaterialCardView>
+                        </LinearLayout>
+
+
+
+                    </com.google.android.material.card.MaterialCardView>
 
                 </RelativeLayout>
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_gravity="center_horizontal"
-                >
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/house_size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4BHK"
-                    app:cornerRadius="15dp"
-                    android:layout_marginRight="10dp"
-
-                    />
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/house_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$1000"
-                    app:cornerRadius="15dp"
-                    app:elevation="8dp"
-                    app:backgroundTint="@color/green"
-                    android:layout_marginRight="10dp"
-                    />
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/viewonmap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="View on map"
-                    app:cornerRadius="15dp"
-                    app:elevation="8dp"
-                    app:backgroundTint="@color/green"
-
-                    />
-
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/collapsable"
-                android:orientation="vertical">
-
-                <Gallery
-                    android:id="@+id/simple_Gallery"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    />
-                <TextView
-                    android:id="@+id/house_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Contact Name \nHouseNo \nStreet \nPost"
-                    android:paddingLeft="10dp"
-                    android:maxLength="120"
-                    android:linksClickable="true"
-                    android:autoLink="map"
-                    android:textColorLink="@color/purple_500"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary" />
-
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="16dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/call_owner"
-                        android:layout_width="match_parent"
+                    <EditText
+                        android:id="@+id/searchEt"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_weight="1"
-                        android:drawableRight="@drawable/call_icon"
-                        android:text="Contact"
-                        app:cornerRadius="15dp"
-                        app:elevation="8dp"
+                        android:layout_weight="80"
+                        android:background="@drawable/gray_rounded_shape"
+                        android:drawableLeft="@drawable/ic_search_gray_24dp"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/calibri"
+                        android:hint="start searching houses"
+                        android:padding="12dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/colorGray02" />
 
-                        />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/rented"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Rented"
-                        app:cornerRadius="15dp"
-                        app:elevation="8dp"
-                        app:backgroundTint="@color/green"
-                        android:layout_marginEnd="8dp"
-                        android:drawableLeft="@drawable/home"
-                        android:layout_marginRight="8dp"
-                        android:layout_weight="1"
-                        />
+                    <ImageView
+                        android:id="@+id/filtreBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="20"
+                        android:src="@drawable/filter"
+                        android:clickable="true"/>
 
                 </LinearLayout>
-
-
-
             </LinearLayout>
 
 
-        </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
 
-    </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.tabs.TabLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabSelectedTextColor="@color/blackTextColor"
+            app:tabTextColor="@color/colorGray02">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Explore" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tendance" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Avec vue" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Luxe" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sur l'eau" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_rcv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:layout_marginTop="8dp"
+        />
 </LinearLayout>

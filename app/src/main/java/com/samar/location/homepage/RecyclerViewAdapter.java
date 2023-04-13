@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +33,15 @@ import com.bumptech.glide.Glide;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.samar.location.R;
 import com.samar.location.ViewHouseDetailsActivity;
 import com.samar.location.ViewHouseUserDetailsActivity;
@@ -47,7 +57,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
@@ -162,42 +174,29 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         House house = houses.get(position);
-            images= house.getImages();
+        images = house.getImages();
         imageList = new ArrayList<SlideModel>();
         for(int i=0;i<images.size();i++){
             if(images.get(i) !=null)
                 imageList.add(new SlideModel( (String) images.get(i), null, null));
         }
 
+        boolean isMyFavorite = false;
+
 
         imageSlider.startSliding(5000); // with new period
         imageSlider.setImageList(imageList);
 
-              /*
-            Glide.with(context).load(house.getImage1()).into(holder.housecardImage);
-            cga=new CustomGalleryAdapter(context,images);
-            holder.gallery.setAdapter(cga);
-            holder.gallery.setSpacing(5);
 
-            holder.gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Glide.with(context).load(images.get(position)).into(holder.housecardImage);
+        holder.housecardCity.setText(house.getCity().toUpperCase()+", TUNISIA");
+        holder.housecardSize.setText(house.getSize());
+        holder.housecardPrice.setText(house.getPrice()+".TND");
 
-                }
-            });
+        holder.housecardviews.setText( Long.toString(house.getViews()) );
 
-               */
+        boolean isItMyfavorite = false;
 
-
-
-
-            holder.housecardCity.setText(house.getCity().toUpperCase()+", TUNISIA");
-            holder.housecardSize.setText(house.getSize());
-            holder.housecardPrice.setText(house.getPrice()+".TND");
-
-            holder.housecardviews.setText( Long.toString(house.getViews()) );
-
+        isFavorite(house.getDocId(), holder.favorite);
 
         }
 
@@ -264,6 +263,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         MaterialCardView cardView;
         LinearLayout collapseable;
 
+        ImageView favorite;
+
 
 
         public ViewHolder(View view) {
@@ -274,6 +275,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             housecardPrice = view.findViewById(R.id.housecardprice);
             housecardCity = view.findViewById(R.id.housecardcity);
             housecardviews = view.findViewById(R.id.housecardviews);
+            favorite = view.findViewById(R.id.favorite);
 
             cardView = view.findViewById(R.id.card);
             collapseable = view.findViewById(R.id.collapsable);
@@ -293,10 +295,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         intent = new Intent(context, ViewHouseUserDetailsActivity.class);
                         intent.putExtra("houseDocId",house.getDocId());
 
-
-
-
-
                     }else {
                         //update views number
                         house.setViews(house.getViews() + 1 );
@@ -312,8 +310,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
 
-
-
+            favorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //favorite.setImageResource(R.drawable.favorite);
+                    //updatesData
+                    House house= houses.get(getAdapterPosition());
+                    updateFavoriteHouseData( house.getDocId(),favorite );
+                }
+            });
 
         }
 
@@ -324,6 +329,75 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         
     }
+
+    private void isFavorite(String docId, ImageView favorite){
+
+
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        String currentUserEmail= FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        DocumentReference documentReference= firestore.collection("USERDATA").document(currentUserEmail);
+
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    Log.d("xxxxcustomer", "onComplete: customer notification " + task.getResult().getData().toString());
+
+                    List<String> requests = (List<String>) task.getResult().get("requests");
+
+                    if (requests != null && requests.contains(docId) ) {
+                        favorite.setImageResource(R.drawable.favorite);
+                    }
+                    else{
+
+                    }
+
+
+                }
+            }
+        });
+    }
+
+    private void updateFavoriteHouseData(String docId,ImageView favorite) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        String currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        DocumentReference documentReference = firestore.collection("USERDATA").document(currentUserEmail);
+
+        // Requête pour récupérer les données de l'utilisateur actuel
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    // Récupérer les valeurs actuelles de requests
+                    List<String> requests = (List<String>) documentSnapshot.get("requests");
+
+                    if (requests != null && requests.contains(docId)) {
+                        // docId existe déjà dans requests, le supprimer
+                        documentReference.update("requests", FieldValue.arrayRemove(docId))
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        favorite.setImageResource(R.drawable.no_favorite);
+
+                                    }
+                                });
+                    } else {
+                        // docId n'existe pas dans requests, l'ajouter
+                        documentReference.update("requests", FieldValue.arrayUnion(docId))
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        favorite.setImageResource(R.drawable.favorite);
+                                    }
+                                });
+                    }
+                }
+            }
+        });
+    }
+
+
 
 
 

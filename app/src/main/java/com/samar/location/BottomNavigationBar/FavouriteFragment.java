@@ -127,6 +127,7 @@ public class FavouriteFragment extends Fragment {
                                     if(doc.get("tenant")!=null)
                                     {
                                         Map<String,String> map= (Map<String, String>) doc.get("tenant");
+
                                         houseNo=doc.get("houseNo").toString();
                                         tenant.setName(map.get("name"));
                                         tenant.setPhone(map.get("phone"));

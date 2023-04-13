@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -17,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.samar.location.R;
@@ -24,13 +27,16 @@ import com.samar.location.authentication.LoginActivity;
 import com.samar.location.databasecontoller.FirebaseDB;
 import com.samar.location.homepage.RecyclerViewAdapter;
 
+import java.util.List;
+
 
 public class BootomNavBarMain extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     RecyclerViewAdapter recyclerViewAdapter;
-    FirebaseDB firebaseDB;
-    String accountType;
+
     HomeFragment homeFragment;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,17 +67,8 @@ public class BootomNavBarMain extends AppCompatActivity {
 
         //Adding badges to icons
 
-        BadgeDrawable badge = bottomNavigationView.getOrCreateBadge(R.id.favourite);
+        getRequestsCount();
 
-
-        badge.setNumber(1);
-
-
-        /*val badgeDrawable = bottomNavigation.getBadge(menuItemId)
-        if (badgeDrawable != null) {
-            badgeDrawable.isVisible = false
-            badgeDrawable.clearNumber()
-        }*/
 
 
     }
@@ -106,6 +103,7 @@ public class BootomNavBarMain extends AppCompatActivity {
                             @Override
                             public boolean onNavigationItemSelected(MenuItem item) {
 
+                                getRequestsCount();
 
                                 if (item.getItemId() == R.id.homee) {
                                     getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new HomeFragment(), "home_fragment").commit();
@@ -114,7 +112,7 @@ public class BootomNavBarMain extends AppCompatActivity {
                                     if (accType.equals("CUSTOMER"))
                                         getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Customer_Request_List()).commit();
                                     else
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new FavouriteFragment()).commit();
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Customer_Request_List() ).commit();
 
                                 }else if(item.getItemId() == R.id.chat){
 
@@ -126,7 +124,11 @@ public class BootomNavBarMain extends AppCompatActivity {
                                         getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Customer_Account_Fragment()).commit();
                                     else
                                         getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Owner_Account()).commit();
+
                                 }
+
+
+
                                 return true;
                             }
                         });
@@ -135,7 +137,7 @@ public class BootomNavBarMain extends AppCompatActivity {
                     } else {
                         Toast.makeText(getApplicationContext(),"NO DATA FOUND FOR THIS USER !!!",Toast.LENGTH_LONG).show();
 
-                        FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                        FirebaseAuth.getInstance().signOut();
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class) );
                         finish();
 
@@ -147,5 +149,34 @@ public class BootomNavBarMain extends AppCompatActivity {
         });
 
     }
+
+
+    private void getRequestsCount() {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        String currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        DocumentReference documentReference = firestore.collection("USERDATA").document(currentUserEmail);
+
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        List<String> requests = (List<String>) document.get("requests");
+                        if (requests != null) {
+                            int requestsCount = requests.size();
+
+                            BadgeDrawable badge = bottomNavigationView.getOrCreateBadge(R.id.favourite);
+                            badge.setNumber(requestsCount);
+
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+
+
 
 }
