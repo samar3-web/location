@@ -81,7 +81,7 @@ public class ChatAdapter extends BaseAdapter {
 
 
         Message message = getItem(position);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(" HH:mm");
         String dateString = dateFormat.format(new Date(message.getTime()));
 
         viewHolder.message_text.setText(message.getText());

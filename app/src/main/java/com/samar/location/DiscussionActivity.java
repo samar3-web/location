@@ -94,14 +94,14 @@ public class DiscussionActivity extends AppCompatActivity {
                 }
 
                 // Tri
-                Comparator<Message> messageComparator = new Comparator<Message>() {
+               /*Comparator<Message> messageComparator = new Comparator<Message>() {
                     @Override
                     public int compare(Message m1, Message m2) {
                         // Triez les messages en fonction de leur temps décroissant
-                        return Long.compare(m2.getTime(), m1.getTime());
+                        return Long.compare(m1.getTime(), m2.getTime());
                     }
-                };
-                Collections.sort(messages, messageComparator);
+                };*/
+                //Collections.sort(messages, messageComparator);
 
                 //adapter
                 ChatAdapter adapter = new ChatAdapter(getApplicationContext(),  messages) ;
