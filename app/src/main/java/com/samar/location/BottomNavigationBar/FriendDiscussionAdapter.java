@@ -3,6 +3,8 @@ package com.samar.location.BottomNavigationBar;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.utils.widget.ImageFilterView;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,74 +35,36 @@ import java.util.List;
 import java.util.Map;
 
 
-
-
-public class FriendDiscussionAdapter extends BaseAdapter {
-
-    private Context context;
+public class FriendDiscussionAdapter extends RecyclerView.Adapter<FriendDiscussionAdapter.ViewHolder> {
     private List<Discussions> discussions;
 
-   // private static final String user = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
 
-    public FriendDiscussionAdapter(Context context, List<Discussions> discussions) {
-        this.context = context;
-        this.discussions = discussions;
-
+    public FriendDiscussionAdapter(List<Discussions> discussionsList) {
+        this.discussions = discussionsList;
     }
 
-
+    @NonNull
     @Override
-    public int getCount() {
-        return discussions.size();
-    }
-
-    @Override
-    public Discussions getItem(int position) {
-        return discussions.get(position);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.discussion_element, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public long getItemId(int position) {
-        return position;
-    }
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+        Discussions discussion = discussions.get(position);
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
-
-        if (convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.discussion_element, parent, false);
-
-            viewHolder = new ViewHolder();
-            viewHolder.friend = convertView.findViewById(R.id.friend);
-            viewHolder.message_text = convertView.findViewById(R.id.message_text);
-            viewHolder.message_time = convertView.findViewById(R.id.message_time);
-            viewHolder.profile = convertView.findViewById(R.id.img_thumbnail);
-
-            convertView.setTag(viewHolder);
-
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-
-        Discussions discussion = getItem(position);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         String dateString = dateFormat.format(new Date(discussion.getTime()));
-
 
         viewHolder.friend.setText(discussion.getFriendEmail());
         viewHolder.message_text.setText(discussion.getText());
         viewHolder.message_time.setText(dateString);
 
 
-           // displayFriendName(position, discussion, viewHolder);
-
-
-
-        convertView.setOnClickListener(new View.OnClickListener() {
+        viewHolder.discussionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -105,66 +74,74 @@ public class FriendDiscussionAdapter extends BaseAdapter {
             }
         });
 
-        return convertView;
+        displayFriendInformation(viewHolder.itemView.getContext(), discussion, viewHolder);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return discussions.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+        ImageFilterView profile;
+        TextView friend;
+        TextView message_text;
+        TextView message_time;
+        RelativeLayout discussionView;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            profile = itemView.findViewById(R.id.img_thumbnail);
+            friend = itemView.findViewById(R.id.friend);
+            message_text = itemView.findViewById(R.id.message_text);
+            message_time = itemView.findViewById(R.id.message_time);
+            discussionView = itemView.findViewById(R.id.discussionView);
+        }
+
+
+
     }
 
 
 
+    private void displayFriendInformation(Context  context, Discussions discussion, ViewHolder viewHolder) {
+        // Effacer l'image précédente
+        viewHolder.profile.setImageResource(R.drawable.b);
 
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        String friendEmail = discussion.getFriendEmail();
 
-
-
-
-
-
-    private void displayFriendName(int position, Discussions discussion, ViewHolder viewHolder) {
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseFirestore.collection("USERDATA").document(discussion.getFriendEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        firestore.collection("USERDATA").document(friendEmail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(Task<DocumentSnapshot> task) {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
-                    Map<String, Object> snapshot = task.getResult().getData();
-                    try {
-                        if ((snapshot.get("name") != null) && !snapshot.get("name").toString().equals("")) {
-                            // Vérifiez si les données de Firestore correspondent à l'élément actuellement en cours de traitement dans la méthode getView
-                            if (snapshot.get("email").equals(discussion.getFriendEmail())) {
-                                // Vérifier si le message Toast a déjà été affiché pour cet élément
-                                if (discussion.isDisplayed()) {
-                                    return;
-                                }
-                                Toast.makeText(context, snapshot.get("name").toString(), Toast.LENGTH_LONG).show();
-                                viewHolder.friend.setText(snapshot.get("name").toString());
-                                discussion.setDisplayed(true);
-                            }
+                    DocumentSnapshot document = task.getResult();
+
+                    if (document.exists()) {
+                        if(document.getString("name")!=null){
+                            String friendName = document.getString("name");
+                            viewHolder.friend.setText(friendName);
                         }
-                    } catch (Exception e) {
-                        // Gérer les exceptions ici
+
+                        if( document.getString("profileUrl")!=null){
+
+                            Glide.with(context)
+                                    .load( document.getString("profileUrl") )
+                                    .into(viewHolder.profile);
+                        }
+
+
+
+
                     }
                 }
             }
         });
     }
-
-
-
-
-
-
-
-
-
-
-    private static class ViewHolder {
-        public View profile;
-        TextView friend;
-        TextView message_text;
-        TextView message_time;
-
-    }
-
-    public interface Callback<T> {
-        void onResult(T result);
-    }
-
 }
+
+
+
 

@@ -26,6 +26,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -62,7 +64,7 @@ import java.util.Map;
 
 public class ChatFragment extends Fragment {
 
-    ListView list_of_discussions;
+    RecyclerView list_of_discussions;
     String currentUserEmail;
     FirebaseDB firebaseDB;
     FirebaseFirestore firestore;
@@ -187,11 +189,16 @@ public class ChatFragment extends Fragment {
         }
 
         //adapter les friends Discussions
-
-        FriendDiscussionAdapter adapter = new FriendDiscussionAdapter(getContext(),  friendsDiscussions) ;
-
+        FriendDiscussionAdapter adapter = new FriendDiscussionAdapter(friendsDiscussions);
 
         list_of_discussions.setAdapter(adapter);
+        list_of_discussions.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+       // FriendDiscussionAdapter adapter = new FriendDiscussionAdapter( friendsDiscussions) ;
+
+
+        //list_of_discussions.setAdapter(adapter);
 
 
     }

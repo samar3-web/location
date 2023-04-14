@@ -285,7 +285,11 @@ public class Customer_Request_List extends Fragment {
                 if (task.isSuccessful()) {
                     Log.d("xxxxcustomer", "onComplete: customer notification " + task.getResult().getData().toString());
 
-                    List<String> requests = (List<String>) task.getResult().get("requests");
+
+                    List<String> requests = new ArrayList<>();
+
+                    if(task.getResult().get("requests")!=null)
+                        requests = (List<String>) task.getResult().get("requests");
 
                     if (requests.size() > 0) {
                         //le request est le ducuentId de house

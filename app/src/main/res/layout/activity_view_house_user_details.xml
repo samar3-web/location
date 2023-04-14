@@ -47,20 +47,23 @@ android:padding="10dp" >
                                 android:elevation="30dp"
                                 android:drawableRight="@drawable/edit_pen"
                                 />
+
+                            <!-- Media -->
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/save_btn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="right"
-                                android:layout_margin="20dp"
-                                app:cornerRadius="200dp"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="28dp"
                                 android:elevation="30dp"
                                 android:text="save"
+                                android:layout_alignEnd="@+id/face"
+                                android:layout_margin="10dp"
+                                app:cornerRadius="200dp"
                                 android:drawableRight="@drawable/edit_pen"
                                 android:visibility="gone"
-
                                 />
-                            <!-- Media -->
+
                             <ImageView
                                 android:id="@+id/face"
                                 android:layout_width="match_parent"
@@ -81,15 +84,7 @@ android:padding="10dp" >
 
 
 
-                <GridView
-                    android:id="@+id/gallery"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:columnWidth="90dp"
-                    android:horizontalSpacing="10dp"
-                    android:numColumns="auto_fit"
-                    android:stretchMode="columnWidth"
-                    android:verticalSpacing="10dp" />
+
 
                 <TextView
                     android:id="@+id/house_availability"
@@ -108,6 +103,16 @@ android:padding="10dp" >
             </LinearLayout>
 
         </RelativeLayout>
+        <GridView
+            android:id="@+id/gallery"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:columnWidth="90dp"
+            android:horizontalSpacing="10dp"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp"
+            />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -128,6 +133,8 @@ android:padding="10dp" >
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 >
+
+
 
 
                 <LinearLayout
@@ -279,6 +286,12 @@ android:padding="10dp" >
                     android:enabled="false"
                     android:imeOptions="actionDone"
                     />
+
+
+
+
+
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/delete_btn"

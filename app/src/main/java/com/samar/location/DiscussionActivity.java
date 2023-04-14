@@ -5,24 +5,33 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.samar.location.BottomNavigationBar.FriendDiscussionAdapter;
 import com.samar.location.models.Message;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class DiscussionActivity extends AppCompatActivity {
@@ -30,15 +39,19 @@ public class DiscussionActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseDatabase database;
     Button fab;
+
+    TextView userName;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.discussion);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
         database= FirebaseDatabase.getInstance();
 
        fab =findViewById(R.id.fab);
+       userName = findViewById(R.id.user);
 
         // Retrieve the data from the intent
 
@@ -63,7 +76,7 @@ public class DiscussionActivity extends AppCompatActivity {
                 input.setText("");
             }
         });
-
+        displayFriendName(friendEmail);
 
 
         // Load chat room contents
@@ -72,7 +85,7 @@ public class DiscussionActivity extends AppCompatActivity {
 
     private void displayChatMessages(String me,String owner) {
 
-        ListView listOfMessages = findViewById(R.id.list_of_messages);
+        RecyclerView listOfMessages = findViewById(R.id.list_of_messages);
 
         DatabaseReference messagesRef = database.getReference("MESSAGES");
 
@@ -94,18 +107,27 @@ public class DiscussionActivity extends AppCompatActivity {
                 }
 
                 // Tri
-               /*Comparator<Message> messageComparator = new Comparator<Message>() {
+               Comparator<Message> messageComparator = new Comparator<Message>() {
                     @Override
                     public int compare(Message m1, Message m2) {
-                        // Triez les messages en fonction de leur temps décroissant
-                        return Long.compare(m1.getTime(), m2.getTime());
+                        // Triez les messages en fonction de leur temps croissant
+                        return Long.compare(m2.getTime(), m1.getTime());
                     }
-                };*/
+                };
+
                 //Collections.sort(messages, messageComparator);
 
                 //adapter
-                ChatAdapter adapter = new ChatAdapter(getApplicationContext(),  messages) ;
+                ChatAdapter adapter = new ChatAdapter(messages);
+                int spacingInPixels = 25;
+                ItemSpacingDecoration itemSpacingDecoration = new ItemSpacingDecoration(spacingInPixels);
+                listOfMessages.addItemDecoration(itemSpacingDecoration);
                 listOfMessages.setAdapter(adapter);
+                listOfMessages.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                listOfMessages.scrollToPosition(messages.size() - 1);
+
+               // ChatAdapter adapter = new ChatAdapter(getApplicationContext(),  messages) ;
+              //  listOfMessages.setAdapter(adapter);
             }
 
             @Override
@@ -124,6 +146,28 @@ public class DiscussionActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+
+    private void displayFriendName(String email) {
+
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("USERDATA").document( email ).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    Map<String, Object> snapshot = task.getResult().getData();
+
+                        if (snapshot.get("name") != null) {
+                            userName.setText((String) snapshot.get("name") );
+                        }
+                        else{
+                            userName.setText(email);
+                        }
+                }
+            }
+        });
     }
 }
 

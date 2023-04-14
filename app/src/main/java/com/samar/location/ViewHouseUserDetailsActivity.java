@@ -76,6 +76,7 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
    public static String houseDocId;
 
    Context context;
+   GridView gallery;
 
 
 
@@ -109,6 +110,8 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
         save_btn = findViewById(R.id.save_btn);
 
         delete_btn = findViewById(R.id.delete_btn);
+
+        gallery = findViewById(R.id.gallery);
 
         House  myHouse = new House();
 
@@ -297,20 +300,16 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
 
                         //Aficher une Gallery des images
 
+                        if(snapshot.get("images") != null){
+                            List<String> images = (List<String>) snapshot.get("images");
 
-                        String[] imagesUrls = new String[ 5 ];
-                        imagesUrls[0] = snapshot.get("image1").toString();
-                        imagesUrls[1] = snapshot.get("image2").toString();
-                        imagesUrls[2] = snapshot.get("image3").toString();
-                        imagesUrls[3] = snapshot.get("image4").toString();
-                        imagesUrls[4] = snapshot.get("image5").toString();
+                            List<String> firstThreeImages = images.subList(0, Math.min(images.size(), 3));
+                            String[] imagesUrls = firstThreeImages.toArray(new String[firstThreeImages.size()]);
 
-                        GridView gallery = findViewById(R.id.gallery);
-                        int[] imageIds = new int[] {R.drawable.baseline_menu_open_24, R.drawable.baseline_menu_open_24, R.drawable.baseline_menu_open_24, R.drawable.baseline_menu_open_24, R.drawable.baseline_menu_open_24};
+                            GalleryAdapter adapter = new GalleryAdapter(getApplicationContext(), imagesUrls,face);
+                            gallery.setAdapter(adapter);
 
-                        GalleryAdapter adapter = new GalleryAdapter(getApplicationContext(), imagesUrls,face);
-                        gallery.setAdapter(adapter);
-
+                        }
 
                     } catch (Exception e) {
                         Log.d("xxxxxxx", "onComplete Exception in setting data to house : " + e.getLocalizedMessage());
