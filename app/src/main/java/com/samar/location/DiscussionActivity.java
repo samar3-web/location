@@ -11,9 +11,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.utils.widget.ImageFilterView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +43,7 @@ public class DiscussionActivity extends AppCompatActivity {
     Button fab;
 
     TextView userName;
+    ImageFilterView friendFace;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,8 @@ public class DiscussionActivity extends AppCompatActivity {
 
        fab =findViewById(R.id.fab);
        userName = findViewById(R.id.user);
+
+       friendFace = findViewById(R.id.friendFace);
 
         // Retrieve the data from the intent
 
@@ -76,7 +81,7 @@ public class DiscussionActivity extends AppCompatActivity {
                 input.setText("");
             }
         });
-        displayFriendName(friendEmail);
+        displayFriendInformations(friendEmail);
 
 
         // Load chat room contents
@@ -150,7 +155,7 @@ public class DiscussionActivity extends AppCompatActivity {
 
 
 
-    private void displayFriendName(String email) {
+    private void displayFriendInformations(String email) {
 
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore.collection("USERDATA").document( email ).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -165,6 +170,15 @@ public class DiscussionActivity extends AppCompatActivity {
                         else{
                             userName.setText(email);
                         }
+
+                    if (snapshot.get("profileUrl") != null) {
+                        Glide.with(friendFace.getContext())
+                                .load( snapshot.get("profileUrl"))
+                                .into(friendFace);
+
+
+                    }
+
                 }
             }
         });

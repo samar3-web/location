@@ -10,14 +10,36 @@
     android:background="@color/colorPrimary"
     tools:context=".DiscussionActivity"
     >
-    <TextView
-        android:id="@+id/user"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textSize="30sp"
-        android:paddingLeft="10dp"
+        android:orientation="horizontal"
+        >
 
-        />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/friendFace"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="25dp"
+            android:background="@color/white"
+            app:roundPercent="1"
+            app:srcCompat="@drawable/b"
+            />
+        <TextView
+            android:id="@+id/user"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="30sp"
+            android:layout_marginLeft="20dp"
+            android:text="name"
+
+            />
+
+    </LinearLayout>
 
     <View
         android:layout_width="wrap_content"
