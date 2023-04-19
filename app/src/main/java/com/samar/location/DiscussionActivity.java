@@ -176,7 +176,6 @@ public class DiscussionActivity extends AppCompatActivity {
                                 .load( snapshot.get("profileUrl"))
                                 .into(friendFace);
 
-
                     }
 
                 }

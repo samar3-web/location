@@ -192,20 +192,15 @@ public class ChatFragment extends Fragment {
         FriendDiscussionAdapter adapter = new FriendDiscussionAdapter(friendsDiscussions);
 
         list_of_discussions.setAdapter(adapter);
-        list_of_discussions.setLayoutManager(new LinearLayoutManager(getContext()));
+        list_of_discussions.setLayoutManager(new LinearLayoutManager(getContext()) );
 
 
-       // FriendDiscussionAdapter adapter = new FriendDiscussionAdapter( friendsDiscussions) ;
-
-
-        //list_of_discussions.setAdapter(adapter);
 
 
     }
 
     private boolean exist(String email, List<Discussions> discussions) {
         boolean exist = false;
-
         for (Discussions discussion : discussions) {
             if (email.equals(discussion.getFriendEmail())) {
                 exist = true;
