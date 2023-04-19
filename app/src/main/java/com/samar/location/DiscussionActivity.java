@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +42,7 @@ public class DiscussionActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseDatabase database;
     Button fab;
-
+    ImageView back;
     TextView userName;
     ImageFilterView friendFace;
     @Override
@@ -55,7 +56,7 @@ public class DiscussionActivity extends AppCompatActivity {
 
        fab =findViewById(R.id.fab);
        userName = findViewById(R.id.user);
-
+       back = findViewById(R.id.back_home);
        friendFace = findViewById(R.id.friendFace);
 
         // Retrieve the data from the intent
@@ -79,6 +80,12 @@ public class DiscussionActivity extends AppCompatActivity {
                         );
                 // Clear the input
                 input.setText("");
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
         displayFriendInformations(friendEmail);
