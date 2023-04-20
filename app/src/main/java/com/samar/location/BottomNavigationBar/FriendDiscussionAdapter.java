@@ -59,8 +59,12 @@ public class FriendDiscussionAdapter extends RecyclerView.Adapter<FriendDiscussi
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         String dateString = dateFormat.format(new Date(discussion.getTime()));
 
+         String text = discussion.getText().length()>20 ? discussion.getText().substring(0, 20)+" ..."
+                 : discussion.getText();
+
         viewHolder.friend.setText(discussion.getFriendEmail());
-        viewHolder.message_text.setText(discussion.getText());
+
+        viewHolder.message_text.setText(text);
         viewHolder.message_time.setText(dateString);
 
 

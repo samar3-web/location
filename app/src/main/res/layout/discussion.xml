@@ -58,21 +58,6 @@
             />
 
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/baseline_call_24"
-            android:layout_marginRight="22dp"
-            app:layout_constraintBottom_toBottomOf="@id/user"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/baseline_videocam_24"
-            android:layout_marginRight="22dp"
-            />
-
     </LinearLayout>
 
 
@@ -88,7 +73,7 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="30dp"
         android:divider="@android:color/transparent"
-        android:dividerHeight="16dp"
+        android:dividerHeight="2dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/message" />
 
@@ -116,13 +101,15 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:hint="    Type a message"
+            android:hint="Type a message"
             android:background="@drawable/background_chat_input"
             android:layout_marginStart="6dp"
             android:layout_marginLeft="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="12dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
             android:id="@+id/input"
             />
     </RelativeLayout>

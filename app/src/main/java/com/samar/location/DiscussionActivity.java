@@ -65,6 +65,8 @@ public class DiscussionActivity extends AppCompatActivity {
 
         String currentUser = firebaseAuth.getCurrentUser().getEmail();
 
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +90,8 @@ public class DiscussionActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+
         displayFriendInformations(friendEmail);
 
 
@@ -131,15 +135,13 @@ public class DiscussionActivity extends AppCompatActivity {
 
                 //adapter
                 ChatAdapter adapter = new ChatAdapter(messages);
-                int spacingInPixels = 25;
+                int spacingInPixels = -10 ;
                 ItemSpacingDecoration itemSpacingDecoration = new ItemSpacingDecoration(spacingInPixels);
                 listOfMessages.addItemDecoration(itemSpacingDecoration);
                 listOfMessages.setAdapter(adapter);
                 listOfMessages.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 listOfMessages.scrollToPosition(messages.size() - 1);
 
-               // ChatAdapter adapter = new ChatAdapter(getApplicationContext(),  messages) ;
-              //  listOfMessages.setAdapter(adapter);
             }
 
             @Override

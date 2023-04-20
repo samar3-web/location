@@ -65,6 +65,8 @@ import java.util.Map;
 public class ChatFragment extends Fragment {
 
     RecyclerView list_of_discussions;
+
+    EditText search;
     String currentUserEmail;
     FirebaseDB firebaseDB;
     FirebaseFirestore firestore;
@@ -119,6 +121,8 @@ public class ChatFragment extends Fragment {
 
         list_of_discussions= view.findViewById(R.id.list_of_discussions);
 
+        //search = view.findViewById(R.id.searchFriend);
+
         firebaseDB = new FirebaseDB();
         firestore = FirebaseFirestore.getInstance();
 
@@ -163,6 +167,9 @@ public class ChatFragment extends Fragment {
 
             }
 
+
+
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Gérer les erreurs ici
@@ -172,6 +179,8 @@ public class ChatFragment extends Fragment {
         messagesRef.addValueEventListener(messagesListener);
 
     }
+
+
 
 
     private void getDiscussions( String me, List<Message> myMessages) {
@@ -187,6 +196,8 @@ public class ChatFragment extends Fragment {
 
             }
         }
+
+
 
         //adapter les friends Discussions
         FriendDiscussionAdapter adapter = new FriendDiscussionAdapter(friendsDiscussions);
@@ -210,6 +221,7 @@ public class ChatFragment extends Fragment {
 
         return exist;
     }
+
 
 }
 

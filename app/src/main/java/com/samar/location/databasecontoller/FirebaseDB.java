@@ -1,5 +1,6 @@
 package com.samar.location.databasecontoller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -209,18 +210,28 @@ public class FirebaseDB {
         firebaseFirestore.collection("HouseCollection").document(documentId)
                 .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
+
+
                     public void onComplete(@NonNull Task<Void> task) {
+
                         Toast.makeText(context, "House Deeting Successful", Toast.LENGTH_SHORT).show();
 
-                        //Redirection to UserSpaceActivity
-                        Intent intent = new Intent(context, UserSpaceActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        //Redirection to UserSpaceActivity with FLAG_ACTIVITY_CLEAR_TOP
+                    Intent intent = new Intent( context, UserSpaceActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
 
-
+                        // finish current activity
+                        if (context instanceof Activity) {
+                            ((Activity) context).finish();
+                        }
 
                     }
                 }) ;
+
+
+
     }
 
 

@@ -251,8 +251,14 @@ public class AddHouseActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+
+
+
+
             if (requestCode == 42) {
-                    int countClipData = data.getClipData().getItemCount();
+
+                if (data.getClipData() != null) {
+                    int countClipData = data.getClipData().getItemCount() ;
                     int currentImageSlect = 0;
 
                     ImageList.clear();
@@ -262,6 +268,15 @@ public class AddHouseActivity extends AppCompatActivity {
                         ImageList.add(ImageUri);
                         currentImageSlect = currentImageSlect + 1;
                     }
+
+                } else if (data.getData() != null) {
+                    Uri imageUri = data.getData();
+                    ImageList.clear();
+                    ImageList.add(imageUri);
+
+                }
+
+
 
                     Toast.makeText(AddHouseActivity.this, "You have Selected " + ImageList.size(), Toast.LENGTH_SHORT).show();
                     addHouseAdapter = new AddHouseAdapter(AddHouseActivity.this, ImageList);

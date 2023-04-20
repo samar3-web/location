@@ -1,5 +1,6 @@
 package com.samar.location.privateSpace;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,11 +18,16 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.razorpay.Checkout;
 import com.samar.location.R;
 import com.samar.location.ViewHouseDetailsActivity;
@@ -76,11 +82,12 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
 
 
 
-
-        holder.housecardCity.setText(house.getCity().toUpperCase()+",TUNISIA");
-
-        holder.housecardSize.setText(house.getSize());
-        holder.housecardPrice.setText(house.getPrice()+"TND");
+        if(house.getCity()!=null)
+            holder.housecardCity.setText(house.getCity().toUpperCase()+",TUNISIA");
+        if(house.getSize()!=null)
+            holder.housecardSize.setText(house.getSize());
+        if(house.getPrice()!=null)
+            holder.housecardPrice.setText(house.getPrice()+"TND");
 
         //holder.collapseable.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
 
@@ -180,12 +187,32 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
-
                                     String documentId = houses.get(getAdapterPosition()).getDocId();
 
-                                    //Delete
+                                    FirebaseFirestore firebaseFirestore= FirebaseFirestore.getInstance();
+                                    firebaseFirestore.collection("HouseCollection").document(documentId)
+                                            .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
 
-                                    firebaseDB.deleteHouse(documentId,context);
+
+                                                public void onComplete(@NonNull Task<Void> task) {
+
+                                                    Toast.makeText(context, "House Deleting Successful", Toast.LENGTH_SHORT).show();
+
+                                                    //Redirection to UserSpaceActivity with FLAG_ACTIVITY_CLEAR_TOP
+                                                    Activity parentActivity = (Activity) v.getContext();
+                                                    parentActivity.finish();
+                                                    parentActivity.startActivity(new Intent(parentActivity, UserSpaceActivity.class));
+
+                                                }
+                                            }) ;
+
+
+
+
+
+
+
 
                                 }
                             })

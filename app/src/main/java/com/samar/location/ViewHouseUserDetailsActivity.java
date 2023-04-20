@@ -75,7 +75,6 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
 
    public static String houseDocId;
 
-   Context context;
    GridView gallery;
 
 
@@ -85,9 +84,6 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_house_user_details);
-
-
-         // Button addNew= findViewById(R.id.addNew);
 
 
         houseDocId =  getIntent().getStringExtra("houseDocId");
@@ -120,7 +116,7 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
 
         currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         String currentUserUid=FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Log.d("xxxxOwnerUId", "onCreate:addHouseActivity ownerUid"+currentUserUid);
+
 
         //showing data details
         showHouseDetails(houseDocId);
@@ -221,9 +217,10 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
                         .setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // Si l'utilisateur clique sur "Oui", l'application se ferme
+
                                 firebaseDB.deleteHouse(houseDocId, v.getContext());
-                                finish();
+
+
                             }
                         })
                         .setNegativeButton("Cancel", null)
@@ -295,8 +292,7 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
                         if (snapshot.get("houseNo") != null)
                             houseNo.setText(snapshot.get("houseNo").toString());
 
-                        if (snapshot.get("image1") != null)
-                            setProfile(snapshot.get("image1").toString());
+
 
                         //Aficher une Gallery des images
 
@@ -498,90 +494,3 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
 
 
 }
-/*
-public class ViewHouseUserDetailsActivity extends AppCompatActivity {
-
-    private ViewPager viewPager;
-    TextView housecardcity,contactPerson,houseNo,location,street,phone,price,size;
-    List<String> imageUrls ;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_house_user_details);
-
-        viewPager = findViewById(R.id.housecardImage);
-        House house = (House) getIntent().getSerializableExtra("house");
-
-        imageUrls= Arrays.asList(
-                house.getImage1(),
-                house.getImage2(),
-                house.getImage3(),
-                house.getImage4(),
-                house.getImage5()
-        );
-
-
-        housecardcity = findViewById(R.id.housecardcity);
-        contactPerson = findViewById(R.id.contactPerson);
-        houseNo= findViewById(R.id.houseNo);
-        location = findViewById(R.id.location);
-        street= findViewById(R.id.street);
-        phone= findViewById(R.id.phone);
-        price = findViewById(R.id.price);
-        size = findViewById(R.id.size);
-
-        housecardcity.setText(house.getCity());
-        contactPerson.setText(house.getContactPerson());
-        houseNo.setText(house.getHouseNo());
-        location.setText(house.getLocation());
-
-        street.setText(house.getStreet());
-        phone.setText(house.getPhone());
-        price.setText(house.getPrice() + "DT");
-        size.setText(house.getSize());
-
-
-        ImageAdapter adapter = new ImageAdapter(this, imageUrls);
-        viewPager.setAdapter(adapter);
-    }
-
-    private static class ImageAdapter extends PagerAdapter {
-
-        private Context context;
-        private List<String> imageUrls;
-
-        public ImageAdapter(Context context, List<String> imageUrls) {
-            this.context = context;
-            this.imageUrls = imageUrls;
-        }
-
-        @Override
-        public int getCount() {
-            return imageUrls.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            ImageView imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            Glide.with(context).load(imageUrls.get(position)).into(imageView);
-            container.addView(imageView);
-            return imageView;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((ImageView) object);
-        }
-    }
-}
-
- */
-
-
