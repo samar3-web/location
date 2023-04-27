@@ -106,16 +106,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         houses.addAll(filteredList);
         notifyDataSetChanged();
     }
+
+
+    public void filter() {
+        houses.clear();
+        houses.addAll(listFull);
+        notifyDataSetChanged();
+    }
     public void sortData(String sortBy) {
         switch (sortBy.toLowerCase()) {
-            /*case "date":
-                Collections.sort(houses, new Comparator<House>() {
-                    @Override
-                    public int compare(House o1, House o2) {
-                        return o1.getDate().compareTo(o2.getDate());
-                    }
-                });
-                break;*/
             case "available":
                 Collections.sort(houses, new Comparator<House>() {
                     @Override
@@ -141,6 +140,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     }
                 });
                 break;
+            case "views":
+                Collections.sort(houses, new Comparator<House>() {
+                    @Override
+                    public int compare(House o1, House o2) {
+                         if(o1.getViews()   > o2.getViews() )
+                            return -1;
+
+                         return  1;
+                    }
+                });
+                break;
+
             case "size":
                 Collections.sort(houses, new Comparator<House>() {
                     @Override
@@ -181,7 +192,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 imageList.add(new SlideModel( (String) images.get(i), null, null));
         }
 
-        boolean isMyFavorite = false;
+
 
 
         imageSlider.startSliding(5000); // with new period
@@ -193,8 +204,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.housecardPrice.setText(house.getPrice()+".TND");
 
         holder.housecardviews.setText( Long.toString(house.getViews()) );
-
-        boolean isItMyfavorite = false;
 
         isFavorite(house.getDocId(), holder.favorite);
 
@@ -250,10 +259,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
               notifyDataSetChanged();
        }
    };
-
-
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ViewPager viewPager;
@@ -322,11 +327,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         }
 
-
-
-
-
-
         
     }
 
@@ -350,7 +350,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         favorite.setImageResource(R.drawable.favorite);
                     }
                     else{
-
+                        favorite.setImageResource(R.drawable.no_favorite);
                     }
 
 
@@ -396,10 +396,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });
     }
-
-
-
-
-
 
 }

@@ -152,14 +152,6 @@ public class DiscussionActivity extends AppCompatActivity {
 
         messagesRef.addValueEventListener(messagesListener);
 
-
-
-
-
-
-
-
-
     }
 
 

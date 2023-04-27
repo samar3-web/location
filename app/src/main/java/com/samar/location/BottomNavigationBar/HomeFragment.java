@@ -1,5 +1,6 @@
 package com.samar.location.BottomNavigationBar;
 
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,44 +9,30 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
-
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.samar.location.R;
-import com.samar.location.databasecontoller.FirebaseDB;
-import com.samar.location.homepage.HomeTabs_Adpater;
-import com.google.android.material.tabs.TabLayout;
 import com.samar.location.homepage.RecyclerViewAdapter;
 import com.samar.location.models.House;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -61,17 +48,18 @@ public class HomeFragment extends Fragment {
     ImageView userFace;
     RecyclerViewAdapter recyclerViewAdapter;
     List<House> houses;
+
     public Bundle bundle;
 
+    TabLayout tabLayout ;
+
+    final String[] tabs = {"All","Tendance","More View", "Luxe"};
+
     /*
-
-
 
     TabLayout home_tabs;
     ViewPager2 home_viewpager;
     HomeTabs_Adpater homeTabs_adpater;
-
-
 
      */
 
@@ -133,6 +121,12 @@ public class HomeFragment extends Fragment {
 
         userFace = view.findViewById(R.id.userFace);
 
+        tabLayout = view.findViewById(R.id.tab_layout);
+        for(String tab:  tabs){
+            tabLayout.addTab(tabLayout.newTab().setText(tab));
+        }
+
+
         displayUserFace();
 
 
@@ -150,12 +144,6 @@ public class HomeFragment extends Fragment {
         popupMenu.getMenu().add(1,1,2,"Filter by Availablilty");
         popupMenu.getMenu().add(1,1,3,"Filter by Price");
         popupMenu.getMenu().add(1,1,4,"Filter by Size");
-
-
-
-
-
-
 
         filtreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,6 +186,59 @@ public class HomeFragment extends Fragment {
         });
 
 
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                // Action à effectuer lorsqu'un onglet est sélectionné
+
+                int selectedIndex = tab.getPosition();
+                //Toast.makeText(view.getContext(), "Onglet sélectionné : " + selectedIndex, Toast.LENGTH_SHORT).show();
+
+                switch (selectedIndex) {
+                    case 0:
+                        // effectuer l'action pour supprimer le filtre
+                        if (recyclerViewAdapter != null) {
+                            recyclerViewAdapter.filter();
+                        }
+                        break;
+
+
+                    case 1:
+                        if (recyclerViewAdapter != null) {
+                            recyclerViewAdapter.sortData("available");
+                        }
+                        break;
+
+                    case 2:
+                        if (recyclerViewAdapter != null) {
+                            recyclerViewAdapter.sortData("views");
+                        }
+                        break;
+                    case 3:
+                        if (recyclerViewAdapter != null) {
+                            recyclerViewAdapter.sortData("price");
+                        }
+                        break;
+
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                // Action à effectuer lorsqu'un onglet est désélectionné
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                // Action à effectuer lorsqu'un onglet est sélectionné pour la deuxième fois
+            }
+        });
+
+
+
 // Ajouter le TextWatcher
         searchEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -211,8 +252,6 @@ public class HomeFragment extends Fragment {
                 if (recyclerViewAdapter != null) {
                     recyclerViewAdapter.filter(s.toString());
                 }
-              //  Toast.makeText(getContext(),s.toString(),Toast.LENGTH_SHORT).show();
-              //  Log.d("EditText :     ",s.toString());
             }
 
             @Override
@@ -258,55 +297,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-
-        //Old version with Map
-         /*
-        View view =inflater.inflate(R.layout.fragment_home, container, false);
-        home_tabs = view.findViewById(R.id.my_tablayout);
-        home_viewpager=view.findViewById(R.id.my_viewpager);
-
-
-
-        //Tabs are created
-        home_tabs.addTab(home_tabs.newTab().setText("LIST"));
-        home_tabs.addTab(home_tabs.newTab().setText("MAP"));
-
-        //now we need to create adpater class to provide fragmnet view object
-        homeTabs_adpater = new HomeTabs_Adpater(getActivity().getSupportFragmentManager(), getLifecycle());
-
-
-        //set adapter in viewpage to get the object of fragment view
-        home_viewpager.setAdapter(homeTabs_adpater);
-
-        //click on tabs to show tab
-        home_tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                home_viewpager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        //slide horixontal to show tab
-        home_viewpager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                home_tabs.selectTab(home_tabs.getTabAt(position));
-            }
-        });
-
-         */
 
         return view;
 
