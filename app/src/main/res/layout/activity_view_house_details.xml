@@ -109,16 +109,13 @@
                                             android:orientation="horizontal"
                                             >
 
+                                                <androidx.recyclerview.widget.RecyclerView
+                                                    android:id="@+id/recyclerViewHorizontal"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:orientation="horizontal" />
 
-                                                <GridView
-                                                    android:id="@+id/gallery"
-                                                    android:layout_width="fill_parent"
-                                                    android:layout_height="fill_parent"
-                                                    android:columnWidth="90dp"
-                                                    android:horizontalSpacing="10dp"
-                                                    android:numColumns="auto_fit"
-                                                    android:stretchMode="columnWidth"
-                                                    android:verticalSpacing="10dp" />
+
 
 
                                         </LinearLayout>

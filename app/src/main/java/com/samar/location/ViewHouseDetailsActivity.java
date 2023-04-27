@@ -22,6 +22,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -45,8 +47,6 @@ import java.util.List;
 public class ViewHouseDetailsActivity  extends AppCompatActivity {
 
     private ImageView housecardImage,back;
-
-    GridView gallery;
     Button contact_owner,chat;
     TextView housecardcity,contactPerson,houseNo,location,street,phone,price,size;
      List<String> imageUrls ;
@@ -59,23 +59,19 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
 
         housecardImage = findViewById(R.id.housecardImage);
         back = findViewById(R.id.back_home);
-        gallery = findViewById(R.id.gallery);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewHorizontal);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+
+
+
         House house = (House) getIntent().getSerializableExtra("house");
 
-        imageUrls=Arrays.asList(
-                house.getImages().get(0),
-                house.getImages().get(1),
-                house.getImages().get(2)
-        );
-        String[] imagesUrl =new String[3];
-
-               imagesUrl[0] =   house.getImages().get(0);
-               imagesUrl[1] =   house.getImages().get(1);
-               imagesUrl[2] =    house.getImages().get(2);
 
 
         Glide.with(getApplicationContext())
-                .load( imagesUrl[0])
+                .load( house.getImages().get(6) )
                 .into(housecardImage);
 
 
@@ -134,10 +130,13 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
             }
         });
 
-        //
 
-        GalleryAdapter adapter = new GalleryAdapter(getApplicationContext(), imagesUrl, housecardImage );
-        gallery.setAdapter(adapter);
+
+
+
+        RecyclerViewHorizontalAdapter adapter = new RecyclerViewHorizontalAdapter(house.getImages(),housecardImage );
+        recyclerView.setAdapter(adapter);
+
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -150,40 +149,6 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
             } else {
                 Toast.makeText(getApplicationContext(), "Permission denied to make phone calls", Toast.LENGTH_SHORT).show();
             }
-        }
-    }
-    private static class ImageAdapter extends PagerAdapter {
-
-        private Context context;
-        private List<String> imageUrls;
-
-        public ImageAdapter(Context context, List<String> imageUrls) {
-            this.context = context;
-            this.imageUrls = imageUrls;
-        }
-
-        @Override
-        public int getCount() {
-            return imageUrls.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            ImageView imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            Glide.with(context).load(imageUrls.get(position)).into(imageView);
-            container.addView(imageView);
-            return imageView;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((ImageView) object);
         }
     }
 }

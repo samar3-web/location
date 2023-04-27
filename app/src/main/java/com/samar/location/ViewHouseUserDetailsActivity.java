@@ -28,6 +28,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -70,12 +72,14 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
     private Uri ImageUri;
     ArrayList ImageList = new ArrayList();
     ArrayList urlStrings;
+
+    RecyclerView recyclerView;
     private ProgressDialog progressDialog;
     FirebaseFirestore firestore;
 
    public static String houseDocId;
 
-   GridView gallery;
+
 
 
 
@@ -107,7 +111,9 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
 
         delete_btn = findViewById(R.id.delete_btn);
 
-        gallery = findViewById(R.id.gallery);
+        recyclerView = findViewById(R.id.recyclerViewHorizontal);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         House  myHouse = new House();
 
@@ -115,7 +121,6 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
 
         currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        String currentUserUid=FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
         //showing data details
@@ -228,19 +233,6 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
             }
         });
 
-        /*
-
-        cProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //This will open the file explorer
-                getPickImageIntent();
-
-            }
-        });
-
-         */
 
     }
 
@@ -299,11 +291,8 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
                         if(snapshot.get("images") != null){
                             List<String> images = (List<String>) snapshot.get("images");
 
-                            List<String> firstThreeImages = images.subList(0, Math.min(images.size(), 3));
-                            String[] imagesUrls = firstThreeImages.toArray(new String[firstThreeImages.size()]);
-
-                            GalleryAdapter adapter = new GalleryAdapter(getApplicationContext(), imagesUrls,face);
-                            gallery.setAdapter(adapter);
+                            RecyclerViewHorizontalAdapter adapter = new RecyclerViewHorizontalAdapter(images,face );
+                            recyclerView.setAdapter(adapter);
 
                         }
 
@@ -414,55 +403,7 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
     }
 
 
-
-
-
-/*
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == 42) {
-                if (data.getClipData() != null) {
-
-                    ClipData mClipData = data.getClipData();
-                    int countClipData = data.getClipData().getItemCount();
-                    int currentImageSelect = 0;
-                    ImageUri = data.getClipData().getItemAt(currentImageSelect).getUri();
-                    ImageList.clear();
-                    ImageList.add(ImageUri);
-                    setProfile(ImageList.get(0).toString());
-                    for (int i = 0; i < mClipData.getItemCount(); i++) {
-                        ClipData.Item item = mClipData.getItemAt(i);
-                        Uri uri = item.getUri();
-                        // display your images
-                        cProfile.setImageURI(uri);
-                    }
-                   while (currentImageSelect < countClipData) {
-
-                        ImageUri = data.getClipData().getItemAt(currentImageSelect).getUri();
-                        ImageList.add(ImageUri);
-                        currentImageSelect = currentImageSelect + 1;
-                    }
-                    Toast.makeText(getActivity(), "You have Selected " + ImageList.size(), Toast.LENGTH_SHORT).show();
-                } else {
-
-                    Toast.makeText(getActivity(), "Please Select Images", Toast.LENGTH_SHORT).show();
-
-                  /*else if (data.getData() != null) {
-                    Uri uri = data.getData();
-                    // display your image
-                    show_imageview.setImageURI(uri);*/
- /*
-                }
-            }
-        }
-    }
-
-
-
-  */
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data)  {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode==42) {
             String[] filePathColumn={MediaStore.Images.Media.DATA};

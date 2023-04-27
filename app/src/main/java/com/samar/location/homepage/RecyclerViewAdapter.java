@@ -301,6 +301,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         intent.putExtra("houseDocId",house.getDocId());
 
                     }else {
+
+
                         //update views number
                         house.setViews(house.getViews() + 1 );
                         firebaseDB = new FirebaseDB();
