@@ -47,10 +47,7 @@ public class LoginTabFragment extends Fragment {
           pass = root.findViewById(R.id.pass);
           forgotPass = root.findViewById(R.id.forgotPass);
           login = root.findViewById(R.id.button_login);
-         /*  radioGroup=root.findViewById(R.id.lg_radioGroup);
-           lg_customer=root.findViewById(R.id.lg_customer_button);
-           lg_owner=root.findViewById(R.id.lg_owner_button);*/
-             //loginas=root.findViewById(R.id.loginas);
+
 
         Log.d("xxxx", "onCreateView: login account type "+accountType);
 
@@ -80,14 +77,6 @@ public class LoginTabFragment extends Fragment {
 
                 String remail = email.getText().toString();
                 String rpass = pass.getText().toString();
-               /* RadioButton checkedRadioButon = root.findViewById(radioGroup.getCheckedRadioButtonId());
-                try {
-                    accountType=checkedRadioButon.getText().toString();
-                }
-                catch (Exception e)
-                {
-
-                }*/
 
                if(validateEmailAndPassword(remail,rpass))
                         loginUser(remail,rpass);
@@ -114,15 +103,6 @@ public class LoginTabFragment extends Fragment {
         return true;
     }
 
-    /*private boolean accountValidator(RadioButton customer, RadioButton owner) {
-        if(customer.isChecked()==false && owner.isChecked()==false)
-        {
-            Toast.makeText(getActivity(), "Choose Owner or Customer", Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        return true;
-    }*/
 
     private void loginUser(String remail, String rpass) {
         firebaseAuth.signInWithEmailAndPassword(remail,rpass)
