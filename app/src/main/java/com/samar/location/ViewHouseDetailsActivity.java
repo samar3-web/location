@@ -71,7 +71,7 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
 
 
         Glide.with(getApplicationContext())
-                .load( house.getImages().get(6) )
+                .load( house.getImages().get(0) )
                 .into(housecardImage);
 
 

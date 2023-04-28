@@ -340,6 +340,7 @@ public class HomeFragment extends Fragment {
                                 if(doc.get("images") != null){
                                     List<String> images = (List<String>) doc.get("images");
                                     house.setImages(images);
+
                                 }
 
                                 houses.add(house);
