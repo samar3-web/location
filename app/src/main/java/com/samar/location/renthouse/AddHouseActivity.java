@@ -206,7 +206,7 @@ public class AddHouseActivity extends AppCompatActivity {
             for (int upload_count = 0; upload_count < ImageList.size(); upload_count++) {
 
                 Uri individualImage = (Uri) ImageList.get(upload_count);
-                final StorageReference imageName = imageFolder.child("Images" + individualImage.getLastPathSegment());
+                final StorageReference imageName = imageFolder.child(individualImage.getLastPathSegment());
 
                 imageName.putFile(individualImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
