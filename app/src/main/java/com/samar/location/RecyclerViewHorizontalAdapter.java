@@ -9,6 +9,9 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 
 import java.util.List;
 
@@ -32,7 +35,11 @@ public class RecyclerViewHorizontalAdapter extends RecyclerView.Adapter<Recycler
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         Glide.with(holder.image.getContext())
-                .load( dataList.get(position) )
+                .load(dataList.get(position))
+                .transform(new MultiTransformation<>(
+                        new CenterCrop(),
+                        new RoundedCorners(18)
+                ))
                 .into(holder.image);
 
         holder.image.setOnClickListener(new View.OnClickListener() {
