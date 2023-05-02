@@ -58,22 +58,47 @@
 
             <com.google.android.material.card.MaterialCardView
 
-                android:layout_width="131dp"
+                android:layout_width="135dp"
                 android:layout_height="135dp"
                 android:layout_gravity="center_horizontal"
-                android:padding="10dp"
+
                 app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="300dp"
-                app:cardElevation="20dp">
+                app:cardCornerRadius="270dp"
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:orientation="vertical">
 
+                    android:orientation="vertical">
                     <com.google.android.material.card.MaterialCardView
+
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center_horizontal"
+
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="180dp"
+                        app:cardElevation="0dp">
+
+
+
+
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/customer_profile_image"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/white"
+                                android:src="@drawable/profile_round"
+                                android:scaleType="centerCrop"
+                                android:padding="5dp"/>
+
+
+
+                    </com.google.android.material.card.MaterialCardView>
+                    <!--<com.google.android.material.card.MaterialCardView
                         android:id="@+id/card"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -88,7 +113,7 @@
                             android:layout_height="100dp"
                             android:background="@color/white"
                             android:src="@drawable/profile_round" />
-                    </com.google.android.material.card.MaterialCardView>
+                    </com.google.android.material.card.MaterialCardView>-->
                 </LinearLayout>
 
 
