@@ -303,20 +303,19 @@
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             app:cardCornerRadius="20dp"
             android:layout_marginBottom="8dp"
             app:cardElevation="8dp"
+            android:gravity="center"
 
             >
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:orientation="horizontal">
-
-
-
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="10dp">
                         <TextView
                             android:text="Owner Name"
                             android:layout_width="wrap_content"
@@ -325,6 +324,17 @@
                             android:textAppearance="?attr/textAppearanceHeadline6"
                             android:drawablePadding="5dp"
                             android:drawableLeft="@drawable/landlord"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+
+
 
                         <Button
                             android:layout_width="80dp"
@@ -367,7 +377,7 @@
 
                 </LinearLayout>
 
-
+                </LinearLayout>
         </com.google.android.material.card.MaterialCardView>>
 
 
