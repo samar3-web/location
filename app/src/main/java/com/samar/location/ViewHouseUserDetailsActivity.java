@@ -289,8 +289,11 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
                         //Aficher une Gallery des images
 
                         if(snapshot.get("images") != null){
-                            List<String> images = (List<String>) snapshot.get("images");
 
+                            List<String> images = (List<String>) snapshot.get("images");
+                            Glide.with(getApplicationContext())
+                                    .load( images.get(0) )
+                                    .into(face);
                             RecyclerViewHorizontalAdapter adapter = new RecyclerViewHorizontalAdapter(images,face );
                             recyclerView.setAdapter(adapter);
 
