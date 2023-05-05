@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 
@@ -91,6 +92,7 @@ public class Customer_Request_List extends Fragment {
     private ImageView filtreBtn;
     private TextView searchEt;
     private PopupMenu popupMenu;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public Customer_Request_List() {
         // Required empty public constructor
@@ -136,6 +138,17 @@ public class Customer_Request_List extends Fragment {
         View view = inflater.inflate(R.layout.fragment_customer__request__list, container, false);
 
         my_rcv = view.findViewById(R.id.my_rcv);
+
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Mettez à jour votre liste ou vue de recyclage ici
+                // Appeler setRefreshing(false) lorsque vous avez fini de rafraîchir la vue
+                getHouseData();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         userFace = view.findViewById(R.id.userFace);
 
