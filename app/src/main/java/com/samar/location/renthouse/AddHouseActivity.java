@@ -241,7 +241,7 @@ public class AddHouseActivity extends AppCompatActivity {
     }
 
 
-    public void getPickImageIntent() {
+    /*public void getPickImageIntent() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
@@ -283,6 +283,56 @@ public class AddHouseActivity extends AppCompatActivity {
                     addHouse_rcv.setAdapter(addHouseAdapter);
                     addHouse_rcv.setLayoutManager(new GridLayoutManager(AddHouseActivity.this, 2));
 
+            }
+        }
+    }*/
+    private static final int PICK_IMAGES = 42;
+
+
+
+    public void getPickImageIntent() {
+       // Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        startActivityForResult(intent, PICK_IMAGES);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PICK_IMAGES) {
+                int countClipData =0;
+                if (data.getClipData() != null) {
+                     countClipData = data.getClipData().getItemCount();
+                    if(countClipData < 5 || countClipData > 15){
+                        Toast.makeText(AddHouseActivity.this, "Please select between 5 and 15 images", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    int currentImageSelect = 0;
+                    ImageList.clear();
+                    while (currentImageSelect < countClipData) {
+                        ImageUri = data.getClipData().getItemAt(currentImageSelect).getUri();
+                        ImageList.add(ImageUri);
+                        currentImageSelect++;
+                    }
+                } else if (data.getData() != null) {
+                    Uri imageUri = data.getData();
+                    ImageList.clear();
+                    ImageList.add(imageUri);
+
+                    if(ImageList.size() < 5 || ImageList.size() > 15){
+                        ImageList.clear();
+                        Toast.makeText(AddHouseActivity.this, "Please select between 5 and 15 images", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+
+                Toast.makeText(AddHouseActivity.this, "You have selected " + ImageList.size() + " images", Toast.LENGTH_SHORT).show();
+                addHouseAdapter = new AddHouseAdapter(AddHouseActivity.this, ImageList);
+                addHouse_rcv.setAdapter(addHouseAdapter);
+                addHouse_rcv.setLayoutManager(new GridLayoutManager(AddHouseActivity.this, 2));
             }
         }
     }
