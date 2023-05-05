@@ -56,6 +56,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import uk.co.senab.photoview.PhotoViewAttacher;
+
 
 public class ViewHouseUserDetailsActivity extends AppCompatActivity {
 
@@ -294,6 +296,9 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
                             Glide.with(getApplicationContext())
                                     .load( images.get(0) )
                                     .into(face);
+                            PhotoViewAttacher pAttacher;
+                            pAttacher = new PhotoViewAttacher(face);
+                            pAttacher.update();
                             RecyclerViewHorizontalAdapter adapter = new RecyclerViewHorizontalAdapter(images,face );
                             recyclerView.setAdapter(adapter);
 
