@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -76,6 +77,7 @@ public class HomeFragment extends Fragment {
     private ImageView filtreBtn;
     private TextView searchEt;
     private PopupMenu popupMenu;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -119,6 +121,17 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_house_list_tab, container, false);
 
+
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Mettez à jour votre liste ou vue de recyclage ici
+                // Appeler setRefreshing(false) lorsque vous avez fini de rafraîchir la vue
+                getHouseData();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         my_rcv = view.findViewById(R.id.my_rcv);
 
         userFace = view.findViewById(R.id.userFace);

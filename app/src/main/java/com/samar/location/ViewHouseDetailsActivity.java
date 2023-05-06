@@ -43,6 +43,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import uk.co.senab.photoview.PhotoViewAttacher;
+
 
 public class ViewHouseDetailsActivity  extends AppCompatActivity {
 
@@ -73,6 +75,9 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
         Glide.with(getApplicationContext())
                 .load( house.getImages().get(0) )
                 .into(housecardImage);
+        PhotoViewAttacher pAttacher;
+        pAttacher = new PhotoViewAttacher(housecardImage);
+        pAttacher.update();
 
 
         contact_owner=findViewById(R.id.call);
