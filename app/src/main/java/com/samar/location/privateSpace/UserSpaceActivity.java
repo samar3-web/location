@@ -39,6 +39,8 @@ import com.samar.location.homepage.RecyclerViewAdapter;
 import com.samar.location.models.House;
 import com.samar.location.renthouse.AddHouseActivity;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,6 +134,15 @@ public class UserSpaceActivity extends AppCompatActivity {
                                     house.setAvailability( (boolean) doc.get("availability"));
                                 if(doc.get("phone")!=null)
                                     house.setPhone(doc.get("phone").toString());
+
+                                if(doc.get("lastModifiedDate")!=null)
+                                    house.setLastModifiedDate( doc.get("lastModifiedDate").toString() );
+                                if(doc.get("additionDate")!=null)
+                                    house.setAdditionDate(  doc.get("additionDate").toString() );
+                                if(doc.get("longitude")!=null)
+                                    house.setLongitude(  (double) doc.get("longitude") );
+                                if(doc.get("latitude")!=null)
+                                    house.setLatitude(  (double) doc.get("latitude") );
 
                                 if(doc.get("images") != null){
                                     house.setImages( (List<String>) doc.get("images") );

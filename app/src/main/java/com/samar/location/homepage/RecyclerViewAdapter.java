@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -152,13 +153,31 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 });
                 break;
 
-            case "size":
+            case "type":
                 Collections.sort(houses, new Comparator<House>() {
                     @Override
                     public int compare(House o1, House o2) {
                         return o1.getSize().compareTo(o2.getSize());
                     }
                 });
+                break;
+            case "lastModifiedDate":
+                Collections.sort(houses, new Comparator<House>() {
+                    @Override
+                    public int compare(House o1, House o2) {
+                        return o1.getLastModifiedDate().compareTo(o2.getLastModifiedDate());
+                    }
+                });
+                break;
+
+            case "additionDate":
+                Collections.sort(houses, new Comparator<House>() {
+                    @Override
+                    public int compare(House o1, House o2) {
+                        return o1.getAdditionDate().compareTo(o2.getAdditionDate());
+                    }
+                });
+
                 break;
             case "none":
                 houses.clear();
@@ -200,9 +219,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
         holder.housecardCity.setText(house.getCity().toUpperCase()+", TUNISIA");
-        holder.housecardSize.setText(house.getSize());
+        holder.housecardType.setText(house.getSize());
         holder.housecardPrice.setText(house.getPrice()+".TND");
-
+        holder.housecardlastDateModified.setText(  house.getLastModifiedDate());
         holder.housecardviews.setText( Long.toString(house.getViews()) );
 
         isFavorite(house.getDocId(), holder.favorite);
@@ -263,8 +282,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         ViewPager viewPager;
         //Button details,rentit;
-        TextView housecardPrice,housecardSize,housecardviews;
+        TextView housecardPrice,housecardType,housecardviews;
         TextView housecardCity;
+        TextView housecardlastDateModified;
         MaterialCardView cardView;
         LinearLayout collapseable;
 
@@ -276,10 +296,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(view);
             //Getting all the views
             viewPager = view.findViewById(R.id.housecardImage);
-            housecardSize = view.findViewById(R.id.housecardsize);
+            housecardType = view.findViewById(R.id.housecardsize);
             housecardPrice = view.findViewById(R.id.housecardprice);
             housecardCity = view.findViewById(R.id.housecardcity);
             housecardviews = view.findViewById(R.id.housecardviews);
+            housecardlastDateModified = view.findViewById(R.id.housecardlastDateModified);
             favorite = view.findViewById(R.id.favorite);
 
             cardView = view.findViewById(R.id.card);

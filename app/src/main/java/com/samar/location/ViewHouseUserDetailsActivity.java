@@ -1,5 +1,7 @@
 package com.samar.location;
 
+import static java.time.LocalDateTime.now;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -51,6 +53,8 @@ import com.samar.location.models.House;
 import com.samar.location.models.Owner_Model;
 import com.samar.location.privateSpace.UserSpaceActivity;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -183,9 +187,11 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
                 if(size.getText()!=null)
                     myHouse.setSize(size.getText().toString());
 
+
                 if(houseNo.getText()!=null)
                     myHouse.setHouseNo(houseNo.getText().toString());
 
+                myHouse.setLastModifiedDate(House.formatDate(now()));
                 //making imageview clickbable to change profile image.
 
                // uploadDataHouseToStorage();

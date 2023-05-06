@@ -35,6 +35,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.samar.location.R;
 import com.samar.location.models.House;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -215,6 +217,9 @@ public class HouseListTab extends Fragment {
 
                                 house.setAvailability( (boolean) doc.get("availability"));
                                 house.setPhone(doc.get("phone").toString());
+
+                                house.setAdditionDate( doc.get("additionDate").toString() );
+                                house.setAdditionDate(  doc.get("lastModifiedDate").toString() );
                                 if(doc.get("images") != null){
                                     house.setImages( (List<String>) doc.get("images") );
                                 }

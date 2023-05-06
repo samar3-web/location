@@ -1,6 +1,9 @@
 package com.samar.location.models;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -21,6 +24,14 @@ public class House  implements Serializable {
     String ownerEmail;
     String docId;
     long views;
+
+    Long surface;
+    String lastModifiedDate;
+    String additionDate;
+    double longitude;
+    double latitude;
+
+
     List<String> images = new ArrayList<>();
 
     public List<String> getRequests() {
@@ -62,12 +73,6 @@ public class House  implements Serializable {
     public void setImages(List<String> images) {
         this.images = images;
     }
-
-
-
-
-
-
 
     public String getHouseNo() {
         return houseNo;
@@ -125,6 +130,46 @@ public class House  implements Serializable {
         this.size = size;
     }
 
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Long getSurface() {
+        return surface;
+    }
+
+    public void setSurface(Long surface) {
+        this.surface = surface;
+    }
+
+    public String getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(String lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getAdditionDate() {
+        return additionDate;
+    }
+
+    public void setAdditionDate(String additionDate) {
+        this.additionDate = additionDate;
+    }
+
     public String getContactPerson() {
         return contactPerson;
     }
@@ -175,7 +220,10 @@ public class House  implements Serializable {
         this.availability = availability;
     }
 
-
+    public static String formatDate(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm");
+        return dateTime.format(formatter);
+    }
 
 
 }

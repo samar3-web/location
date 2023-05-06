@@ -32,6 +32,8 @@ import com.samar.location.R;
 import com.samar.location.homepage.RecyclerViewAdapter;
 import com.samar.location.models.House;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -144,6 +146,8 @@ public class HomeFragment extends Fragment {
         popupMenu.getMenu().add(1,1,2,"Filter by Availablilty");
         popupMenu.getMenu().add(1,1,3,"Filter by Price");
         popupMenu.getMenu().add(1,1,4,"Filter by Size");
+        popupMenu.getMenu().add(1,1,5,"Filter by addition date");
+        popupMenu.getMenu().add(1,1,6,"Filter by modified date");
 
         filtreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +159,7 @@ public class HomeFragment extends Fragment {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                String item = menuItem.getTitle().toString();
+
                 int order = menuItem.getOrder();
                 switch (order) {
                     case 1:
@@ -179,6 +183,19 @@ public class HomeFragment extends Fragment {
                             recyclerViewAdapter.sortData("size");
                         }
                         break;
+                        /*
+                    case 5:
+                        if (recyclerViewAdapter != null) {
+                            recyclerViewAdapter.sortData("lastModifiedDate");
+                        }
+                        break;
+                    case 6:
+                        if (recyclerViewAdapter != null) {
+                            recyclerViewAdapter.sortData("additionDate");
+                        }
+                        break;
+                        
+                         */
 
                 }
                 return true;
@@ -337,6 +354,18 @@ public class HomeFragment extends Fragment {
 
                                 house.setViews((long) doc.get("views") );
 
+                                house.setAdditionDate(   doc.get("additionDate").toString() );
+                                house.setLastModifiedDate(  doc.get("lastModifiedDate").toString());
+                                if(doc.get("latitude")  != null){
+                                    house.setLatitude((double)  doc.get("latitude") );
+
+                                }
+                                if(doc.get("longitude")  != null){
+                                    house.setLongitude((double)  doc.get("longitude") );
+
+                                }
+
+
                                 if(doc.get("images") != null){
                                     List<String> images = (List<String>) doc.get("images");
                                     house.setImages(images);
@@ -346,14 +375,15 @@ public class HomeFragment extends Fragment {
                                 houses.add(house);
                             }
 
+                        }
 
-                            recyclerViewAdapter = new RecyclerViewAdapter(getActivity(),houses, R.layout.houses_cardview);
-                            //setting adapter to recycler view
-                            my_rcv.setAdapter(recyclerViewAdapter);
-                            //LayoutManager for recycler view
-                            my_rcv.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        recyclerViewAdapter = new RecyclerViewAdapter(getActivity(),houses, R.layout.houses_cardview);
+                        //setting adapter to recycler view
+                        my_rcv.setAdapter(recyclerViewAdapter);
+                        //LayoutManager for recycler view
+                        my_rcv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-                        }}
+                    }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(Exception e) {

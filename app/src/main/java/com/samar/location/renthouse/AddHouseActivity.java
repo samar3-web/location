@@ -1,5 +1,7 @@
 package com.samar.location.renthouse;
 
+import static java.time.LocalDateTime.now;
+
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Intent;
@@ -28,6 +30,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -73,7 +77,7 @@ public class AddHouseActivity extends AppCompatActivity {
         addHouse_rcv = findViewById(R.id.houseiamge_rcv);
 
         String userEmail = firebaseAuth.getCurrentUser().getEmail();
-        //String ownerUid = firebaseAuth.getCurrentUser().getUid();
+
 
 
         house = new House();
@@ -114,6 +118,7 @@ public class AddHouseActivity extends AppCompatActivity {
                 rentPrice.getText().toString()))
                {
 
+
                    house.setContactPerson(contactPersonName.getText().toString());
                    house.setPhone(phone.getText().toString() );
                    house.setHouseNo(houseNo.getText().toString());
@@ -123,6 +128,9 @@ public class AddHouseActivity extends AppCompatActivity {
                    house.setLocation(location.getText().toString());
                    house.setPrice(rentPrice.getText().toString());
                    house.setSize(houseSize.getSelectedItem().toString());
+
+                   house.setAdditionDate(House.formatDate(now()) );
+                   house.setLastModifiedDate( House.formatDate( now() ) );
 
                    if (available.getSelectedItem().toString().equals("YES"))
                        house.setAvailability(true);

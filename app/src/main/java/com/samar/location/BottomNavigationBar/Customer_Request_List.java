@@ -356,8 +356,8 @@ public class Customer_Request_List extends Fragment {
                                 House house=new House();
                                 house.setDocId(doc.getId());
                                 house.setLocation(doc.get("location").toString());
-                                house.setSize(doc.get("size").toString());
-                                house.setPrice((doc.get("price")).toString());
+                                house.setSize( doc.get("size").toString() );
+                                house.setPrice( (doc.get("price")).toString() );
                                 house.setCity(doc.get("city").toString());
                                 house.setContactPerson(doc.get("contactPerson").toString());
                                 house.setHouseNo(doc.get("houseNo").toString());
@@ -373,6 +373,9 @@ public class Customer_Request_List extends Fragment {
                                 house.setAuthorized((boolean) doc.get("authorized") );
 
                                 house.setViews((long) doc.get("views") );
+
+                                house.setAdditionDate(   doc.get("additionDate").toString() );
+                                house.setLastModifiedDate(  doc.get("lastModifiedDate").toString());
 
                                 if(doc.get("images") != null){
                                     List<String> images = (List<String>) doc.get("images");

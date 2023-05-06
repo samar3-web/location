@@ -200,6 +200,8 @@ public class FirebaseDB {
             updates.put("size", house.getSize());
             updates.put("houseNo", house.getHouseNo());
             updates.put("views", house.getViews());
+
+            updates.put("lastModifiedDate", house.getLastModifiedDate() );
         documentReference.update(updates);
 
     }

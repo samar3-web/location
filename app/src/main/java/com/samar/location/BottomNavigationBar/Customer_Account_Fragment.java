@@ -179,13 +179,18 @@ public class Customer_Account_Fragment extends Fragment {
 
 
                 //Here we are Updating the data from profile
-              if(cInput_name.getText()!=null)
-                    customerModel.setName(cInput_name.getText().toString());
+                if(cInput_name.getText()!=null){
+                      customerModel.setName(cInput_name.getText().toString());
+                }
 
-                if(cPhone.getText()!=null)
+                if(cPhone.getText()!=null){
                     customerModel.setPhone(cPhone.getText().toString());
-                if (cLocation.getText()!=null)
+                }
+
+                if (cLocation.getText()!=null){
                     customerModel.setAddress(cLocation.getText().toString());
+                }
+
                 //making imageview clickbable to change profile image.
 
                 uploadProfileToStorage();
