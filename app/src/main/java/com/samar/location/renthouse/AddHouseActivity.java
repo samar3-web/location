@@ -3,7 +3,6 @@ package com.samar.location.renthouse;
 import static java.time.LocalDateTime.now;
 
 import android.app.ProgressDialog;
-import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +23,7 @@ import com.samar.location.BottomNavigationBar.BootomNavBarMain;
 import com.samar.location.R;
 import com.samar.location.bingmapsdk.MapDialogFragment;
 import com.samar.location.databasecontoller.FirebaseDB;
+import com.samar.location.models.Customer_Model;
 import com.samar.location.models.House;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,16 +31,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class AddHouseActivity extends AppCompatActivity {
 
 
-    EditText contactPersonName, phone, houseNo, street, city, post, location, rentPrice;
+    public static EditText contactPersonName, phone, houseNo, street, city, post, location, rentPrice,bingBtn,latitude,longitude,surface;
     Button addImagesBtn, saveHouseBtn;
     Spinner houseSize, available;
     RecyclerView addHouse_rcv;
@@ -55,7 +52,7 @@ public class AddHouseActivity extends AppCompatActivity {
     Intent intent;
 
     FirebaseAuth firebaseAuth;
-    private EditText bingBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +75,21 @@ public class AddHouseActivity extends AppCompatActivity {
         available = findViewById(R.id.houseavailalespinner);
         addHouse_rcv = findViewById(R.id.houseiamge_rcv);
 
+        bingBtn = findViewById(R.id.bing_location);
+        latitude = findViewById(R.id.latitude);
+        longitude = findViewById(R.id.longitude);
+        surface = findViewById(R.id.surface);
+
         String userEmail = firebaseAuth.getCurrentUser().getEmail();
 
 
+        houseNo.setVisibility(View.GONE);
+        street.setVisibility(View.GONE);
+        city.setVisibility(View.GONE);
+        post.setVisibility(View.GONE);
+        location.setVisibility(View.GONE);
+        latitude.setVisibility(View.GONE);
+        longitude.setVisibility(View.GONE);
 
         house = new House();
         //setting item in size spinner
@@ -95,7 +104,7 @@ public class AddHouseActivity extends AppCompatActivity {
         availableAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         available.setAdapter(availableAdapter);
 
-        bingBtn = findViewById(R.id.bing_location);
+
         bingBtn.setFocusable(false);
         bingBtn.setClickable(true);
 
@@ -133,12 +142,15 @@ public class AddHouseActivity extends AppCompatActivity {
                 house.setAuthorized(false);
 
                if(validator(contactPersonName.getText().toString(), phone.getText().toString(),houseNo.getText().toString(),street.getText().toString(),city.getText().toString(),post.getText().toString(),location.getText().toString(),
-                rentPrice.getText().toString()))
+                rentPrice.getText().toString(),surface.getText().toString()))
                {
 
 
                    house.setContactPerson(contactPersonName.getText().toString());
+                   Log.d("ccccccccccccccc", "onClick: house.getPhone()1 " + house.getPhone());
+                   Log.d("ccccccccccccccc", "onClick: house phone " + phone.getText().toString());
                    house.setPhone(phone.getText().toString() );
+                   Log.d("ccccccccccccccc", "onClick: house.getPhone()2 " + house.getPhone());
                    house.setHouseNo(houseNo.getText().toString());
                    house.setStreet(street.getText().toString());
                    house.setCity(city.getText().toString());
@@ -154,10 +166,15 @@ public class AddHouseActivity extends AppCompatActivity {
                        house.setAvailability(true);
                    else
                        house.setAvailability(false);
+
+                   house.setLatitude(Double.parseDouble(latitude.getText().toString()));
+                    house.setLongitude(Double.parseDouble(longitude.getText().toString()));
+                    house.setSurface(Long.getLong(surface.getText().toString()));
+                   //uploading images to storage
+                   uploadImagesToStorage();
+                   Log.d("xxxxxx", "onClick: of savehouse button " + house.toString());
+
                }
-               //uploading images to storage
-                uploadImagesToStorage();
-                Log.d("xxxxxx", "onClick: of savehouse button " + house.toString());
 
 
             }
@@ -179,7 +196,7 @@ public class AddHouseActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean validator(String name,String phoneN, String houseno, String street_s, String city_s, String post_s, String location_s, String price_s) {
+    private boolean validator(String name, String phoneN, String houseno, String street_s, String city_s, String post_s, String location_s, String price_s, String surface_s) {
         if (name.isEmpty()) {
             contactPersonName.setError("Cannot be empty");
             return false;
@@ -188,28 +205,32 @@ public class AddHouseActivity extends AppCompatActivity {
         if (!phoneValidator(phoneN))
             return false;
 
-        if (houseno.isEmpty()) {
+        if (houseno.isEmpty()&&houseNo.getVisibility()==View.VISIBLE) {
             houseNo.setError("Cannot be empty");
             return false;
         }
-        if (street_s.isEmpty()) {
+        if (street_s.isEmpty()&&street.getVisibility()==View.VISIBLE) {
             street.setError("Cannot be empty");
             return false;
         }
-        if (city_s.isEmpty()) {
+        if (city_s.isEmpty()&&city.getVisibility()==View.VISIBLE) {
             city.setError("Cannot be empty");
             return false;
         }
-        if (post_s.isEmpty()) {
+        if (post_s.isEmpty()&&post.getVisibility()==View.VISIBLE) {
             post.setError("Cannot be empty");
             return false;
         }
-        if (location_s.isEmpty()) {
+        if (location_s.isEmpty()&&location.getVisibility()==View.VISIBLE) {
             location.setError("Cannot be empty");
             return false;
         }
-        if (price_s.isEmpty()) {
+        if (price_s.isEmpty()&&rentPrice.getVisibility()==View.VISIBLE) {
             rentPrice.setError("Cannot be empty");
+            return false;
+        }
+        if (surface_s.isEmpty()&&surface.getVisibility()==View.VISIBLE) {
+            surface.setError("Cannot be empty");
             return false;
         }
             if (ImageList.isEmpty())
@@ -259,6 +280,7 @@ public class AddHouseActivity extends AppCompatActivity {
         house.setImages(urlStrings);
 
         FirebaseDB firebaseDB = new FirebaseDB();
+        Log.d("aaaaaaaaaaaaa", "onClick: house phone " + house.getPhone());
         firebaseDB.saveHouseData(documentUid, house, AddHouseActivity.this, FirebaseAuth.getInstance().getCurrentUser().getEmail());
         progressDialog.dismiss();
         ImageList.clear();

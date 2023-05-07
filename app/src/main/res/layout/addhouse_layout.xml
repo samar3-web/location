@@ -59,7 +59,44 @@
                 android:drawableLeft="@drawable/phone_red"
                 android:imeOptions="actionDone"
                 />
-
+            <EditText
+                android:id="@+id/bing_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="location on Bing map"
+                android:inputType="textPostalAddress"
+                android:drawablePadding="20dp"
+                android:padding="20dp"
+                android:drawableLeft="@android:drawable/ic_dialog_map"
+                android:drawableTint="@color/colorPrimary"
+                android:imeOptions="actionDone"
+                android:editable="false"
+                android:clickable="true"
+                />
+            <EditText
+                android:id="@+id/latitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="latitude"
+                android:inputType="number"
+                android:drawablePadding="20dp"
+                android:padding="20dp"
+                android:drawableLeft="@drawable/baseline_numbers_24"
+                android:imeOptions="actionDone"
+                android:drawableTint="@color/colorPrimary"
+                />
+            <EditText
+                android:id="@+id/longitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="longitude"
+                android:inputType="number"
+                android:drawablePadding="20dp"
+                android:padding="20dp"
+                android:drawableLeft="@drawable/baseline_numbers_24"
+                android:imeOptions="actionDone"
+                android:drawableTint="@color/colorPrimary"
+                />
             <EditText
                 android:id="@+id/housenumber"
                 android:layout_width="match_parent"
@@ -69,7 +106,7 @@
                 android:padding="20dp"
                 android:drawableTint="@color/colorPrimary"
                 android:drawablePadding="20dp"
-                android:drawableLeft="@drawable/mail"
+                android:drawableLeft="@android:drawable/ic_menu_mylocation"
 
                 android:imeOptions="actionDone"
 
@@ -82,7 +119,7 @@
                 android:inputType="textPostalAddress"
                 android:padding="20dp"
                 android:drawablePadding="20dp"
-                android:drawableLeft="@drawable/mail"
+                android:drawableLeft="@android:drawable/ic_media_pause"
                 android:drawableTint="@color/colorPrimary"
                 android:imeOptions="actionDone"
 
@@ -95,7 +132,7 @@
                 android:inputType="textPostalAddress"
                 android:padding="20dp"
                 android:drawablePadding="20dp"
-                android:drawableLeft="@drawable/mail"
+                android:drawableLeft="@android:drawable/ic_menu_agenda"
                 android:drawableTint="@color/colorPrimary"
                 android:imeOptions="actionDone"
 
@@ -130,20 +167,7 @@
                 android:drawableTint="@color/colorPrimary"
                 android:imeOptions="actionDone"
                 />
-            <EditText
-                android:id="@+id/bing_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="location on Bing map"
-                android:inputType="textPostalAddress"
-                android:drawablePadding="20dp"
-                android:padding="20dp"
-                android:drawableLeft="@android:drawable/ic_menu_mylocation"
-                android:drawableTint="@color/colorPrimary"
-                android:imeOptions="actionDone"
-                android:editable="false"
-                android:clickable="true"
-                />
+
             <EditText
                 android:id="@+id/rentprice"
                 android:layout_width="match_parent"
@@ -154,6 +178,18 @@
                 android:padding="20dp"
                 android:drawableLeft="@drawable/wallet"
                   android:imeOptions="actionDone"
+                android:drawableTint="@color/colorPrimary"
+                />
+            <EditText
+                android:id="@+id/surface"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Surface ,e.g 200 m²"
+                android:inputType="number"
+                android:drawablePadding="20dp"
+                android:padding="20dp"
+                android:drawableLeft="@drawable/crop_image_menu_flip"
+                android:imeOptions="actionDone"
                 android:drawableTint="@color/colorPrimary"
                 />
 

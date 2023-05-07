@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -25,7 +27,10 @@ import com.microsoft.maps.MapImage;
 import com.microsoft.maps.MapRenderMode;
 import com.microsoft.maps.MapView;
 import com.samar.location.R;
+import com.samar.location.renthouse.AddHouseActivity;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 
 public class MapDialogFragment extends DialogFragment {
@@ -37,6 +42,8 @@ public class MapDialogFragment extends DialogFragment {
     private int mUntitledPushpinCount = 0;
     private Geopoint geopoint;
     private static final String MY_API_KEY = "AlwLTKgevIemLkhFY8wA2oDQwpxY8SBBAR8a5dXymXDFKTmfGWKkXnJGQkGzXUMM";
+    public static final int ADDRESSES = 10;
+    private List<Address> addressList;
 
     public MapDialogFragment() {
         // Required empty public constructor
@@ -172,6 +179,92 @@ public class MapDialogFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(),"Holding : "+geopoint.getPosition().getLatitude()+", "+geopoint.getPosition().getLongitude(),Toast.LENGTH_LONG).show();
+
+
+                AddHouseActivity.houseNo.setVisibility(View.GONE);
+                AddHouseActivity.street.setVisibility(View.GONE);
+                AddHouseActivity.city.setVisibility(View.GONE);
+                AddHouseActivity.post.setVisibility(View.GONE);
+                AddHouseActivity.location.setVisibility(View.GONE);
+                AddHouseActivity.latitude.setVisibility(View.GONE);
+                AddHouseActivity.longitude.setVisibility(View.GONE);
+
+                Geocoder geocoder = new Geocoder(getContext());
+                try {
+                     addressList = geocoder.getFromLocation(geopoint.getPosition().getLatitude(), geopoint.getPosition().getLongitude(), ADDRESSES);
+
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                String countryName = addressList.get(0).getCountryName();
+                String houseNo = addressList.get(0).getAddressLine(0);
+                String address = addressList.get(0).getAddressLine(1);
+                String CountryCode = addressList.get(0).getCountryName();
+                String adminArea = addressList.get(0).getAdminArea();
+                String subAdminArea = addressList.get(0).getSubAdminArea();
+                String locality = addressList.get(0).getLocality();
+                String subLocality = addressList.get(0).getSubLocality();
+                String postalCode = addressList.get(0).getPostalCode();
+                String streetName = addressList.get(0).getThoroughfare();
+                String latitude = String.valueOf(addressList.get(0).getLatitude());
+                String longitude = String.valueOf(addressList.get(0).getLongitude());
+
+                StringBuilder sb = new StringBuilder();
+                sb.append("countryName: ").append(addressList.get(0).getCountryName()).append("\n")
+                        .append("houseNo: ").append(addressList.get(0).getAddressLine(0)).append("\n")
+                        .append("address: ").append(addressList.get(0).getAddressLine(1)).append("\n")
+                        .append("CountryCode: ").append(addressList.get(0).getCountryCode()).append("\n")
+                        .append("adminArea: ").append(addressList.get(0).getAdminArea()).append("\n")
+                        .append("subAdminArea: ").append(addressList.get(0).getSubAdminArea()).append("\n")
+                        .append("locality: ").append(addressList.get(0).getLocality()).append("\n")
+                        .append("subLocality: ").append(addressList.get(0).getSubLocality()).append("\n")
+                        .append("postalCode: ").append(addressList.get(0).getPostalCode()).append("\n")
+                        .append("streetName: ").append(addressList.get(0).getThoroughfare()).append("\n");
+
+                String addressString = sb.toString();
+                System.out.println(addressString);
+
+                AddHouseActivity.bingBtn.setText(houseNo+", "+address);
+                /*AddHouseActivity.houseNo.setText(houseNo);
+                AddHouseActivity.street.setText(subAdminArea);
+                AddHouseActivity.city.setText(adminArea);
+                AddHouseActivity.post.setText(postalCode);
+                AddHouseActivity.location.setText(locality);
+                AddHouseActivity.latitude.setText(latitude);
+                AddHouseActivity.longitude.setText(longitude);*/
+                if (houseNo != null) {
+                    AddHouseActivity.houseNo.setVisibility(View.VISIBLE);
+                    AddHouseActivity.houseNo.setText(houseNo);
+                }
+                if (subAdminArea != null) {
+                    AddHouseActivity.street.setVisibility(View.VISIBLE);
+                    AddHouseActivity.street.setText(subAdminArea);
+                }
+                if (adminArea != null) {
+                    AddHouseActivity.city.setVisibility(View.VISIBLE);
+                    AddHouseActivity.city.setText(adminArea);
+                }
+                if (postalCode != null) {
+                    AddHouseActivity.post.setVisibility(View.VISIBLE);
+                    AddHouseActivity.post.setText(postalCode);
+                }
+                if (locality != null) {
+                    AddHouseActivity.location.setVisibility(View.VISIBLE);
+                    AddHouseActivity.location.setText(locality);
+                }
+                if (latitude != null) {
+                    AddHouseActivity.latitude.setVisibility(View.VISIBLE);
+                    AddHouseActivity.latitude.setText(latitude);
+                }
+                if (longitude != null) {
+                    AddHouseActivity.longitude.setVisibility(View.VISIBLE);
+                    AddHouseActivity.longitude.setText(longitude);
+                }
+
+
+
 
                 dismiss();
             }

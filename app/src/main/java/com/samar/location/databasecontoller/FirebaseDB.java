@@ -172,6 +172,7 @@ public class FirebaseDB {
       {
           firebaseFirestore=FirebaseFirestore.getInstance();
           DocumentReference documentReference=  firebaseFirestore.collection("HouseCollection").document(documentUid);
+          Log.d("zzzzzzzzzzzzzz", "onClick: house phone " + house.getPhone());
          documentReference.set(house).addOnCompleteListener(new OnCompleteListener<Void>() {
              @Override
              public void onComplete(Task<Void> task) {
