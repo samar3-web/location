@@ -108,6 +108,15 @@ public class AddHouseActivity extends AppCompatActivity {
         bingBtn.setFocusable(false);
         bingBtn.setClickable(true);
 
+        houseNo.setFocusable(false);
+        street.setFocusable(false);
+        city.setFocusable(false);
+        post.setFocusable(false);
+        location.setFocusable(false);
+        latitude.setFocusable(false);
+        longitude.setFocusable(false);
+
+
         bingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
