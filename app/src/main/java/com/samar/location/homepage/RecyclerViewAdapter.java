@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Filter;
@@ -216,6 +217,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         imageSlider.startSliding(5000); // with new period
         imageSlider.setImageList(imageList);
+
 
 
         holder.housecardCity.setText(house.getCity().toUpperCase()+", TUNISIA");
