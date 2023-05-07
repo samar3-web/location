@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -122,7 +123,7 @@ public class AddHouseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 MapDialogFragment mapDialog = new MapDialogFragment();
                 mapDialog.show(getSupportFragmentManager(), "map_dialog");
-                Toast.makeText(getApplicationContext(),"bing clicked",Toast.LENGTH_LONG).show();
+            //    Toast.makeText(getApplicationContext(),"bing clicked",Toast.LENGTH_LONG).show();
 
 
 
@@ -156,10 +157,8 @@ public class AddHouseActivity extends AppCompatActivity {
 
 
                    house.setContactPerson(contactPersonName.getText().toString());
-                   Log.d("ccccccccccccccc", "onClick: house.getPhone()1 " + house.getPhone());
-                   Log.d("ccccccccccccccc", "onClick: house phone " + phone.getText().toString());
                    house.setPhone(phone.getText().toString() );
-                   Log.d("ccccccccccccccc", "onClick: house.getPhone()2 " + house.getPhone());
+
                    house.setHouseNo(houseNo.getText().toString());
                    house.setStreet(street.getText().toString());
                    house.setCity(city.getText().toString());
@@ -289,7 +288,7 @@ public class AddHouseActivity extends AppCompatActivity {
         house.setImages(urlStrings);
 
         FirebaseDB firebaseDB = new FirebaseDB();
-        Log.d("aaaaaaaaaaaaa", "onClick: house phone " + house.getPhone());
+      //  Log.d("aaaaaaaaaaaaa", "onClick: house phone " + house.getPhone());
         firebaseDB.saveHouseData(documentUid, house, AddHouseActivity.this, FirebaseAuth.getInstance().getCurrentUser().getEmail());
         progressDialog.dismiss();
         ImageList.clear();
@@ -389,7 +388,9 @@ public class AddHouseActivity extends AppCompatActivity {
                 Toast.makeText(AddHouseActivity.this, "You have selected " + ImageList.size() + " images", Toast.LENGTH_SHORT).show();
                 addHouseAdapter = new AddHouseAdapter(AddHouseActivity.this, ImageList);
                 addHouse_rcv.setAdapter(addHouseAdapter);
-                addHouse_rcv.setLayoutManager(new GridLayoutManager(AddHouseActivity.this, 2));
+                //addHouse_rcv.setLayoutManager(new GridLayoutManager(AddHouseActivity.this, 2));
+                addHouse_rcv.setLayoutManager(new LinearLayoutManager(AddHouseActivity.this, LinearLayoutManager.HORIZONTAL, false));
+
             }
         }
     }

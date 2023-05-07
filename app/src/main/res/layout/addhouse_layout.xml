@@ -239,12 +239,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:gravity="center"
                     >
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/houseiamge_rcv"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:paddingBottom="20dp"
                           ></androidx.recyclerview.widget.RecyclerView>
 
