@@ -131,6 +131,20 @@
                 android:imeOptions="actionDone"
                 />
             <EditText
+                android:id="@+id/bing_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="location on Bing map"
+                android:inputType="textPostalAddress"
+                android:drawablePadding="20dp"
+                android:padding="20dp"
+                android:drawableLeft="@android:drawable/ic_menu_mylocation"
+                android:drawableTint="@color/colorPrimary"
+                android:imeOptions="actionDone"
+                android:editable="false"
+                android:clickable="true"
+                />
+            <EditText
                 android:id="@+id/rentprice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

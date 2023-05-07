@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.samar.location.BottomNavigationBar.BootomNavBarMain;
 import com.samar.location.R;
+import com.samar.location.bingmapsdk.MapDialogFragment;
 import com.samar.location.databasecontoller.FirebaseDB;
 import com.samar.location.models.House;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -54,6 +55,7 @@ public class AddHouseActivity extends AppCompatActivity {
     Intent intent;
 
     FirebaseAuth firebaseAuth;
+    private EditText bingBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,22 @@ public class AddHouseActivity extends AppCompatActivity {
                 , R.array.available_array, android.R.layout.simple_spinner_item);
         availableAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         available.setAdapter(availableAdapter);
+
+        bingBtn = findViewById(R.id.bing_location);
+        bingBtn.setFocusable(false);
+        bingBtn.setClickable(true);
+
+        bingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MapDialogFragment mapDialog = new MapDialogFragment();
+                mapDialog.show(getSupportFragmentManager(), "map_dialog");
+                Toast.makeText(getApplicationContext(),"bing clicked",Toast.LENGTH_LONG).show();
+
+
+
+            }
+        });
 
 
 

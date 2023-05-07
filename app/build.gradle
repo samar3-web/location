@@ -65,6 +65,8 @@ dependencies {
 
     implementation 'com.commit451:PhotoView:1.2.4'
 
+    implementation files('libs/maps-sdk-1.2.0.aar')
+
 
 
 }
