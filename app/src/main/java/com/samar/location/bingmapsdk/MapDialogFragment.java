@@ -191,7 +191,7 @@ public class MapDialogFragment extends DialogFragment {
 
                 Geocoder geocoder = new Geocoder(getContext());
                 try {
-                     addressList = geocoder.getFromLocation(geopoint.getPosition().getLatitude(), geopoint.getPosition().getLongitude(), ADDRESSES);
+                    addressList = geocoder.getFromLocation(geopoint.getPosition().getLatitude(), geopoint.getPosition().getLongitude(), ADDRESSES);
 
 
                 } catch (IOException e) {

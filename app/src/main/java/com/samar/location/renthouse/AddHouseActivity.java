@@ -1,9 +1,7 @@
 package com.samar.location.renthouse;
 
-import static java.time.LocalDateTime.now;
 
 import android.app.ProgressDialog;
-import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,12 +15,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.google.firebase.Timestamp;
 import com.samar.location.BottomNavigationBar.BootomNavBarMain;
 import com.samar.location.R;
+import com.samar.location.bingmapsdk.MapDialogFragment;
 import com.samar.location.databasecontoller.FirebaseDB;
+import com.samar.location.models.Customer_Model;
 import com.samar.location.models.House;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,16 +32,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class AddHouseActivity extends AppCompatActivity {
 
 
-    EditText contactPersonName, phone, houseNo, street, city, post, location, rentPrice;
+    public static EditText contactPersonName, phone, houseNo, street, city, post, location, rentPrice,bingBtn,latitude,longitude,surface;
     Button addImagesBtn, saveHouseBtn;
     Spinner houseSize, available;
     RecyclerView addHouse_rcv;
@@ -54,6 +53,7 @@ public class AddHouseActivity extends AppCompatActivity {
     Intent intent;
 
     FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +76,21 @@ public class AddHouseActivity extends AppCompatActivity {
         available = findViewById(R.id.houseavailalespinner);
         addHouse_rcv = findViewById(R.id.houseiamge_rcv);
 
+        bingBtn = findViewById(R.id.bing_location);
+        latitude = findViewById(R.id.latitude);
+        longitude = findViewById(R.id.longitude);
+        surface = findViewById(R.id.surface);
+
         String userEmail = firebaseAuth.getCurrentUser().getEmail();
 
 
+        houseNo.setVisibility(View.GONE);
+        street.setVisibility(View.GONE);
+        city.setVisibility(View.GONE);
+        post.setVisibility(View.GONE);
+        location.setVisibility(View.GONE);
+        latitude.setVisibility(View.GONE);
+        longitude.setVisibility(View.GONE);
 
         house = new House();
         //setting item in size spinner
@@ -92,6 +104,31 @@ public class AddHouseActivity extends AppCompatActivity {
                 , R.array.available_array, android.R.layout.simple_spinner_item);
         availableAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         available.setAdapter(availableAdapter);
+
+
+        bingBtn.setFocusable(false);
+        bingBtn.setClickable(true);
+
+        houseNo.setFocusable(false);
+        street.setFocusable(false);
+        city.setFocusable(false);
+        post.setFocusable(false);
+        location.setFocusable(false);
+        latitude.setFocusable(false);
+        longitude.setFocusable(false);
+
+
+        bingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MapDialogFragment mapDialog = new MapDialogFragment();
+                mapDialog.show(getSupportFragmentManager(), "map_dialog");
+                //    Toast.makeText(getApplicationContext(),"bing clicked",Toast.LENGTH_LONG).show();
+
+
+
+            }
+        });
 
 
 
@@ -114,32 +151,41 @@ public class AddHouseActivity extends AppCompatActivity {
                 house.setViews(0);
                 house.setAuthorized(false);
 
-               if(validator(contactPersonName.getText().toString(), phone.getText().toString(),houseNo.getText().toString(),street.getText().toString(),city.getText().toString(),post.getText().toString(),location.getText().toString(),
-                rentPrice.getText().toString()))
-               {
+                if(validator(contactPersonName.getText().toString(), phone.getText().toString(),houseNo.getText().toString(),street.getText().toString(),city.getText().toString(),post.getText().toString(),location.getText().toString(),
+                        rentPrice.getText().toString(),surface.getText().toString()))
+                {
 
 
-                   house.setContactPerson(contactPersonName.getText().toString());
-                   house.setPhone(phone.getText().toString() );
-                   house.setHouseNo(houseNo.getText().toString());
-                   house.setStreet(street.getText().toString());
-                   house.setCity(city.getText().toString());
-                   house.setPost(post.getText().toString());
-                   house.setLocation(location.getText().toString());
-                   house.setPrice(rentPrice.getText().toString());
-                   house.setSize(houseSize.getSelectedItem().toString());
+                    house.setContactPerson(contactPersonName.getText().toString());
+                    house.setPhone(phone.getText().toString() );
 
-                   house.setAdditionDate(House.formatDate(now()) );
-                   house.setLastModifiedDate( House.formatDate( now() ) );
+                    house.setHouseNo(houseNo.getText().toString());
+                    house.setStreet(street.getText().toString());
+                    house.setCity(city.getText().toString());
+                    house.setPost(post.getText().toString());
+                    house.setLocation(location.getText().toString());
+                    house.setPrice(rentPrice.getText().toString());
+                    house.setSize(houseSize.getSelectedItem().toString());
 
-                   if (available.getSelectedItem().toString().equals("YES"))
-                       house.setAvailability(true);
-                   else
-                       house.setAvailability(false);
-               }
-               //uploading images to storage
-                uploadImagesToStorage();
-                Log.d("xxxxxx", "onClick: of savehouse button " + house.toString());
+                    house.setAddedDate( Timestamp.now() );
+                    //Date(House.formatDate(now() ) );
+                    house.setLastModifiedDate( Timestamp.now() );
+
+
+
+                    if (available.getSelectedItem().toString().equals("YES"))
+                        house.setAvailability(true);
+                    else
+                        house.setAvailability(false);
+
+                    house.setLatitude(Double.parseDouble(latitude.getText().toString()));
+                    house.setLongitude(Double.parseDouble(longitude.getText().toString()));
+                    house.setSurface(Long.getLong(surface.getText().toString()));
+                    //uploading images to storage
+                    uploadImagesToStorage();
+                    Log.d("xxxxxx", "onClick: of savehouse button " + house.toString());
+
+                }
 
 
             }
@@ -161,7 +207,7 @@ public class AddHouseActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean validator(String name,String phoneN, String houseno, String street_s, String city_s, String post_s, String location_s, String price_s) {
+    private boolean validator(String name, String phoneN, String houseno, String street_s, String city_s, String post_s, String location_s, String price_s, String surface_s) {
         if (name.isEmpty()) {
             contactPersonName.setError("Cannot be empty");
             return false;
@@ -170,34 +216,38 @@ public class AddHouseActivity extends AppCompatActivity {
         if (!phoneValidator(phoneN))
             return false;
 
-        if (houseno.isEmpty()) {
+        if (houseno.isEmpty()&&houseNo.getVisibility()==View.VISIBLE) {
             houseNo.setError("Cannot be empty");
             return false;
         }
-        if (street_s.isEmpty()) {
+        if (street_s.isEmpty()&&street.getVisibility()==View.VISIBLE) {
             street.setError("Cannot be empty");
             return false;
         }
-        if (city_s.isEmpty()) {
+        if (city_s.isEmpty()&&city.getVisibility()==View.VISIBLE) {
             city.setError("Cannot be empty");
             return false;
         }
-        if (post_s.isEmpty()) {
+        if (post_s.isEmpty()&&post.getVisibility()==View.VISIBLE) {
             post.setError("Cannot be empty");
             return false;
         }
-        if (location_s.isEmpty()) {
+        if (location_s.isEmpty()&&location.getVisibility()==View.VISIBLE) {
             location.setError("Cannot be empty");
             return false;
         }
-        if (price_s.isEmpty()) {
+        if (price_s.isEmpty()&&rentPrice.getVisibility()==View.VISIBLE) {
             rentPrice.setError("Cannot be empty");
             return false;
         }
-            if (ImageList.isEmpty())
-            {
-                Toast.makeText(this, "You must select images", Toast.LENGTH_SHORT).show();
-            }
+        if (surface_s.isEmpty()&&surface.getVisibility()==View.VISIBLE) {
+            surface.setError("Cannot be empty");
+            return false;
+        }
+        if (ImageList.isEmpty())
+        {
+            Toast.makeText(this, "You must select images", Toast.LENGTH_SHORT).show();
+        }
         return true;
     }
 
@@ -241,7 +291,8 @@ public class AddHouseActivity extends AppCompatActivity {
         house.setImages(urlStrings);
 
         FirebaseDB firebaseDB = new FirebaseDB();
-        firebaseDB.saveHouseData(documentUid, house, AddHouseActivity.this, FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        //  Log.d("aaaaaaaaaaaaa", "onClick: house phone " + house.getPhone());
+        firebaseDB.saveHouseData(documentUid, house, AddHouseActivity.this);
         progressDialog.dismiss();
         ImageList.clear();
         finish();
@@ -299,7 +350,7 @@ public class AddHouseActivity extends AppCompatActivity {
 
 
     public void getPickImageIntent() {
-       // Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        // Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
@@ -313,7 +364,7 @@ public class AddHouseActivity extends AppCompatActivity {
             if (requestCode == PICK_IMAGES) {
                 int countClipData =0;
                 if (data.getClipData() != null) {
-                     countClipData = data.getClipData().getItemCount();
+                    countClipData = data.getClipData().getItemCount();
                     if(countClipData < 5 || countClipData > 15){
                         Toast.makeText(AddHouseActivity.this, "Please select between 5 and 15 images", Toast.LENGTH_SHORT).show();
                         return;
@@ -340,8 +391,11 @@ public class AddHouseActivity extends AppCompatActivity {
                 Toast.makeText(AddHouseActivity.this, "You have selected " + ImageList.size() + " images", Toast.LENGTH_SHORT).show();
                 addHouseAdapter = new AddHouseAdapter(AddHouseActivity.this, ImageList);
                 addHouse_rcv.setAdapter(addHouseAdapter);
-                addHouse_rcv.setLayoutManager(new GridLayoutManager(AddHouseActivity.this, 2));
+                //addHouse_rcv.setLayoutManager(new GridLayoutManager(AddHouseActivity.this, 2));
+                addHouse_rcv.setLayoutManager(new LinearLayoutManager(AddHouseActivity.this, LinearLayoutManager.HORIZONTAL, false));
+
             }
         }
     }
 }
+

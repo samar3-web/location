@@ -370,7 +370,7 @@ public class HomeFragment extends Fragment {
 
                                 house.setAddedDate( (Timestamp)  doc.get("addedDate"));
 
-                                //house.setLastModifiedDate( (Timestamp) doc.get("lastModifiedDate") );
+                                house.setLastModifiedDate( (Timestamp) doc.get("lastModifiedDate") );
 
                                 if(doc.get("latitude")  != null){
                                     house.setLatitude((double)  doc.get("latitude") );

@@ -3,13 +3,13 @@ package com.samar.location.models;
 
 
 import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.ServerTimestamp;
-import com.google.type.Date;
+
 
 import java.io.Serializable;
 
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -225,9 +225,10 @@ public class House  implements Serializable {
         this.availability = availability;
     }
 
-    public static String formatDate(LocalDateTime dateTime) {
+    public static String formatDate(com.google.firebase.Timestamp dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm");
-        return dateTime.format(formatter);
+        LocalDateTime localDateTime = dateTime.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        return localDateTime.format(formatter);
     }
 
 

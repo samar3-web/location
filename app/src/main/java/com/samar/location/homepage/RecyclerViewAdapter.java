@@ -234,7 +234,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.housecardCity.setText(house.getCity().toUpperCase()+", TUNISIA");
         holder.housecardType.setText(house.getSize());
         holder.housecardPrice.setText(house.getPrice()+".TND");
-        holder.housecardlastDateModified.setText(  "house.getLastModifiedDate()"  );
+        holder.housecardlastDateModified.setText( House.formatDate(house.getLastModifiedDate()) );
         holder.housecardviews.setText( Long.toString(house.getViews()) );
 
         isFavorite(house.getDocId(), holder.favorite);
