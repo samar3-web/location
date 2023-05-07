@@ -345,7 +345,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         firebaseDB.updateHouseData(house.getDocId(),house,context);
 
                         intent = new Intent(context, ViewHouseDetailsActivity.class);
-                        intent.putExtra("house", house);
+                        intent.putExtra("houseDocId", house.getDocId() );
                     }
                     context.startActivity(intent);
 

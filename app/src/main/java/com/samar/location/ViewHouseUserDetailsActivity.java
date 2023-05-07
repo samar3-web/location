@@ -80,10 +80,6 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
    public static String houseDocId;
 
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
