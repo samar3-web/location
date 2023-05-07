@@ -29,11 +29,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.ServerTimestamp;
 import com.samar.location.R;
 import com.samar.location.homepage.RecyclerViewAdapter;
 import com.samar.location.models.House;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -367,17 +368,16 @@ public class HomeFragment extends Fragment {
 
                                 house.setViews((long) doc.get("views") );
 
-                                house.setAdditionDate(   doc.get("additionDate").toString() );
-                                house.setLastModifiedDate(  doc.get("lastModifiedDate").toString());
+                                house.setAddedDate( (Timestamp)  doc.get("addedDate"));
+
+                                //house.setLastModifiedDate( (Timestamp) doc.get("lastModifiedDate") );
+
                                 if(doc.get("latitude")  != null){
                                     house.setLatitude((double)  doc.get("latitude") );
-
                                 }
                                 if(doc.get("longitude")  != null){
                                     house.setLongitude((double)  doc.get("longitude") );
-
                                 }
-
 
                                 if(doc.get("images") != null){
                                     List<String> images = (List<String>) doc.get("images");

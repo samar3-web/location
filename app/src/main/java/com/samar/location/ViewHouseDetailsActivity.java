@@ -1,19 +1,18 @@
 package com.samar.location;
 
 import android.Manifest;
-import android.app.ProgressDialog;
-import android.content.Context;
+
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Patterns;
+
+
 import android.view.View;
-import android.view.ViewGroup;
+
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.GridView;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,23 +23,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 import com.samar.location.models.House;
 
-import java.util.Arrays;
-import java.util.HashMap;
+
 import java.util.List;
 
 import uk.co.senab.photoview.PhotoViewAttacher;

@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +41,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.ServerTimestamp;
 import com.samar.location.R;
 import com.samar.location.databasecontoller.FirebaseDB;
 import com.samar.location.homepage.HomeTabs_Adpater;
@@ -387,8 +389,8 @@ public class Customer_Request_List extends Fragment {
 
                                 house.setViews((long) doc.get("views") );
 
-                                house.setAdditionDate(   doc.get("additionDate").toString() );
-                                house.setLastModifiedDate(  doc.get("lastModifiedDate").toString());
+                                house.setAddedDate((Timestamp) doc.get("addedDate") );
+                                house.setLastModifiedDate( (Timestamp) doc.get("lastModifiedDate") );
 
                                 if(doc.get("images") != null){
                                     List<String> images = (List<String>) doc.get("images");

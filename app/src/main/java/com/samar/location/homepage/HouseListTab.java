@@ -20,8 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-
 import com.samar.location.authentication.LoginActivity;
 import com.samar.location.models.House;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,10 +31,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.samar.location.R;
-import com.samar.location.models.House;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+
+import  com.google.firebase.Timestamp;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -218,8 +216,8 @@ public class HouseListTab extends Fragment {
                                 house.setAvailability( (boolean) doc.get("availability"));
                                 house.setPhone(doc.get("phone").toString());
 
-                                house.setAdditionDate( doc.get("additionDate").toString() );
-                                house.setAdditionDate(  doc.get("lastModifiedDate").toString() );
+                                house.setAddedDate( (Timestamp) doc.get("addedDate") );
+                                house.setLastModifiedDate((Timestamp)  doc.get("lastModifiedDate") );
                                 if(doc.get("images") != null){
                                     house.setImages( (List<String>) doc.get("images") );
                                 }

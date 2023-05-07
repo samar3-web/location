@@ -168,18 +168,20 @@ public class FirebaseDB {
 
 
      //saving house data from owner dashboard
-      public void saveHouseData(String documentUid, House house, Context context, String currentUserEmail)
+      public void saveHouseData(String documentUid, House house, Context context)
       {
           firebaseFirestore=FirebaseFirestore.getInstance();
           DocumentReference documentReference=  firebaseFirestore.collection("HouseCollection").document(documentUid);
          documentReference.set(house).addOnCompleteListener(new OnCompleteListener<Void>() {
              @Override
              public void onComplete(Task<Void> task) {
-                 if(task.isSuccessful())
+                 if(task.isSuccessful()){
 
-                   // updateHouseInOwnerData(currentUid,currentUserEmail);
-                 Toast.makeText(context, "House Added Successfully", Toast.LENGTH_SHORT).show();
-                // context.startActivity(new Intent(context, BootomNavBarMain.class));
+                     Toast.makeText(context, "House Added Successfully", Toast.LENGTH_SHORT).show();
+
+                 }
+
+
              }
          });
       }

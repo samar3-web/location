@@ -105,6 +105,7 @@ public class SortFragment extends Fragment {
 
         show_imageview=view.findViewById(R.id.show_imageview);
         Map<String,Object> user=new HashMap<>();
+
         /*user.put("Name","Gourav Patel");
         user.put("AccountType","Customer");
         user.put("Email","gourav@gmail.com");

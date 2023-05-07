@@ -38,11 +38,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import java.util.Date;
+
 import com.samar.location.R;
 import com.samar.location.ViewHouseDetailsActivity;
 import com.samar.location.ViewHouseUserDetailsActivity;
@@ -161,16 +164,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     }
                 });
                 break;
+/*
             case "lastModifiedDate":
                 Collections.sort(houses, new Comparator<House>() {
                     @Override
                     public int compare(House o1, House o2) {
-                        return o1.getLastModifiedDate().compareTo(o2.getLastModifiedDate());
+                        Timestamp timestamp1 = (Timestamp) o1.getLastModifiedDate();
+                        Timestamp timestamp2 = o2.getLastModifiedDate().toTimestamp();
+                        Date date1 = new Date(timestamp1.getTime());
+                        Date date2 = new Date(timestamp2.getTime());
+                        return date1.compareTo(date2);
                     }
                 });
                 break;
 
-            case "additionDate":
+            break;
+
+
+            case "addedDate":
                 Collections.sort(houses, new Comparator<House>() {
                     @Override
                     public int compare(House o1, House o2) {
@@ -179,6 +190,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 });
 
                 break;
+
+ */
             case "none":
                 houses.clear();
                 houses.addAll(listFull);
@@ -221,7 +234,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.housecardCity.setText(house.getCity().toUpperCase()+", TUNISIA");
         holder.housecardType.setText(house.getSize());
         holder.housecardPrice.setText(house.getPrice()+".TND");
-        holder.housecardlastDateModified.setText(  house.getLastModifiedDate());
+        holder.housecardlastDateModified.setText(  "house.getLastModifiedDate()"  );
         holder.housecardviews.setText( Long.toString(house.getViews()) );
 
         isFavorite(house.getDocId(), holder.favorite);

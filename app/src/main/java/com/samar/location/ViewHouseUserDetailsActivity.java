@@ -40,6 +40,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -48,15 +49,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.samar.location.databasecontoller.FirebaseDB;
-import com.samar.location.models.Customer_Model;
 import com.samar.location.models.House;
-import com.samar.location.models.Owner_Model;
-import com.samar.location.privateSpace.UserSpaceActivity;
-
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -193,7 +187,7 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
                 if(houseNo.getText()!=null)
                     myHouse.setHouseNo(houseNo.getText().toString());
 
-                myHouse.setLastModifiedDate(House.formatDate(now()));
+                myHouse.setLastModifiedDate(Timestamp.now());
                 //making imageview clickbable to change profile image.
 
                // uploadDataHouseToStorage();

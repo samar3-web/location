@@ -1,46 +1,26 @@
 package com.samar.location.privateSpace;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.samar.location.BottomNavigationBar.BootomNavBarMain;
 import com.samar.location.R;
-import com.samar.location.addAnnonceActivity;
-import com.samar.location.authentication.LoginActivity;
-import com.samar.location.homepage.RecyclerViewAdapter;
 import com.samar.location.models.House;
 import com.samar.location.renthouse.AddHouseActivity;
-
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import com.google.firebase.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,9 +116,9 @@ public class UserSpaceActivity extends AppCompatActivity {
                                     house.setPhone(doc.get("phone").toString());
 
                                 if(doc.get("lastModifiedDate")!=null)
-                                    house.setLastModifiedDate( doc.get("lastModifiedDate").toString() );
+//                                    house.setLastModifiedDate( (Timestamp) doc.get("lastModifiedDate") );
                                 if(doc.get("additionDate")!=null)
-                                    house.setAdditionDate(  doc.get("additionDate").toString() );
+                                  //  house.setAddedDate( (Timestamp) doc.get("additionDate") );
                                 if(doc.get("longitude")!=null)
                                     house.setLongitude(  (double) doc.get("longitude") );
                                 if(doc.get("latitude")!=null)

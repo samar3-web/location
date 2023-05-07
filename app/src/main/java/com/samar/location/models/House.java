@@ -1,11 +1,18 @@
 package com.samar.location.models;
 
+
+
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.ServerTimestamp;
+import com.google.type.Date;
+
 import java.io.Serializable;
-import java.sql.Timestamp;
+
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Comparator;
+
 import java.util.List;
 
 public class House  implements Serializable {
@@ -24,15 +31,20 @@ public class House  implements Serializable {
     String ownerEmail;
     String docId;
     long views;
-
     Long surface;
-    String lastModifiedDate;
-    String additionDate;
+    Timestamp lastModifiedDate;
+    Timestamp addedDate;
     double longitude;
     double latitude;
 
 
     List<String> images = new ArrayList<>();
+    List<String> requests = new ArrayList<>();
+    private boolean authorized ,availability;
+
+    public House() {
+
+    }
 
     public List<String> getRequests() {
         return requests;
@@ -41,13 +53,6 @@ public class House  implements Serializable {
     public void setRequests(List<String> requests) {
         this.requests = requests;
     }
-
-    List<String> requests = new ArrayList<>();
-    private boolean authorized ,availability;
-
-    public House() {
-    }
-
 
     public long getViews() {
         return views;
@@ -154,20 +159,20 @@ public class House  implements Serializable {
         this.surface = surface;
     }
 
-    public String getLastModifiedDate() {
+    public Timestamp getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(String lastModifiedDate) {
+    public void setLastModifiedDate(Timestamp lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getAdditionDate() {
-        return additionDate;
+    public Timestamp getAddedDate() {
+        return addedDate;
     }
 
-    public void setAdditionDate(String additionDate) {
-        this.additionDate = additionDate;
+    public void setAddedDate(Timestamp addedDate) {
+        this.addedDate = addedDate;
     }
 
     public String getContactPerson() {
