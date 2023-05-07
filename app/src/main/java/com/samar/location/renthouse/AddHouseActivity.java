@@ -20,8 +20,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.ServerTimestamp;
 import com.samar.location.BottomNavigationBar.BootomNavBarMain;
 import com.samar.location.R;
 import com.samar.location.databasecontoller.FirebaseDB;
@@ -32,7 +30,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import com.google.firebase.Timestamp;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +78,8 @@ public class AddHouseActivity extends AppCompatActivity {
 
         String userEmail = firebaseAuth.getCurrentUser().getEmail();
 
+
+
         house = new House();
         //setting item in size spinner
         ArrayAdapter<CharSequence> sizeAdapter = ArrayAdapter.createFromResource(AddHouseActivity.this
@@ -115,7 +115,7 @@ public class AddHouseActivity extends AppCompatActivity {
                 house.setAuthorized(false);
 
                if(validator(contactPersonName.getText().toString(), phone.getText().toString(),houseNo.getText().toString(),street.getText().toString(),city.getText().toString(),post.getText().toString(),location.getText().toString(),
-                rentPrice.getText().toString())  )
+                rentPrice.getText().toString()))
                {
 
 
@@ -129,14 +129,13 @@ public class AddHouseActivity extends AppCompatActivity {
                    house.setPrice(rentPrice.getText().toString());
                    house.setSize(houseSize.getSelectedItem().toString());
 
-                   house.setAddedDate(Timestamp.now() ) ;
-                   house.setLastModifiedDate( house.getAddedDate() );
+                   house.setAdditionDate(House.formatDate(now()) );
+                   house.setLastModifiedDate( House.formatDate( now() ) );
 
                    if (available.getSelectedItem().toString().equals("YES"))
                        house.setAvailability(true);
                    else
                        house.setAvailability(false);
-
                }
                //uploading images to storage
                 uploadImagesToStorage();
@@ -242,7 +241,7 @@ public class AddHouseActivity extends AppCompatActivity {
         house.setImages(urlStrings);
 
         FirebaseDB firebaseDB = new FirebaseDB();
-        firebaseDB.saveHouseData(documentUid, house, AddHouseActivity.this);
+        firebaseDB.saveHouseData(documentUid, house, AddHouseActivity.this, FirebaseAuth.getInstance().getCurrentUser().getEmail());
         progressDialog.dismiss();
         ImageList.clear();
         finish();
@@ -315,8 +314,8 @@ public class AddHouseActivity extends AppCompatActivity {
                 int countClipData =0;
                 if (data.getClipData() != null) {
                      countClipData = data.getClipData().getItemCount();
-                    if(countClipData < 5 || countClipData > 10){
-                        Toast.makeText(AddHouseActivity.this, "Please select between 5 and 10 images", Toast.LENGTH_SHORT).show();
+                    if(countClipData < 5 || countClipData > 15){
+                        Toast.makeText(AddHouseActivity.this, "Please select between 5 and 15 images", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     int currentImageSelect = 0;
@@ -331,9 +330,9 @@ public class AddHouseActivity extends AppCompatActivity {
                     ImageList.clear();
                     ImageList.add(imageUri);
 
-                    if(ImageList.size() < 5 || ImageList.size() > 10){
+                    if(ImageList.size() < 5 || ImageList.size() > 15){
                         ImageList.clear();
-                        Toast.makeText(AddHouseActivity.this, "Please select between 5 and 10 images", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddHouseActivity.this, "Please select between 5 and 15 images", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
