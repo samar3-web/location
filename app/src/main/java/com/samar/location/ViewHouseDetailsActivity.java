@@ -45,9 +45,11 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.microsoft.maps.Geopoint;
+import com.microsoft.maps.MapAnimationKind;
 import com.microsoft.maps.MapElementLayer;
 import com.microsoft.maps.MapIcon;
 import com.microsoft.maps.MapImage;
+import com.microsoft.maps.MapScene;
 import com.microsoft.maps.MapView;
 import com.samar.location.models.House;
 
@@ -253,6 +255,10 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
                         mPinImage = getPinImage();
                         geopoint = new Geopoint(house.getLatitude(), house.getLongitude());
                         addPin(geopoint, house.getContactPerson()+"'s House");
+                        mapView.setScene(
+                                MapScene.createFromLocationAndZoomLevel(geopoint, 15),
+                                MapAnimationKind.NONE);
+
 
                     } catch (Exception e) {
                         Log.d("xxxxxxx", "onComplete Exception in setting data to house : " + e.getLocalizedMessage());
