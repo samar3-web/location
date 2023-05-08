@@ -120,6 +120,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
     public void sortData(String sortBy) {
         switch (sortBy.toLowerCase()) {
+            case "none":
+                houses.clear();
+                houses.addAll(listFull);
+                break;
             case "available":
                 Collections.sort(houses, new Comparator<House>() {
                     @Override
@@ -145,6 +149,33 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     }
                 });
                 break;
+            case "size":
+                Collections.sort(houses, new Comparator<House>() {
+                    @Override
+                    public int compare(House o1, House o2) {
+                        return o1.getSize().compareTo(o2.getSize());
+                    }
+                });
+                break;
+            case "surface":
+                Collections.sort(houses, new Comparator<House>() {
+                    @Override
+                    public int compare(House o1, House o2) {
+                        Long surface1 = o1.getSurface();
+                        Long surface2 = o2.getSurface();
+                        if (surface1 == null && surface2 == null) {
+                            return 0;
+                        } else if (surface1 == null) {
+                            return -1;
+                        } else if (surface2 == null) {
+                            return 1;
+                        } else {
+                            return surface1.compareTo(surface2);
+                        }
+                    }
+                });
+                break;
+
             case "views":
                 Collections.sort(houses, new Comparator<House>() {
                     @Override
@@ -157,46 +188,33 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 });
                 break;
 
-            case "type":
-                Collections.sort(houses, new Comparator<House>() {
-                    @Override
-                    public int compare(House o1, House o2) {
-                        return o1.getSize().compareTo(o2.getSize());
-                    }
-                });
-                break;
-/*
-            case "lastModifiedDate":
+
+
+            case "lastmodifieddate":
                 Collections.sort(houses, new Comparator<House>() {
                     @Override
                     public int compare(House o1, House o2) {
                         Timestamp timestamp1 = (Timestamp) o1.getLastModifiedDate();
-                        Timestamp timestamp2 = o2.getLastModifiedDate().toTimestamp();
-                        Date date1 = new Date(timestamp1.getTime());
-                        Date date2 = new Date(timestamp2.getTime());
-                        return date1.compareTo(date2);
+                        Timestamp timestamp2 = (Timestamp) o2.getLastModifiedDate();
+                        return timestamp1.compareTo(timestamp2);
                     }
                 });
                 break;
 
-            break;
-
-
-            case "addedDate":
+            case "addeddate":
                 Collections.sort(houses, new Comparator<House>() {
                     @Override
                     public int compare(House o1, House o2) {
-                        return o1.getAdditionDate().compareTo(o2.getAdditionDate());
+                        Timestamp timestamp1 = (Timestamp) o1.getAddedDate();
+                        Timestamp timestamp2 = (Timestamp) o2.getAddedDate();
+                        return timestamp1.compareTo(timestamp2);
                     }
                 });
-
                 break;
 
- */
-            case "none":
-                houses.clear();
-                houses.addAll(listFull);
-                break;
+
+
+
             default:
                 throw new IllegalArgumentException("Invalid sortBy argument: " + sortBy);
         }

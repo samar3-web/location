@@ -180,10 +180,11 @@ public class AddHouseActivity extends AppCompatActivity {
 
                     house.setLatitude(Double.parseDouble(latitude.getText().toString()));
                     house.setLongitude(Double.parseDouble(longitude.getText().toString()));
-                    house.setSurface(Long.getLong(surface.getText().toString()));
+                    house.setSurface(Long.valueOf(surface.getText().toString()));
                     //uploading images to storage
                     uploadImagesToStorage();
-                    Log.d("xxxxxx", "onClick: of savehouse button " + house.toString());
+                    Log.d("xxxxxx", "onClick: of surface " + surface.getText().toString());
+                    Log.d("xxxxxx", "onClick: of surface get" + house.getSurface());
 
                 }
 
@@ -291,7 +292,7 @@ public class AddHouseActivity extends AppCompatActivity {
         house.setImages(urlStrings);
 
         FirebaseDB firebaseDB = new FirebaseDB();
-        //  Log.d("aaaaaaaaaaaaa", "onClick: house phone " + house.getPhone());
+          Log.d("aaaaaaaaaaaaa", "onClick: house surface " + house.getSurface());
         firebaseDB.saveHouseData(documentUid, house, AddHouseActivity.this);
         progressDialog.dismiss();
         ImageList.clear();

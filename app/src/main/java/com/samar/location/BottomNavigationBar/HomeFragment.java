@@ -160,8 +160,9 @@ public class HomeFragment extends Fragment {
         popupMenu.getMenu().add(1,1,2,"Filter by Availablilty");
         popupMenu.getMenu().add(1,1,3,"Filter by Price");
         popupMenu.getMenu().add(1,1,4,"Filter by Size");
-        popupMenu.getMenu().add(1,1,5,"Filter by addition date");
-        popupMenu.getMenu().add(1,1,6,"Filter by modified date");
+        popupMenu.getMenu().add(1,1,5,"Filter by Surface");
+        popupMenu.getMenu().add(1,1,6,"Filter by Creation date");
+        popupMenu.getMenu().add(1,1,7,"Filter by Updating date");
 
         filtreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,19 +198,23 @@ public class HomeFragment extends Fragment {
                             recyclerViewAdapter.sortData("size");
                         }
                         break;
-                        /*
                     case 5:
                         if (recyclerViewAdapter != null) {
-                            recyclerViewAdapter.sortData("lastModifiedDate");
+                            recyclerViewAdapter.sortData("surface");
                         }
                         break;
                     case 6:
                         if (recyclerViewAdapter != null) {
-                            recyclerViewAdapter.sortData("additionDate");
+                            recyclerViewAdapter.sortData("lastModifiedDate");
+                        }
+                        break;
+                    case 7:
+                        if (recyclerViewAdapter != null) {
+                            recyclerViewAdapter.sortData("addedDate");
                         }
                         break;
                         
-                         */
+
 
                 }
                 return true;
