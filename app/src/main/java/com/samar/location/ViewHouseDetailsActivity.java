@@ -14,12 +14,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +75,7 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
     private House house;
     RecyclerView recyclerView;
     public static String houseDocId;
+    private ScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +107,30 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
         mapView = findViewById(R.id.mapView);
         mapView.setCredentialsKey(MY_API_KEY);
         mapView.onCreate(savedInstanceState);
+        scrollView = findViewById(R.id.scrollView);
+        mapView.setOnTouchListener(new View.OnTouchListener() {
+            
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // désactiver le défilement du ScrollView
+                        scrollView.requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // activer le défilement du ScrollView
+                        scrollView.requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+                // transmettre les événements tactiles au MapView
+                mapView.onTouchEvent(event);
+                return true;
+            }
+        });
+
         showHouseDetails(houseDocId);
 
 
