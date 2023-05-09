@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ import com.samar.location.models.House;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 
 public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.ViewHolder>
@@ -88,6 +90,15 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
             holder.housecardSize.setText(house.getSize());
         if(house.getPrice()!=null)
             holder.housecardPrice.setText(house.getPrice()+"TND");
+        //if(Objects.equals(house.getPrice(), "800"))
+        if(!house.isAuthorized())
+        { Log.d("nnnnnnnnnnnnnnnn","house.isAuthorized() "+house.isAuthorized());
+            holder.linearCard.setAlpha(0.07f);}
+        /*for(int j=0;j<houses.size();j++){
+            if(houses.get(j).isAuthorized()== true)
+            { Log.d("nnnnnnnnnnnnnnnn","house.isAuthorized() "+house.isAuthorized());
+                holder.linearCard.setAlpha(0.1f);}
+        }*/
 
         //holder.collapseable.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
 
@@ -153,7 +164,7 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
         Button housecardSize, housecardPrice,details,btn_delete,rentit;
         TextView housecardCity, housecardAddress;
         MaterialCardView cardView;
-        LinearLayout collapseable;
+        LinearLayout collapseable,linearCard;
         Gallery gallery;
 
         FirebaseDB firebaseDB = new FirebaseDB();
@@ -172,6 +183,8 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
 
             btn_delete=view.findViewById(R.id.btn_delete);
             rentit=view.findViewById(R.id.rentit);
+
+            linearCard=view.findViewById(R.id.linearCard);
 
 
             Checkout.preload(context);
