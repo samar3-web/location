@@ -78,6 +78,7 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
     RecyclerView recyclerView;
     public static String houseDocId;
     private ScrollView scrollView;
+    private Button direction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,8 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
 
         housecardImage = findViewById(R.id.housecardImage);
         back = findViewById(R.id.back_home);
+        
+        direction = findViewById(R.id.direction);
 
         recyclerView = findViewById(R.id.recyclerViewHorizontal);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -258,6 +261,19 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
                         mapView.setScene(
                                 MapScene.createFromLocationAndZoomLevel(geopoint, 15),
                                 MapAnimationKind.NONE);
+
+                        direction.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                //String uri = "http://maps.google.com/maps?saddr=" + myLatitude + "," + myLongitude + "&daddr=" + elementLatitude + "," + elementLongitude;
+                                String uri = "https://www.google.com/maps/dir/?api=1&destination=" + house.getLatitude() + "," + house.getLongitude();
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                                intent.setPackage("com.google.android.apps.maps");
+                                startActivity(intent);
+
+                            }
+                        });
 
 
                     } catch (Exception e) {

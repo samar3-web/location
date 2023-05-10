@@ -132,34 +132,29 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="8dp"
-                                    android:orientation="horizontal">
+                                    android:orientation="horizontal"
+                                    android:layout_margin="5dp">
 
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginLeft="16dp"
-                                        android:layout_marginEnd="60dp"
-                                        android:layout_marginRight="3dp"
                                         android:drawableLeft="@drawable/house_price"
                                         android:drawablePadding="7dp"
                                         android:text="Price"
                                         android:textSize="18dp"
                                         app:cornerRadius="15dp"
-                                        app:elevation="8dp" />
+                                        android:layout_weight="0.5"/>
 
                                     <TextView
                                         android:id="@+id/price"
-                                        android:layout_width="wrap_content"
+                                        android:text="1000 DT"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginEnd="6dp"
-                                        android:layout_marginRight="6dp"
+                                        android:textAlignment="textStart"
                                         android:fontFamily="@font/calibri"
-                                        android:text="$1000"
                                         android:textColor="#191970"
                                         android:textSize="20dp"
-                                        app:cornerRadius="15dp"
-                                        app:elevation="8dp" />
+                                        android:layout_weight="0.5"/>
 
 
                                 </LinearLayout>
@@ -167,130 +162,122 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="10dp"
-                                    android:orientation="horizontal">
+                                    android:orientation="horizontal"
+                                    android:layout_margin="5dp">
+
+
+
 
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginLeft="16dp"
-                                        android:layout_marginEnd="60dp"
-                                        android:layout_marginRight="3dp"
                                         android:drawableLeft="@drawable/house_size"
                                         android:drawablePadding="7dp"
                                         android:text="Area"
                                         android:textSize="18dp"
                                         app:cornerRadius="15dp"
-                                        app:elevation="8dp" />
+                                        android:layout_weight="0.5"/>
 
                                     <TextView
                                         android:id="@+id/size"
-                                        android:layout_width="wrap_content"
+                                        android:text="S + 3"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginLeft="16dp"
-                                        android:layout_marginEnd="60dp"
-                                        android:layout_marginRight="3dp"
-                                        android:text="4BHK"
+                                        android:textAlignment="textStart"
+                                        android:fontFamily="@font/calibri"
                                         android:textColor="#191970"
-                                        app:cornerRadius="15dp"
-                                        app:elevation="8dp" />
+                                        android:textSize="20dp"
+                                        android:layout_weight="0.5"/>
                                 </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="8dp"
+                                    android:layout_margin="5dp"
                                     android:orientation="horizontal">
 
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginLeft="16dp"
-                                        android:layout_marginEnd="60dp"
-                                        android:layout_marginRight="3dp"
                                         android:drawableLeft="@drawable/location_h"
                                         android:drawablePadding="7dp"
                                         android:text="City"
                                         android:textSize="18dp"
                                         app:cornerRadius="15dp"
-                                        app:elevation="8dp" />
+                                        android:layout_weight="0.5"/>
 
                                     <TextView
                                         android:id="@+id/street"
-                                        android:layout_width="wrap_content"
+                                        android:text="Tunis"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginStart="0dp"
-                                        android:layout_marginLeft="16dp"
-                                        android:layout_marginEnd="60dp"
-                                        android:layout_marginRight="3dp"
+                                        android:textAlignment="textStart"
                                         android:fontFamily="@font/calibri"
-                                        android:text="Street"
                                         android:textColor="#191970"
                                         android:textSize="20dp"
-                                        app:cornerRadius="15dp"
-                                        app:elevation="8dp" />
+                                        android:layout_weight="0.5"/>
                                 </LinearLayout>
 
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="10dp"
+                                    android:layout_margin="5dp"
                                     android:orientation="horizontal">
 
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginLeft="16dp"
-                                        android:layout_marginEnd="60dp"
-                                        android:layout_marginRight="3dp"
-                                        android:drawableLeft="@drawable/price"
-                                        android:drawablePadding="7dp"
+                                        android:drawableLeft="@drawable/price"                                        android:drawablePadding="7dp"
                                         android:text="House Number"
                                         android:textSize="18dp"
-
                                         app:cornerRadius="15dp"
-                                        app:elevation="8dp" />
+                                        android:layout_weight="0.5"/>
 
                                     <TextView
                                         android:id="@+id/houseNo"
-                                        android:layout_width="wrap_content"
+                                        android:text="72 Avenue Bouriguiba"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginEnd="6dp"
-                                        android:layout_marginRight="6dp"
-                                        android:text="house number"
+                                        android:textAlignment="textStart"
+                                        android:fontFamily="@font/calibri"
                                         android:textColor="#191970"
-                                        app:cornerRadius="15dp"
-                                        app:elevation="8dp" />
+                                        android:textSize="20dp"
+                                        android:layout_weight="0.5"
+                                        android:ellipsize="end"/>
+
+
 
                                 </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="10dp"
+                                    android:layout_margin="5dp"
                                     android:orientation="horizontal">
 
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginRight="6dp"
                                         android:drawableLeft="@drawable/home_location"
-                                        android:drawablePadding="7dp"
                                         android:text="Location"
                                         android:textSize="18dp"
                                         app:cornerRadius="15dp"
-                                        app:elevation="8dp" />
+                                        android:layout_weight="0.5"/>
 
                                     <TextView
                                         android:id="@+id/location"
-                                        android:layout_width="wrap_content"
+                                        android:text="Sokra, Ariana"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginEnd="6dp"
-                                        android:layout_marginRight="6dp"
-                                        android:maxLength="70"
-                                        android:text=" local address will be here"
-                                        android:textColor="#191970" />
+                                        android:textAlignment="textStart"
+                                        android:fontFamily="@font/calibri"
+                                        android:textColor="#191970"
+                                        android:textSize="20dp"
+                                        android:layout_weight="0.5"
+                                        android:ellipsize="end"/>
+
+
 
                                 </LinearLayout>
 
@@ -370,7 +357,8 @@
                             app:cornerRadius="45dp"
                             app:fabSize="mini"
                             app:icon="@drawable/ic_baseline_chat_24"
-                            app:iconGravity="textStart" />
+                            app:iconGravity="textEnd"
+                            android:paddingStart="8dp"/>
 
                         <Button
                             android:id="@+id/call"
@@ -386,9 +374,28 @@
                             app:cornerRadius="45dp"
                             app:fabSize="mini"
                             app:icon="@drawable/baseline_call_24"
-                            app:iconGravity="textStart"
+                            app:iconGravity="textEnd"
+                            android:paddingStart="8dp"
 
                             />
+                        <Button
+                            android:id="@+id/direction"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="20dp"
+                            android:backgroundTint="#FF5722"
+                            android:clickable="true"
+
+                            app:cornerRadius="45dp"
+                            app:fabSize="mini"
+                            app:icon="@android:drawable/ic_dialog_map"
+                            app:iconGravity="textEnd"
+                            android:paddingStart="8dp"
+
+                            />
+
 
 
                     </LinearLayout>

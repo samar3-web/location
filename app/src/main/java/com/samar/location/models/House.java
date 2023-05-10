@@ -40,7 +40,7 @@ public class House  implements Serializable {
 
     List<String> images = new ArrayList<>();
     List<String> requests = new ArrayList<>();
-    private boolean authorized ,availability;
+     boolean authorized ,availability;
 
     public House() {
 

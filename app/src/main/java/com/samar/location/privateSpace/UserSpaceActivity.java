@@ -112,6 +112,8 @@ public class UserSpaceActivity extends AppCompatActivity {
 
                                 if(doc.get("availability")!=null)
                                     house.setAvailability( (boolean) doc.get("availability"));
+                                if(doc.get("authorized")!=null)
+                                    house.setAuthorized( (boolean) doc.get("authorized"));
                                 if(doc.get("phone")!=null)
                                     house.setPhone(doc.get("phone").toString());
 
