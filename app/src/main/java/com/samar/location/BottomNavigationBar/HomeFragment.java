@@ -1,6 +1,8 @@
 package com.samar.location.BottomNavigationBar;
 
 
+import static com.razorpay.AppSignatureHelper.TAG;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -15,6 +17,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,15 +27,21 @@ import com.bumptech.glide.Glide;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.ServerTimestamp;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.samar.location.R;
 import com.samar.location.homepage.RecyclerViewAdapter;
 import com.samar.location.models.House;
@@ -82,6 +91,7 @@ public class HomeFragment extends Fragment {
     private PopupMenu popupMenu;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ShimmerFrameLayout shimmerFrameLayout;
+    private String token;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -125,6 +135,8 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_house_list_tab, container, false);
 
+        //ajouter les tokens de l'utilsateur de tous les apps installées utilsant son login
+        setUserTokens();
 
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -486,5 +498,69 @@ public class HomeFragment extends Fragment {
         Glide.with(getActivity())
                 .load(profileUrl)
                 .into(userFace);
+    }
+    private void setUserTokens() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                         token = task.getResult();
+                        Log.d( "ffffffffffffffffffffffffffff", token);
+
+
+                    }
+                });
+
+        /*FirebaseAuth.getInstance().getCurrentUser().getIdToken(false).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+            @Override
+            public void onComplete(@NonNull Task<GetTokenResult> task) {
+                token = task.getResult().getToken();
+                Log.d("nnnnnnnnnnnnnnn", "onComplete: myToken "+token);
+            }
+        });*/
+
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        String currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        DocumentReference documentReference = firestore.collection("USERDATA").document(currentUserEmail);
+
+        // Requête pour récupérer les données de l'utilisateur actuel
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    // Récupérer les valeurs actuelles de requests
+                    List<String> tokens = (List<String>) documentSnapshot.get("tokens");
+
+                    if (tokens != null && tokens.contains(token)) {
+                        // docId existe déjà dans tokens, le supprimer
+
+                        Log.d("nnnnnnnnnnnnnnn", "onComplete: myToken existe deja");
+                        /*documentReference.update("tokens", FieldValue.arrayRemove(docId))
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+
+
+                                    }
+                                });*/
+                    } else {
+                        // docId n'existe pas dans tokens, l'ajouter
+                        documentReference.update("tokens", FieldValue.arrayUnion(token))
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("nnnnnnnnnnnnnnn", "onComplete: myToken est ajouté");
+                                    }
+                                });
+                    }
+                }
+            }
+        });
     }
 }

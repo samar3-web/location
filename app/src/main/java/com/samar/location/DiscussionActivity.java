@@ -1,6 +1,7 @@
 package com.samar.location;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,27 +19,35 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.samar.location.BottomNavigationBar.FriendDiscussionAdapter;
 import com.samar.location.models.Message;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class DiscussionActivity extends AppCompatActivity {
+    FirebaseFirestore firebaseFirestore;
 
     FirebaseAuth firebaseAuth;
     FirebaseDatabase database;
@@ -46,6 +55,8 @@ public class DiscussionActivity extends AppCompatActivity {
     ImageView back;
     TextView userName;
     ImageFilterView friendFace;
+    private String token;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +84,7 @@ public class DiscussionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText input =  findViewById(R.id.input);
+                if(!input.getText().toString().isEmpty()){
                 String inputValue = input.getText().toString();
                 String displayValue = friendEmail +" : " +String.valueOf(inputValue)  ;
                 // Read the input field and push a new instance
@@ -84,15 +96,37 @@ public class DiscussionActivity extends AppCompatActivity {
                         .setValue(new Message(input.getText().toString(),
                                 currentUser,friendEmail )
                         );
+
+                getFriendTokens(friendEmail).thenAccept(tokens -> {
+                    for (String token : tokens) {
+                        Log.d("llllllllllllllllllllll", "onComplete: token " + token);
+                        FcmNotificationsSender notificationsSender = new FcmNotificationsSender(token, "Nouveau Message", displayValue, getApplicationContext(), DiscussionActivity.this);
+                        notificationsSender.SendNotifications();
+
+
+
+
+                    }
+                }).exceptionally(throwable -> {
+                    Log.e("xxxxcustomer", "Error getting tokens: " + throwable.getMessage());
+                    return null;
+                });
+
+
                 // Clear the input
                 input.setText("");
-                if(input.getText().toString().isEmpty()){
-                    FcmNotificationsSender notificationsSender = new FcmNotificationsSender("/topics/all","Nouveau Message",displayValue,getApplicationContext(),DiscussionActivity.this);
-                    notificationsSender.SendNotifications();
+
+
+
+
+// Do something with the token
+
+
+
 
                 }
                 else {
-                    Toast.makeText(DiscussionActivity.this, "please give your data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DiscussionActivity.this, "please type a message", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -194,7 +228,94 @@ public class DiscussionActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
+
+ /*   public void getData(String userEmail) {
+        firebaseFirestore=FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("USERDATA").document(userEmail).getId();
+        firebaseFirestore.collection("USERDATA").document(userEmail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+
+                    Log.d("xxxxxx", "onComplete: getData()" + task.getResult().getId());
+                    Log.d("xxxxxx", "onComplete: getData()" + task.getResult().getData());
+                   *//*customerModel.setEmail(task.getResult().get("Email").toString());
+                   customerModel.setAccountType(task.getResult().get("accountType").toString());
+                   customerModel.setPhone(task.getResult().get("phone").toString());
+                    Log.d("xxxxx", "onComplete: CustomerModel "+customerModel);*//*
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(Exception e) {
+                Log.d("xxxx", "onFailure: " + e.getLocalizedMessage());
+            }
+        });
+    }*/
+
+ /*   private List<String> getFriendTokens(String friendEmail){
+
+
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        //String currentUserEmail= FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        DocumentReference documentReference= firestore.collection("USERDATA").document(friendEmail);
+
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    Log.d("xxxxcustomer", "onComplete: customer notification " + task.getResult().getData().toString());
+
+
+                    List<String> tokens = new ArrayList<>();
+
+                    if(task.getResult().get("tokens")!=null)
+                        tokens = (List<String>) task.getResult().get("requests");
+
+                    if (tokens.size() > 0) {
+                        //le request est le ducuentId de house
+                        return tokens;
+
+                    }
+
+                }
+            }
+        });
+    }*/
+ private CompletableFuture<List<String>> getFriendTokens(String friendEmail) {
+     CompletableFuture<List<String>> future = new CompletableFuture<>();
+
+     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+     DocumentReference documentReference = firestore.collection("USERDATA").document(friendEmail);
+
+     documentReference.get().addOnCompleteListener(task -> {
+         if (task.isSuccessful()) {
+             Log.d("xxxxcustomer", "onComplete: customer notification " + task.getResult().getData().toString());
+
+             List<String> tokens = new ArrayList<>();
+
+             if (task.getResult().get("tokens") != null)
+                 tokens = (List<String>) task.getResult().get("tokens");
+
+             if (tokens.size() > 0) {
+                 future.complete(tokens);
+                 Log.d("llllllllllllllllllllll", "onComplete: token.get(0) " + tokens.get(0));
+
+             } else {
+                 future.completeExceptionally(new RuntimeException("No tokens found for user " + friendEmail));
+             }
+         } else {
+             future.completeExceptionally(task.getException());
+         }
+     });
+
+     return future;
+ }
+
 }
 
 
