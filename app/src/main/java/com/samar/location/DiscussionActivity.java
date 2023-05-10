@@ -74,7 +74,7 @@ public class DiscussionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 EditText input =  findViewById(R.id.input);
                 String inputValue = input.getText().toString();
-                String displayValue = String.valueOf(inputValue);
+                String displayValue = friendEmail +" : " +String.valueOf(inputValue)  ;
                 // Read the input field and push a new instance
                 // of ChatMessage to the Firebase database
                 FirebaseDatabase.getInstance()
