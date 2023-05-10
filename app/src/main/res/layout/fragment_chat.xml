@@ -30,34 +30,16 @@
     </RelativeLayout>
 
 
-        <EditText
-            android:id="@+id/searchFriend"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="80"
-            android:background="@drawable/search"
-            android:drawableLeft="@drawable/ic_search_gray_24dp"
-            android:drawablePadding="8dp"
-            android:fontFamily="@font/calibri"
-            android:hint="Search"
-            android:padding="12dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/black"
-            android:textColorHint="#FA959595" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/searchFriend"
         android:dividerHeight="16dp"
         android:divider="@android:color/transparent"
         android:id="@+id/list_of_discussions"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="70dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="50dp"
 
