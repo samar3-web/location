@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.samar.location.BottomNavigationBar.FriendDiscussionAdapter;
 import com.samar.location.models.Message;
 
@@ -51,6 +52,7 @@ public class DiscussionActivity extends AppCompatActivity {
         setContentView(R.layout.discussion);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseMessaging.getInstance().subscribeToTopic("all");
 
         database= FirebaseDatabase.getInstance();
 
@@ -71,6 +73,8 @@ public class DiscussionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText input =  findViewById(R.id.input);
+                String inputValue = input.getText().toString();
+                String displayValue = String.valueOf(inputValue);
                 // Read the input field and push a new instance
                 // of ChatMessage to the Firebase database
                 FirebaseDatabase.getInstance()
@@ -82,6 +86,14 @@ public class DiscussionActivity extends AppCompatActivity {
                         );
                 // Clear the input
                 input.setText("");
+                if(input.getText().toString().isEmpty()){
+                    FcmNotificationsSender notificationsSender = new FcmNotificationsSender("/topics/all","Nouveau Message",displayValue,getApplicationContext(),DiscussionActivity.this);
+                    notificationsSender.SendNotifications();
+
+                }
+                else {
+                    Toast.makeText(DiscussionActivity.this, "please give your data", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
