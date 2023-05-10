@@ -2,6 +2,7 @@ package com.samar.location.BottomNavigationBar;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -79,6 +81,7 @@ public class HomeFragment extends Fragment {
     private TextView searchEt;
     private PopupMenu popupMenu;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ShimmerFrameLayout shimmerFrameLayout;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -147,6 +150,25 @@ public class HomeFragment extends Fragment {
 
 
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomnavbar);
+
+         shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
+        /*shimmerFrameLayout.startShimmer();
+        // Simulating data retrieval
+        // Replace this with your actual data retrieval logic
+       // shimmerFrameLayout.stopShimmer();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Hide the shimmer container and show the content views
+                shimmerFrameLayout.setVisibility(View.GONE);
+                // Make your actual content views visible
+                my_rcv.setVisibility(View.VISIBLE);
+                // Stop the shimmer effect
+                shimmerFrameLayout.stopShimmer();
+               // getHouseData();
+
+            }
+        }, 2000);*/ // Delay of 2000 milliseconds (2 seconds)
 
         //Getting the house data from database and showing on houseList tab
 
@@ -340,13 +362,35 @@ public class HomeFragment extends Fragment {
 
     }
 
+    /*shimmerFrameLayout.startShimmer();
+           // Simulating data retrieval
+           // Replace this with your actual data retrieval logic
+          // shimmerFrameLayout.stopShimmer();
+           new Handler().postDelayed(new Runnable() {
+               @Override
+               public void run() {
+                   // Hide the shimmer container and show the content views
+                   shimmerFrameLayout.setVisibility(View.GONE);
+                   // Make your actual content views visible
+                   my_rcv.setVisibility(View.VISIBLE);
+                   // Stop the shimmer effect
+                   shimmerFrameLayout.stopShimmer();
+                  // getHouseData();
 
+               }
+           }, 2000);*/
     private void getHouseData(){
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        my_rcv.setVisibility(View.GONE);
+        shimmerFrameLayout.startShimmer();
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection("HouseCollection").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(Task<QuerySnapshot> task) {
+                        shimmerFrameLayout.stopShimmer();
+                        shimmerFrameLayout.setVisibility(View.GONE);
+                        my_rcv.setVisibility(View.VISIBLE);
                         Log.d("xxxxxdocs", "onComplete: of HouseData fetching "+task.getResult().getDocuments());
                         houses=new ArrayList<>();
                         for(DocumentSnapshot doc : task.getResult().getDocuments())

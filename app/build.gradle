@@ -68,7 +68,7 @@ dependencies {
 
     implementation files('libs/maps-sdk-1.2.0.aar')
 
-
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
 
 
