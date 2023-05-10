@@ -32,7 +32,7 @@ public class FcmNotificationsSender  {
 
     public FcmNotificationsSender(String userFcmToken,String title, String body, Context mContext, Activity mActivity) {
         this.userFcmToken = userFcmToken;
-        this.title = "Nouveau Message";
+        this.title = title;
         this.body = body;
         this.mContext = mContext;
         this.mActivity = mActivity;
