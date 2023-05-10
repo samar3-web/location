@@ -2,16 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="75dp"
-    android:layout_marginTop="25dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    android:padding="4dp"
     android:id="@+id/discussionView"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_recat">
 
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="25dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="8dp"
         android:background="@color/white"
 
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,6 +28,8 @@
 
     <TextView
         android:id="@+id/friend"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="25dp"
         android:layout_toRightOf="@+id/img_thumbnail"
         android:layout_alignTop="@+id/img_thumbnail"
@@ -48,7 +55,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/friend"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="-9dp"
+        android:layout_marginTop="-2dp"
+        android:padding="4dp"
         android:text="message_time" />
 
 
