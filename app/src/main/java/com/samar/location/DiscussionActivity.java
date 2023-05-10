@@ -86,7 +86,7 @@ public class DiscussionActivity extends AppCompatActivity {
                 EditText input =  findViewById(R.id.input);
                 if(!input.getText().toString().isEmpty()){
                 String inputValue = input.getText().toString();
-                String displayValue = friendEmail +" : " +String.valueOf(inputValue)  ;
+                String displayValue = currentUser +" : " +String.valueOf(inputValue)  ;
                 // Read the input field and push a new instance
                 // of ChatMessage to the Firebase database
                 FirebaseDatabase.getInstance()
@@ -100,7 +100,7 @@ public class DiscussionActivity extends AppCompatActivity {
                 getFriendTokens(friendEmail).thenAccept(tokens -> {
                     for (String token : tokens) {
                         Log.d("llllllllllllllllllllll", "onComplete: token " + token);
-                        FcmNotificationsSender notificationsSender = new FcmNotificationsSender(token, "Nouveau Message", displayValue, getApplicationContext(), DiscussionActivity.this);
+                        FcmNotificationsSender notificationsSender = new FcmNotificationsSender(token, "New Message", displayValue, getApplicationContext(), DiscussionActivity.this);
                         notificationsSender.SendNotifications();
 
 
