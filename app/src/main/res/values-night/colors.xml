@@ -15,6 +15,9 @@
     <color name="blackTextColor">#FFFFFF</color>
     <color name="black">#FFFFFF</color>
     <color name="white">#000000</color>
+
+    <color name="bg_rect">#000000</color>
+    <color name="bg_rect2">#000000</color>
     <!--colors for light mode-->
     <color name="contentTextColor">#FFFFFF</color>
     <color name="register_bk_color">#11CFC5</color>
