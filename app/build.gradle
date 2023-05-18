@@ -74,7 +74,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-messaging:23.1.2'
 
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
+    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
 
 
 
