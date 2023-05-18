@@ -1,83 +1,47 @@
 package com.samar.location.BottomNavigationBar;
 
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.samar.location.ChatAdapter;
 import com.samar.location.R;
-import com.samar.location.authentication.LoginActivity;
 import com.samar.location.databasecontoller.FirebaseDB;
-import com.samar.location.models.Customer_Model;
 import com.samar.location.models.Discussions;
 import com.samar.location.models.Message;
-import com.samar.location.models.Owner_Model;
-import com.samar.location.privateSpace.UserSpaceActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 public class ChatFragment extends Fragment {
 
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
     RecyclerView list_of_discussions;
-
     EditText search;
     String currentUserEmail;
     FirebaseDB firebaseDB;
     FirebaseFirestore firestore;
     FirebaseDatabase database;
     DatabaseReference messagesRef;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -119,7 +83,7 @@ public class ChatFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        list_of_discussions= view.findViewById(R.id.list_of_discussions);
+        list_of_discussions = view.findViewById(R.id.list_of_discussions);
 
         //search = view.findViewById(R.id.searchFriend);
 
@@ -134,6 +98,7 @@ public class ChatFragment extends Fragment {
         return view;
 
     }
+
     private void displayChatDiscussions(String me) {
 
         database = FirebaseDatabase.getInstance();
@@ -148,7 +113,7 @@ public class ChatFragment extends Fragment {
                     Message message = messageSnapshot.getValue(Message.class);
                     //verifier que le message est pour moi
 
-                    if( me.equals(message.getSenderEmail()) || me.equals(message.getReceiverEmail()) )
+                    if (me.equals(message.getSenderEmail()) || me.equals(message.getReceiverEmail()))
 
                         myMessages.add(message);
                 }
@@ -163,11 +128,9 @@ public class ChatFragment extends Fragment {
                 };
                 Collections.sort(myMessages, messageComparator);
 
-                getDiscussions(me,myMessages);
+                getDiscussions(me, myMessages);
 
             }
-
-
 
 
             @Override
@@ -181,31 +144,26 @@ public class ChatFragment extends Fragment {
     }
 
 
-
-
-    private void getDiscussions( String me, List<Message> myMessages) {
+    private void getDiscussions(String me, List<Message> myMessages) {
 
         List<Discussions> friendsDiscussions = new ArrayList<>();
 
         for (Message message : myMessages) {
-            String friendEmail= me.equals(message.getSenderEmail()) ? message.getReceiverEmail() : message.getSenderEmail();
+            String friendEmail = me.equals(message.getSenderEmail()) ? message.getReceiverEmail() : message.getSenderEmail();
 
             if (!exist(friendEmail, friendsDiscussions)) {
 
-                friendsDiscussions.add(new Discussions(message.getText(),friendEmail, message.getTime()));
+                friendsDiscussions.add(new Discussions(message.getText(), friendEmail, message.getTime()));
 
             }
         }
-
 
 
         //adapter les friends Discussions
         FriendDiscussionAdapter adapter = new FriendDiscussionAdapter(friendsDiscussions);
 
         list_of_discussions.setAdapter(adapter);
-        list_of_discussions.setLayoutManager(new LinearLayoutManager(getContext()) );
-
-
+        list_of_discussions.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
     }

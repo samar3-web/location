@@ -6,24 +6,16 @@ import java.util.Set;
 
 public class Customer_Model implements Map<String, Object> {
 
-    String name , lastName , age , gender, address, profileUrl,email, phone, password, accountType;
-     //To Store the information of house in which tenant is staying
-      House house;
-
-    public House getHouse() {
-        return house;
-    }
-
-    public void setHouse(House house) {
-        this.house = house;
-    }
+    String name, lastName, age, gender, address, profileUrl, email, phone, password, accountType;
+    //To Store the information of house in which tenant is staying
+    House house;
 
     public Customer_Model() {
     }
 
     public Customer_Model(String name, /*String age*/String gender, String address, String profileUrl, String email, String phone, String password, String accountType) {
         this.name = name;
-       // this.age = age;
+        // this.age = age;
         this.gender = gender;
         this.address = address;
         this.profileUrl = profileUrl;
@@ -33,80 +25,88 @@ public class Customer_Model implements Map<String, Object> {
         this.accountType = accountType;
     }
 
+    public House getHouse() {
+        return house;
+    }
+
+    public void setHouse(House house) {
+        this.house = house;
+    }
+
     public String getName() {
         return name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getProfileUrl() {
-        return profileUrl;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getAccountType() {
-        return accountType;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getAge() {
+        return age;
     }
 
     public void setAge(String age) {
         this.age = age;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
     }
 
+    public String getProfileUrl() {
+        return profileUrl;
+    }
+
     public void setProfileUrl(String profileUrl) {
         this.profileUrl = profileUrl;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAccountType() {
+        return accountType;
     }
 
     public void setAccountType(String accountType) {
@@ -124,7 +124,7 @@ public class Customer_Model implements Map<String, Object> {
     }
 
     @Override
-    public boolean containsKey( Object key) {
+    public boolean containsKey(Object key) {
         return false;
     }
 
@@ -132,7 +132,6 @@ public class Customer_Model implements Map<String, Object> {
     public boolean containsValue(Object value) {
         return false;
     }
-
 
 
     @Override
@@ -148,7 +147,7 @@ public class Customer_Model implements Map<String, Object> {
 
 
     @Override
-    public Object remove( Object key) {
+    public Object remove(Object key) {
         return null;
     }
 

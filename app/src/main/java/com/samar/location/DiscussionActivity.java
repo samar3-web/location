@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,12 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,17 +29,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.samar.location.BottomNavigationBar.FriendDiscussionAdapter;
 import com.samar.location.models.Message;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-
-import com.google.firebase.messaging.FirebaseMessaging;
 
 public class DiscussionActivity extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
@@ -65,67 +56,59 @@ public class DiscussionActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseMessaging.getInstance().subscribeToTopic("all");
 
-        database= FirebaseDatabase.getInstance();
+        database = FirebaseDatabase.getInstance();
 
-       fab =findViewById(R.id.fab);
-       userName = findViewById(R.id.user);
-       back = findViewById(R.id.back_home);
-       friendFace = findViewById(R.id.friendFace);
+        fab = findViewById(R.id.fab);
+        userName = findViewById(R.id.user);
+        back = findViewById(R.id.back_home);
+        friendFace = findViewById(R.id.friendFace);
 
         // Retrieve the data from the intent
 
-        String friendEmail =  (String) getIntent().getStringExtra("friendEmail");
+        String friendEmail = getIntent().getStringExtra("friendEmail");
 
         String currentUser = firebaseAuth.getCurrentUser().getEmail();
-
 
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText input =  findViewById(R.id.input);
-                if(!input.getText().toString().isEmpty()){
-                String inputValue = input.getText().toString();
-                String displayValue = currentUser +" : " +String.valueOf(inputValue)  ;
-                // Read the input field and push a new instance
-                // of ChatMessage to the Firebase database
-                FirebaseDatabase.getInstance()
-                        .getReference("MESSAGES")
+                EditText input = findViewById(R.id.input);
+                if (!input.getText().toString().isEmpty()) {
+                    String inputValue = input.getText().toString();
+                    String displayValue = currentUser + " : " + inputValue;
+                    // Read the input field and push a new instance
+                    // of ChatMessage to the Firebase database
+                    FirebaseDatabase.getInstance()
+                            .getReference("MESSAGES")
 
-                        .push()
-                        .setValue(new Message(input.getText().toString(),
-                                currentUser,friendEmail )
-                        );
+                            .push()
+                            .setValue(new Message(input.getText().toString(),
+                                    currentUser, friendEmail)
+                            );
 
-                getFriendTokens(friendEmail).thenAccept(tokens -> {
-                    for (String token : tokens) {
-                        Log.d("llllllllllllllllllllll", "onComplete: token " + token);
-                        FcmNotificationsSender notificationsSender = new FcmNotificationsSender(token, "New Message", displayValue, getApplicationContext(), DiscussionActivity.this);
-                        notificationsSender.SendNotifications();
-
-
+                    getFriendTokens(friendEmail).thenAccept(tokens -> {
+                        for (String token : tokens) {
+                            Log.d("llllllllllllllllllllll", "onComplete: token " + token);
+                            FcmNotificationsSender notificationsSender = new FcmNotificationsSender(token, "New Message", displayValue, getApplicationContext(), DiscussionActivity.this);
+                            notificationsSender.SendNotifications();
 
 
-                    }
-                }).exceptionally(throwable -> {
-                    Log.e("xxxxcustomer", "Error getting tokens: " + throwable.getMessage());
-                    return null;
-                });
+                        }
+                    }).exceptionally(throwable -> {
+                        Log.e("xxxxcustomer", "Error getting tokens: " + throwable.getMessage());
+                        return null;
+                    });
 
 
-                // Clear the input
-                input.setText("");
-
-
+                    // Clear the input
+                    input.setText("");
 
 
 // Do something with the token
 
 
-
-
-                }
-                else {
+                } else {
                     Toast.makeText(DiscussionActivity.this, "please type a message", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -142,10 +125,10 @@ public class DiscussionActivity extends AppCompatActivity {
 
 
         // Load chat room contents
-        displayChatMessages(currentUser , friendEmail);
+        displayChatMessages(currentUser, friendEmail);
     }
 
-    private void displayChatMessages(String me,String owner) {
+    private void displayChatMessages(String me, String owner) {
 
         RecyclerView listOfMessages = findViewById(R.id.list_of_messages);
 
@@ -158,18 +141,18 @@ public class DiscussionActivity extends AppCompatActivity {
 
                 for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
                     Message message = messageSnapshot.getValue(Message.class);
-                   //verifier que le message est entre les deux (owner & me)
-                    if( (me.equals(message.getSenderEmail()) &&
-                            owner.equals(message.getReceiverEmail()) ) ||
+                    //verifier que le message est entre les deux (owner & me)
+                    if ((me.equals(message.getSenderEmail()) &&
+                            owner.equals(message.getReceiverEmail())) ||
 
-                            ( owner.equals(message.getSenderEmail()) &&
+                            (owner.equals(message.getSenderEmail()) &&
                                     me.equals(message.getReceiverEmail()))
                     )
                         messages.add(message);
                 }
 
                 // Tri
-               Comparator<Message> messageComparator = new Comparator<Message>() {
+                Comparator<Message> messageComparator = new Comparator<Message>() {
                     @Override
                     public int compare(Message m1, Message m2) {
                         // Triez les messages en fonction de leur temps croissant
@@ -181,7 +164,7 @@ public class DiscussionActivity extends AppCompatActivity {
 
                 //adapter
                 ChatAdapter adapter = new ChatAdapter(messages);
-                int spacingInPixels = -10 ;
+                int spacingInPixels = -10;
                 ItemSpacingDecoration itemSpacingDecoration = new ItemSpacingDecoration(spacingInPixels);
                 listOfMessages.addItemDecoration(itemSpacingDecoration);
                 listOfMessages.setAdapter(adapter);
@@ -201,26 +184,24 @@ public class DiscussionActivity extends AppCompatActivity {
     }
 
 
-
     private void displayFriendInformations(String email) {
 
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseFirestore.collection("USERDATA").document( email ).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        firebaseFirestore.collection("USERDATA").document(email).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     Map<String, Object> snapshot = task.getResult().getData();
 
-                        if (snapshot.get("name") != null) {
-                            userName.setText((String) snapshot.get("name") );
-                        }
-                        else{
-                            userName.setText(email);
-                        }
+                    if (snapshot.get("name") != null) {
+                        userName.setText((String) snapshot.get("name"));
+                    } else {
+                        userName.setText(email);
+                    }
 
                     if (snapshot.get("profileUrl") != null) {
                         Glide.with(friendFace.getContext())
-                                .load( snapshot.get("profileUrl"))
+                                .load(snapshot.get("profileUrl"))
                                 .into(friendFace);
 
                     }
@@ -256,65 +237,65 @@ public class DiscussionActivity extends AppCompatActivity {
         });
     }*/
 
- /*   private List<String> getFriendTokens(String friendEmail){
+    /*   private List<String> getFriendTokens(String friendEmail){
 
+
+           FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+           //String currentUserEmail= FirebaseAuth.getInstance().getCurrentUser().getEmail();
+           DocumentReference documentReference= firestore.collection("USERDATA").document(friendEmail);
+
+           documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+               @Override
+               public void onComplete(Task<DocumentSnapshot> task) {
+                   if (task.isSuccessful()) {
+                       Log.d("xxxxcustomer", "onComplete: customer notification " + task.getResult().getData().toString());
+
+
+                       List<String> tokens = new ArrayList<>();
+
+                       if(task.getResult().get("tokens")!=null)
+                           tokens = (List<String>) task.getResult().get("requests");
+
+                       if (tokens.size() > 0) {
+                           //le request est le ducuentId de house
+                           return tokens;
+
+                       }
+
+                   }
+               }
+           });
+       }*/
+    private CompletableFuture<List<String>> getFriendTokens(String friendEmail) {
+        CompletableFuture<List<String>> future = new CompletableFuture<>();
 
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = firestore.collection("USERDATA").document(friendEmail);
 
-        //String currentUserEmail= FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        DocumentReference documentReference= firestore.collection("USERDATA").document(friendEmail);
+        documentReference.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Log.d("xxxxcustomer", "onComplete: customer notification " + task.getResult().getData().toString());
 
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    Log.d("xxxxcustomer", "onComplete: customer notification " + task.getResult().getData().toString());
+                List<String> tokens = new ArrayList<>();
 
+                if (task.getResult().get("tokens") != null)
+                    tokens = (List<String>) task.getResult().get("tokens");
 
-                    List<String> tokens = new ArrayList<>();
+                if (tokens.size() > 0) {
+                    future.complete(tokens);
+                    Log.d("llllllllllllllllllllll", "onComplete: token.get(0) " + tokens.get(0));
 
-                    if(task.getResult().get("tokens")!=null)
-                        tokens = (List<String>) task.getResult().get("requests");
-
-                    if (tokens.size() > 0) {
-                        //le request est le ducuentId de house
-                        return tokens;
-
-                    }
-
+                } else {
+                    future.completeExceptionally(new RuntimeException("No tokens found for user " + friendEmail));
                 }
+            } else {
+                future.completeExceptionally(task.getException());
             }
         });
-    }*/
- private CompletableFuture<List<String>> getFriendTokens(String friendEmail) {
-     CompletableFuture<List<String>> future = new CompletableFuture<>();
 
-     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-     DocumentReference documentReference = firestore.collection("USERDATA").document(friendEmail);
-
-     documentReference.get().addOnCompleteListener(task -> {
-         if (task.isSuccessful()) {
-             Log.d("xxxxcustomer", "onComplete: customer notification " + task.getResult().getData().toString());
-
-             List<String> tokens = new ArrayList<>();
-
-             if (task.getResult().get("tokens") != null)
-                 tokens = (List<String>) task.getResult().get("tokens");
-
-             if (tokens.size() > 0) {
-                 future.complete(tokens);
-                 Log.d("llllllllllllllllllllll", "onComplete: token.get(0) " + tokens.get(0));
-
-             } else {
-                 future.completeExceptionally(new RuntimeException("No tokens found for user " + friendEmail));
-             }
-         } else {
-             future.completeExceptionally(task.getException());
-         }
-     });
-
-     return future;
- }
+        return future;
+    }
 
 }
 

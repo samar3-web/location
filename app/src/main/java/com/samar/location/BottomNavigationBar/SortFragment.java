@@ -18,7 +18,6 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,22 +39,18 @@ import java.util.Map;
 
 public class SortFragment extends Fragment {
 
-    //Creating firebasefirestore global variable
-    FirebaseFirestore firestore;
-
-    Button select_btn , upload_btn , get_btn;
-    ImageView show_imageview;
-    private Uri ImageUri;
-    ArrayList ImageList = new ArrayList();
-    ArrayList urlStrings;
-    private  ProgressDialog progressDialog ;
-
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    //Creating firebasefirestore global variable
+    FirebaseFirestore firestore;
+    Button select_btn, upload_btn, get_btn;
+    ImageView show_imageview;
+    ArrayList ImageList = new ArrayList();
+    ArrayList urlStrings;
+    private Uri ImageUri;
+    private ProgressDialog progressDialog;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -95,16 +90,16 @@ public class SortFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-         View view = inflater.inflate(R.layout.fragment_sort, container, false);
+        View view = inflater.inflate(R.layout.fragment_sort, container, false);
         //creating an instance of firestore
-        firestore= FirebaseFirestore.getInstance();
+        firestore = FirebaseFirestore.getInstance();
 
-        select_btn=view.findViewById(R.id.select_images);
-        upload_btn=view.findViewById(R.id.upload_images);
-        get_btn=view.findViewById(R.id.get_images);
+        select_btn = view.findViewById(R.id.select_images);
+        upload_btn = view.findViewById(R.id.upload_images);
+        get_btn = view.findViewById(R.id.get_images);
 
-        show_imageview=view.findViewById(R.id.show_imageview);
-        Map<String,Object> user=new HashMap<>();
+        show_imageview = view.findViewById(R.id.show_imageview);
+        Map<String, Object> user = new HashMap<>();
 
         /*user.put("Name","Gourav Patel");
         user.put("AccountType","Customer");
@@ -159,10 +154,10 @@ public class SortFragment extends Fragment {
           DocumentReference documentReference=firestore.collection("signupDetails").document("customer_email");
           documentReference.update("phone","xxxxxxxxx");
 */
- ///////-----------------------------Reading the Data-----------------------------------------------------------------------------------------------
+        ///////-----------------------------Reading the Data-----------------------------------------------------------------------------------------------
         //Getting the current logged in user email
         String email_current = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        Log.d("email_current", "onComplete: "+email_current);
+        Log.d("email_current", "onComplete: " + email_current);
       /*
         //Reading a particular document by directly referencing to it .
         DocumentReference documentReference =firestore.collection("signupDetails").document("customer_email");
@@ -219,33 +214,32 @@ public class SortFragment extends Fragment {
         upload_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog=new ProgressDialog(getActivity());
+                progressDialog = new ProgressDialog(getActivity());
                 progressDialog.setMessage("Uploading Please Wait");
-                 urlStrings = new ArrayList<>();
-                 progressDialog.show();
+                urlStrings = new ArrayList<>();
+                progressDialog.show();
                 StorageReference imageFolder = FirebaseStorage.getInstance()
                         .getReference().child("ImageFolder");
 
                 for (int upload_count = 0; upload_count < ImageList.size(); upload_count++) {
 
-                     Uri individualImage = (Uri) ImageList.get(upload_count);
-                     final StorageReference imageName = imageFolder.child("Images"+individualImage.getLastPathSegment());
+                    Uri individualImage = (Uri) ImageList.get(upload_count);
+                    final StorageReference imageName = imageFolder.child("Images" + individualImage.getLastPathSegment());
 
-                     imageName.putFile(individualImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                         @Override
-                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                             imageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                 @Override
-                                 public void onSuccess(Uri uri) {
-                                     urlStrings.add(String.valueOf(uri));
-                                     if(urlStrings.size()==ImageList.size())
-                                     {
-                                         storeLinksInFiretore(urlStrings);
-                                     }
-                                 }
-                             });
-                         }
-                     });
+                    imageName.putFile(individualImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            imageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    urlStrings.add(String.valueOf(uri));
+                                    if (urlStrings.size() == ImageList.size()) {
+                                        storeLinksInFiretore(urlStrings);
+                                    }
+                                }
+                            });
+                        }
+                    });
                 }
             }
         });
@@ -260,17 +254,15 @@ public class SortFragment extends Fragment {
                 firestore.collection("images").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(Task<QuerySnapshot> task) {
-                        if(task.isSuccessful())
-                        {
-                                     for(QueryDocumentSnapshot documentSnapshot:task.getResult())
-                                     {
-                                         Object obj[]= documentSnapshot.getData().values().toArray();
-                                         Log.d("xxxxxxx", "onComplete: "+obj[1]);
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                Object[] obj = documentSnapshot.getData().values().toArray();
+                                Log.d("xxxxxxx", "onComplete: " + obj[1]);
 
-                                         Glide.with(getActivity())
-                                                 .load(obj[1].toString())
-                                                 .into(show_imageview);
-                                     }
+                                Glide.with(getActivity())
+                                        .load(obj[1].toString())
+                                        .into(show_imageview);
+                            }
                         }
                     }
                 });
@@ -282,36 +274,35 @@ public class SortFragment extends Fragment {
     }
 
     private void storeLinksInFiretore(ArrayList urlStrings) {
-        Log.d("urlstrings", "storeLinksInFiretore: "+urlStrings);
+        Log.d("urlstrings", "storeLinksInFiretore: " + urlStrings);
 
-        HashMap<String,String> hashMap = new HashMap<>();
-        for (int i = 0; i <urlStrings.size() ; i++) {
-            hashMap.put("ImgLink"+i, urlStrings.get(i).toString());
+        HashMap<String, String> hashMap = new HashMap<>();
+        for (int i = 0; i < urlStrings.size(); i++) {
+            hashMap.put("ImgLink" + i, urlStrings.get(i).toString());
         }
 
-       firestore.collection("images")
-               .add(hashMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-           @Override
-           public void onComplete(Task<DocumentReference> task) {
-               if(task.isSuccessful())
-               {
-                   Toast.makeText(getActivity(), "FileUploadedSuccessfully", Toast.LENGTH_SHORT).show();
-               }
-           }
-       }).addOnFailureListener(new OnFailureListener() {
-           @Override
-           public void onFailure(Exception e) {
-               Toast.makeText(getActivity(), "Error "+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        firestore.collection("images")
+                .add(hashMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(Task<DocumentReference> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getActivity(), "FileUploadedSuccessfully", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(Exception e) {
+                        Toast.makeText(getActivity(), "Error " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 
-           }
-       });
+                    }
+                });
 
 
         progressDialog.dismiss();
         ImageList.clear();
     }
 
-    public void getPickImageIntent(){
+    public void getPickImageIntent() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
 
@@ -340,9 +331,8 @@ public class SortFragment extends Fragment {
                         ImageList.add(ImageUri);
                         currentImageSlect = currentImageSlect + 1;
                     }
-                    Toast.makeText(getActivity(), "You have Selected "+ImageList.size(), Toast.LENGTH_SHORT).show();
-                }
-                else {
+                    Toast.makeText(getActivity(), "You have Selected " + ImageList.size(), Toast.LENGTH_SHORT).show();
+                } else {
 
                     Toast.makeText(getActivity(), "Please Select multiple Images", Toast.LENGTH_SHORT).show();
 

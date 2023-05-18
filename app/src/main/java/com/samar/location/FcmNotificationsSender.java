@@ -17,20 +17,18 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FcmNotificationsSender  {
+public class FcmNotificationsSender {
 
+    private final String postUrl = "https://fcm.googleapis.com/fcm/send";
+    private final String fcmServerKey = "AAAA9tNp-9U:APA91bGjRknS__MsOIdAIDjfPWAYaqNRLWvG9cRgxYnG4MQyHtZ-P0JWjiB33xwLOSX5aRsd9NDO1vUw31VxesiJouzpIhAu-hs7WY1a3qdJnua-yV55rKLnRSBAJvimHS45UXvSbbL6";
     String userFcmToken;
     String title;
     String body;
     Context mContext;
     Activity mActivity;
-
-
     private RequestQueue requestQueue;
-    private final String postUrl = "https://fcm.googleapis.com/fcm/send";
-    private final String fcmServerKey ="AAAA9tNp-9U:APA91bGjRknS__MsOIdAIDjfPWAYaqNRLWvG9cRgxYnG4MQyHtZ-P0JWjiB33xwLOSX5aRsd9NDO1vUw31VxesiJouzpIhAu-hs7WY1a3qdJnua-yV55rKLnRSBAJvimHS45UXvSbbL6";
 
-    public FcmNotificationsSender(String userFcmToken,String title, String body, Context mContext, Activity mActivity) {
+    public FcmNotificationsSender(String userFcmToken, String title, String body, Context mContext, Activity mActivity) {
         this.userFcmToken = userFcmToken;
         this.title = title;
         this.body = body;
@@ -50,7 +48,6 @@ public class FcmNotificationsSender  {
             notiObject.put("title", title);
             notiObject.put("body", body);
             notiObject.put("icon", "icon"); // enter icon that exists in drawable only
-
 
 
             mainObj.put("notification", notiObject);
@@ -88,8 +85,6 @@ public class FcmNotificationsSender  {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
 
 
     }

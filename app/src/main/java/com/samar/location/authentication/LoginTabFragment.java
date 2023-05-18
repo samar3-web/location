@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -27,35 +26,33 @@ import com.samar.location.R;
 public class LoginTabFragment extends Fragment {
     EditText email;
     EditText pass;
-    TextView forgotPass,loginas;
+    TextView forgotPass, loginas;
     Button login;
     RadioGroup radioGroup;
-    float v =0;
+    float v = 0;
     String accountType;
-    RadioButton lg_customer ,lg_owner;
+    RadioButton lg_customer, lg_owner;
     FirebaseAuth firebaseAuth;
     Intent intent;
 
 
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.login_franment,container,false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.login_franment, container, false);
 
-          email = root.findViewById(R.id.email);
-          pass = root.findViewById(R.id.pass);
-          forgotPass = root.findViewById(R.id.forgotPass);
-          login = root.findViewById(R.id.button_login);
-
-
-        Log.d("xxxx", "onCreateView: login account type "+accountType);
-
-          //Creating instancce of firebase auth
-          firebaseAuth = FirebaseAuth.getInstance();
+        email = root.findViewById(R.id.email);
+        pass = root.findViewById(R.id.pass);
+        forgotPass = root.findViewById(R.id.forgotPass);
+        login = root.findViewById(R.id.button_login);
 
 
-          email.setTranslationY(300);
+        Log.d("xxxx", "onCreateView: login account type " + accountType);
+
+        //Creating instancce of firebase auth
+        firebaseAuth = FirebaseAuth.getInstance();
+
+
+        email.setTranslationY(300);
         pass.setTranslationY(300);
         forgotPass.setTranslationY(300);
         login.setTranslationY(300);
@@ -78,9 +75,8 @@ public class LoginTabFragment extends Fragment {
                 String remail = email.getText().toString();
                 String rpass = pass.getText().toString();
 
-               if(validateEmailAndPassword(remail,rpass))
-                        loginUser(remail,rpass);
-
+                if (validateEmailAndPassword(remail, rpass))
+                    loginUser(remail, rpass);
 
 
             }
@@ -88,15 +84,14 @@ public class LoginTabFragment extends Fragment {
 
         return root;
 
-       
+
     }
 
     private boolean validateEmailAndPassword(String remail, String rpass) {
 
-        if(remail.isEmpty()||rpass.isEmpty())
-        {
-             email.setError("Cannot be empty");
-             pass.setError("Cannot be empty");
+        if (remail.isEmpty() || rpass.isEmpty()) {
+            email.setError("Cannot be empty");
+            pass.setError("Cannot be empty");
             return false;
         }
 
@@ -105,21 +100,21 @@ public class LoginTabFragment extends Fragment {
 
 
     private void loginUser(String remail, String rpass) {
-        firebaseAuth.signInWithEmailAndPassword(remail,rpass)
-               .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                   @Override
-                   public void onSuccess(AuthResult authResult) {
-                       Toast.makeText(getActivity(), "Logging in", Toast.LENGTH_SHORT).show();
-                    intent = new Intent(getActivity(), BootomNavBarMain.class);
-                    intent.putExtra("accountType",accountType);
-                       startActivity(intent);
-                       getActivity().finish();
-                   }
-               }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(Exception e) {
-                Toast.makeText(getActivity(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        firebaseAuth.signInWithEmailAndPassword(remail, rpass)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        Toast.makeText(getActivity(), "Logging in", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(getActivity(), BootomNavBarMain.class);
+                        intent.putExtra("accountType", accountType);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(Exception e) {
+                        Toast.makeText(getActivity(), "" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

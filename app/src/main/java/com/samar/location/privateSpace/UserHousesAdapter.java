@@ -5,13 +5,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Paint;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -31,7 +28,6 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.razorpay.Checkout;
 import com.samar.location.R;
-import com.samar.location.ViewHouseDetailsActivity;
 import com.samar.location.ViewHouseUserDetailsActivity;
 import com.samar.location.databasecontoller.FirebaseDB;
 import com.samar.location.models.CustomGalleryAdapter;
@@ -40,7 +36,6 @@ import com.samar.location.models.House;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 
 public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.ViewHolder>
@@ -49,6 +44,37 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
     int customlayout_id;
     List<House> houses; //list
     List<House> listFull;
+    private final Filter filterHouse = new Filter() {
+        //FilterResults filterResults;
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            String searchText = constraint.toString().toLowerCase();
+            List<House> tempList = new ArrayList<>();
+            if (searchText.length() == 0 || searchText.isEmpty()) {
+                tempList.addAll(listFull);
+            } else if (searchText != null) {
+                for (House house : listFull) {
+                    if (house.getCity().toLowerCase().contains(searchText)) {
+                        tempList.add(house);
+                    }
+
+                }
+            }
+
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = tempList;
+
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            houses.clear();
+            houses.addAll((Collection<? extends House>) results.values);
+            notifyDataSetChanged();
+        }
+    };
     CustomGalleryAdapter cga;
     List images;
 
@@ -56,7 +82,7 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
         this.context = context;
         this.houses = houses;
         this.customlayout_id = customlayout_id;
-        listFull=new ArrayList<>(houses);
+        listFull = new ArrayList<>(houses);
     }
 
     @Override
@@ -72,28 +98,25 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
     @Override
     public void onBindViewHolder(UserHousesAdapter.ViewHolder holder, int position) {
         House house = houses.get(position);
-        images=new ArrayList();
-        for(int i = 0; i<house.getImages().size();i++)
+        images = new ArrayList();
+        for (int i = 0; i < house.getImages().size(); i++)
             images.add(house.getImages().get(i));
 
         Glide.with(context).load(house.getImages().get(0)).into(holder.housecardImage);
-        cga=new CustomGalleryAdapter(context,images);
+        cga = new CustomGalleryAdapter(context, images);
 
 
-
-
-
-
-        if(house.getCity()!=null)
-            holder.housecardCity.setText(house.getCity().toUpperCase()+",TUNISIA");
-        if(house.getSize()!=null)
+        if (house.getCity() != null)
+            holder.housecardCity.setText(house.getCity().toUpperCase() + ",TUNISIA");
+        if (house.getSize() != null)
             holder.housecardSize.setText(house.getSize());
-        if(house.getPrice()!=null)
-            holder.housecardPrice.setText(house.getPrice()+"TND");
+        if (house.getPrice() != null)
+            holder.housecardPrice.setText(house.getPrice() + "TND");
         //if(Objects.equals(house.getPrice(), "800"))
-        if(!house.isAuthorized())
-        { Log.d("nnnnnnnnnnnnnnnn","house.isAuthorized() "+house.isAuthorized());
-            holder.linearCard.setAlpha(0.07f);}
+        if (!house.isAuthorized()) {
+            Log.d("nnnnnnnnnnnnnnnn", "house.isAuthorized() " + house.isAuthorized());
+            holder.linearCard.setAlpha(0.07f);
+        }
         /*for(int j=0;j<houses.size();j++){
             if(houses.get(j).isAuthorized()== true)
             { Log.d("nnnnnnnnnnnnnnnn","house.isAuthorized() "+house.isAuthorized());
@@ -103,9 +126,6 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
         //holder.collapseable.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
 
     }
-
-
-
 
     @Override
     public int getItemCount() {
@@ -118,53 +138,12 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
         return filterHouse;
     }
 
-    private  Filter filterHouse=new Filter() {
-        //FilterResults filterResults;
-
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            String searchText=constraint.toString().toLowerCase();
-            List<House> tempList=new ArrayList<>();
-            if(searchText.length()==0 || searchText.isEmpty())
-            {
-                tempList.addAll(listFull);
-            }
-            else if(searchText!=null)
-            {
-                for(House house:listFull)
-                {
-                    if(house.getCity().toLowerCase().contains(searchText))
-                    {
-                        tempList.add(house);
-                    }
-
-                }
-            }
-
-            FilterResults filterResults=new FilterResults();
-            filterResults.values=tempList;
-
-            return filterResults;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            houses.clear();
-            houses.addAll((Collection<? extends House>) results.values);
-            notifyDataSetChanged();
-        }
-    };
-
-
-
-
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView housecardImage;
-        Button housecardSize, housecardPrice,details,btn_delete,rentit;
+        Button housecardSize, housecardPrice, details, btn_delete, rentit;
         TextView housecardCity, housecardAddress;
         MaterialCardView cardView;
-        LinearLayout collapseable,linearCard;
+        LinearLayout collapseable, linearCard;
         Gallery gallery;
 
         FirebaseDB firebaseDB = new FirebaseDB();
@@ -181,10 +160,10 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
             cardView = view.findViewById(R.id.card);
             collapseable = view.findViewById(R.id.collapsable);
 
-            btn_delete=view.findViewById(R.id.btn_delete);
-            rentit=view.findViewById(R.id.rentit);
+            btn_delete = view.findViewById(R.id.btn_delete);
+            rentit = view.findViewById(R.id.rentit);
 
-            linearCard=view.findViewById(R.id.linearCard);
+            linearCard = view.findViewById(R.id.linearCard);
 
 
             Checkout.preload(context);
@@ -202,7 +181,7 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
 
                                     String documentId = houses.get(getAdapterPosition()).getDocId();
 
-                                    FirebaseFirestore firebaseFirestore= FirebaseFirestore.getInstance();
+                                    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
                                     firebaseFirestore.collection("HouseCollection").document(documentId)
                                             .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
@@ -218,13 +197,7 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
                                                     parentActivity.startActivity(new Intent(parentActivity, UserSpaceActivity.class));
 
                                                 }
-                                            }) ;
-
-
-
-
-
-
+                                            });
 
 
                                 }
@@ -255,10 +228,9 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
 
                     Intent intent = new Intent(context, ViewHouseUserDetailsActivity.class);
 
-                    String houseDocId= houses.get(getAdapterPosition()).getDocId();
-                    intent.putExtra("houseDocId",houseDocId);
+                    String houseDocId = houses.get(getAdapterPosition()).getDocId();
+                    intent.putExtra("houseDocId", houseDocId);
                     v.getContext().startActivity(intent);
-
 
 
                 }
@@ -266,11 +238,6 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
 
 
         }
-
-
-
-
-
 
 
     }

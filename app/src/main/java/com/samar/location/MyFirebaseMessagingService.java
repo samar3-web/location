@@ -1,13 +1,8 @@
 package com.samar.location;
 
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Intent;
-import android.os.IBinder;
 
-import androidx.annotation.Nullable;
-
-import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -17,9 +12,7 @@ import com.samar.location.BottomNavigationBar.ChatFragment;
 
 import java.util.Map;
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService
-
-{
+public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final int NOTIFICATION_ID = 1;
 

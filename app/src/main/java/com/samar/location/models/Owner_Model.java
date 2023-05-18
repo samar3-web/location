@@ -4,16 +4,8 @@ import java.util.List;
 
 public class Owner_Model {
 
-    String name ,lastName, gender, address , email , phone , password , accountType , profileUrl;
-   /* List<String> houseList;*/
-
-    public String getProfileUrl() {
-        return profileUrl;
-    }
-
-    public void setProfileUrl(String profileUrl) {
-        this.profileUrl = profileUrl;
-    }
+    String name, lastName, gender, address, email, phone, password, accountType, profileUrl;
+    /* List<String> houseList;*/
 
     public Owner_Model() {
     }
@@ -29,8 +21,20 @@ public class Owner_Model {
 //        this.houseList = houseList;
     }
 
+    public String getProfileUrl() {
+        return profileUrl;
+    }
+
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLastName() {
@@ -39,10 +43,6 @@ public class Owner_Model {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getGender() {

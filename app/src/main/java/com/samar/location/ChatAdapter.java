@@ -26,9 +26,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
-    private List<Message> messages;
-
     private static final String user = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+    private final List<Message> messages;
 
     public ChatAdapter(List<Message> messagesList) {
         this.messages = messagesList;
@@ -56,21 +55,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         viewHolder.message_time.setText(dateString);
 
         if (user.equals(message.getSenderEmail())) {
-            viewHolder.message_user.setText("Vous"  );
+            viewHolder.message_user.setText("Vous");
 
-            UiMyMessage(ll,rl);
+            UiMyMessage(ll, rl);
 
-        }else{
-            viewHolder.message_user.setText(message.getSenderEmail() );
+        } else {
+            viewHolder.message_user.setText(message.getSenderEmail());
             displaySenderName(message, viewHolder);
 
-            UIrecieverMessage(ll,rl);
+            UIrecieverMessage(ll, rl);
 
         }
-
-
-
-
 
 
     }
@@ -78,6 +73,44 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return messages.size();
+    }
+
+    private void UiMyMessage(LinearLayout ll, RelativeLayout rl) {
+
+        ll.setGravity(Gravity.END);
+        rl.setBackgroundDrawable(ContextCompat.getDrawable(rl.getContext(), R.drawable.backgound_sent_message));
+
+    }
+
+    private void UIrecieverMessage(LinearLayout ll, RelativeLayout rl) {
+        ll.setGravity(Gravity.START);
+        rl.setBackgroundDrawable(ContextCompat.getDrawable(rl.getContext(), R.drawable.background_receiver_message));
+    }
+
+    private void displaySenderName(Message message, ViewHolder viewHolder) {
+
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("USERDATA").document(message.getSenderEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    Map<String, Object> snapshot = task.getResult().getData();
+                    try {
+                        if (snapshot.get("name") != null) {
+
+                            viewHolder.message_user.setText(snapshot.get("name").toString());
+                        } else {
+                            viewHolder.message_user.setText(message.getSenderEmail());
+                        }
+
+                    } catch (Exception e) {
+
+                    }
+
+
+                }
+            }
+        });
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -101,52 +134,5 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             view = itemView.findViewById(R.id.view);
         }
 
-    }
-
-
-
-
-    private void UiMyMessage(LinearLayout ll,RelativeLayout rl){
-
-        ll.setGravity(Gravity.END);
-        rl.setBackgroundDrawable(ContextCompat.getDrawable(rl.getContext(), R.drawable.backgound_sent_message) );
-
-    }
-
-
-    private void UIrecieverMessage(LinearLayout ll,RelativeLayout rl){
-        ll.setGravity(Gravity.START);
-        rl.setBackgroundDrawable(ContextCompat.getDrawable(rl.getContext(), R.drawable.background_receiver_message) );
-    }
-
-
-
-
-
-    private void displaySenderName(Message message, ViewHolder viewHolder) {
-
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseFirestore.collection("USERDATA").document( message.getSenderEmail() ).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    Map<String, Object> snapshot = task.getResult().getData();
-                    try {
-                        if (snapshot.get("name") != null) {
-
-                            viewHolder.message_user.setText(snapshot.get("name").toString());
-                        }
-                        else{
-                            viewHolder.message_user.setText(message.getSenderEmail());
-                        }
-
-                    } catch (Exception e) {
-
-                    }
-
-
-                }
-            }
-        });
     }
 }

@@ -5,7 +5,6 @@ import static android.app.Activity.RESULT_OK;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,7 +21,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -32,11 +30,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-
-import com.samar.location.R;
-import com.samar.location.authentication.LoginActivity;
-import com.samar.location.databasecontoller.FirebaseDB;
-import com.samar.location.models.Customer_Model;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,6 +41,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.samar.location.R;
+import com.samar.location.authentication.LoginActivity;
+import com.samar.location.databasecontoller.FirebaseDB;
+import com.samar.location.models.Customer_Model;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -61,33 +58,26 @@ public class Customer_Account_Fragment extends Fragment {
 
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
+    private static final String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
-
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
     TextView cName;
     ImageView cProfile;
-    EditText cEmail , cAccountType , cPhone ,cLocation , cInput_name;
-    Button edit_btn , logout_btn, save_btn;
+    EditText cEmail, cAccountType, cPhone, cLocation, cInput_name;
+    Button edit_btn, logout_btn, save_btn;
     RadioGroup radioGroup;
-
     String currentUserEmail;
     Customer_Model customerModel;
     FirebaseDB firebaseDB;
-    RadioButton male , female;
+    RadioButton male, female;
     FirebaseFirestore firestore;
-    private Uri ImageUri;
     ArrayList ImageList = new ArrayList();
     ArrayList urlStrings;
-    private ProgressDialog progressDialog ;
-
-
-
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
+    private Uri ImageUri;
+    private ProgressDialog progressDialog;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -127,9 +117,9 @@ public class Customer_Account_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        currentUserEmail=FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
-        View view=inflater.inflate(R.layout.fragment_customer__account_, container, false);
+        View view = inflater.inflate(R.layout.fragment_customer__account_, container, false);
 
         cName = view.findViewById(R.id.customer_name);
 
@@ -139,16 +129,16 @@ public class Customer_Account_Fragment extends Fragment {
         cPhone = view.findViewById(R.id.customer_phone);
 
         cLocation = view.findViewById(R.id.customer_address);
-        cInput_name=view.findViewById(R.id.customer_name_input);
+        cInput_name = view.findViewById(R.id.customer_name_input);
 
 
-        edit_btn=view.findViewById(R.id.edit_btn);
-        logout_btn=view.findViewById(R.id.customer_logout_btn);
+        edit_btn = view.findViewById(R.id.edit_btn);
+        logout_btn = view.findViewById(R.id.customer_logout_btn);
 
-        save_btn=view.findViewById(R.id.save_btn);
-        customerModel=new Customer_Model();
-        firebaseDB=new FirebaseDB();
-        firestore=FirebaseFirestore.getInstance();
+        save_btn = view.findViewById(R.id.save_btn);
+        customerModel = new Customer_Model();
+        firebaseDB = new FirebaseDB();
+        firestore = FirebaseFirestore.getInstance();
         //Showing Data on profile
 
         showDataOnProfile();
@@ -158,16 +148,16 @@ public class Customer_Account_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                 save_btn.setVisibility(View.VISIBLE);
-                 edit_btn.setVisibility(View.GONE);
-               //  cEmail.setEnabled(true);
-              //   cAccountType.setEnabled(true);
-                 cPhone.setEnabled(true);
+                save_btn.setVisibility(View.VISIBLE);
+                edit_btn.setVisibility(View.GONE);
+                //  cEmail.setEnabled(true);
+                //   cAccountType.setEnabled(true);
+                cPhone.setEnabled(true);
                 // cPassword.setEnabled(true);
-                 cLocation.setEnabled(true);
-                 cInput_name.setVisibility(View.VISIBLE);
+                cLocation.setEnabled(true);
+                cInput_name.setVisibility(View.VISIBLE);
 
-                 cProfile.setEnabled(true);
+                cProfile.setEnabled(true);
 
 
             }
@@ -179,22 +169,22 @@ public class Customer_Account_Fragment extends Fragment {
 
 
                 //Here we are Updating the data from profile
-                if(cInput_name.getText()!=null){
-                      customerModel.setName(cInput_name.getText().toString());
+                if (cInput_name.getText() != null) {
+                    customerModel.setName(cInput_name.getText().toString());
                 }
 
-                if(cPhone.getText()!=null){
+                if (cPhone.getText() != null) {
                     customerModel.setPhone(cPhone.getText().toString());
                 }
 
-                if (cLocation.getText()!=null){
+                if (cLocation.getText() != null) {
                     customerModel.setAddress(cLocation.getText().toString());
                 }
 
                 //making imageview clickbable to change profile image.
 
                 uploadProfileToStorage();
-                firebaseDB.updateProfileData(FirebaseAuth.getInstance().getCurrentUser().getEmail(),customerModel);
+                firebaseDB.updateProfileData(FirebaseAuth.getInstance().getCurrentUser().getEmail(), customerModel);
 
                 // showDataOnProfile();
 
@@ -252,8 +242,8 @@ public class Customer_Account_Fragment extends Fragment {
 
     private void uploadProfileToStorage() {
 
-        if(!ImageList.isEmpty()){
-            progressDialog=new ProgressDialog(getActivity());
+        if (!ImageList.isEmpty()) {
+            progressDialog = new ProgressDialog(getActivity());
             progressDialog.setMessage("Uploading Please Wait");
             urlStrings = new ArrayList<>();
             progressDialog.show();
@@ -262,7 +252,7 @@ public class Customer_Account_Fragment extends Fragment {
             for (int upload_count = 0; upload_count < ImageList.size(); upload_count++) {
 
                 Uri individualImage = (Uri) ImageList.get(upload_count);
-                final StorageReference imageName = imageFolder.child("Images"+individualImage.getLastPathSegment());
+                final StorageReference imageName = imageFolder.child("Images" + individualImage.getLastPathSegment());
 
                 imageName.putFile(individualImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -271,8 +261,7 @@ public class Customer_Account_Fragment extends Fragment {
                             @Override
                             public void onSuccess(Uri uri) {
                                 urlStrings.add(String.valueOf(uri));
-                                if(urlStrings.size()==ImageList.size())
-                                {
+                                if (urlStrings.size() == ImageList.size()) {
                                     storeLinksInFiretore(urlStrings);
                                 }
                             }
@@ -286,7 +275,7 @@ public class Customer_Account_Fragment extends Fragment {
     }
 
     private void storeLinksInFiretore(ArrayList urlStrings) {
-        Log.d("xxxx", "storeLinksInFiretore: "+urlStrings);
+        Log.d("xxxx", "storeLinksInFiretore: " + urlStrings);
 
        /* HashMap<String,String> hashMap = new HashMap<>();
         for (int i = 0; i <urlStrings.size() ; i++) {
@@ -310,10 +299,11 @@ public class Customer_Account_Fragment extends Fragment {
             }
         });
 
-*/            firestore=FirebaseFirestore.getInstance();
-        DocumentReference documentReference=firestore.collection("USERDATA").document(currentUserEmail);
+*/
+        firestore = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = firestore.collection("USERDATA").document(currentUserEmail);
 
-        documentReference.update("profileUrl",urlStrings.get(0));
+        documentReference.update("profileUrl", urlStrings.get(0));
         progressDialog.dismiss();
         ImageList.clear();
     }
@@ -322,48 +312,46 @@ public class Customer_Account_Fragment extends Fragment {
     private void showDataOnProfile() {
 
 
-         FirebaseFirestore   firebaseFirestore=FirebaseFirestore.getInstance();
-            firebaseFirestore.collection("USERDATA").document(currentUserEmail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("USERDATA").document(currentUserEmail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
 
-                        Log.d("xxxxxx", "onComplete: getData()" + task.getResult().getId());
-                        Log.d("xxxxxx", "onComplete: getData()" + task.getResult().getData());
-                        Map<String, Object> snapshot= task.getResult().getData();
-                        try {
-                            if(snapshot.get("name")!=null){
-                                   cName.setText(snapshot.get("name").toString());
-                                 cInput_name.setText(snapshot.get("name").toString());}
-
-
-                            if(snapshot.get("address")!=null)
-                                cLocation.append(snapshot.get("address").toString());
-
-                            if(snapshot.get("profileUrl")!=null)
-                                   setProfile(snapshot.get("profileUrl").toString());
-
-
-                            cEmail.setText(snapshot.get("email").toString());
-
-                            cPhone.setText(snapshot.get("phone").toString());
-                        }catch (Exception e)
-                        {
-                            Log.d("xxxxxxx", "onComplete Exception in setting data to profile : "+e.getLocalizedMessage());
+                    Log.d("xxxxxx", "onComplete: getData()" + task.getResult().getId());
+                    Log.d("xxxxxx", "onComplete: getData()" + task.getResult().getData());
+                    Map<String, Object> snapshot = task.getResult().getData();
+                    try {
+                        if (snapshot.get("name") != null) {
+                            cName.setText(snapshot.get("name").toString());
+                            cInput_name.setText(snapshot.get("name").toString());
                         }
 
 
+                        if (snapshot.get("address") != null)
+                            cLocation.append(snapshot.get("address").toString());
+
+                        if (snapshot.get("profileUrl") != null)
+                            setProfile(snapshot.get("profileUrl").toString());
+
+
+                        cEmail.setText(snapshot.get("email").toString());
+
+                        cPhone.setText(snapshot.get("phone").toString());
+                    } catch (Exception e) {
+                        Log.d("xxxxxxx", "onComplete Exception in setting data to profile : " + e.getLocalizedMessage());
                     }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(Exception e) {
-                    Log.d("xxxx", "onFailure: " + e.getLocalizedMessage());
-                }
-            });
-        }
 
 
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(Exception e) {
+                Log.d("xxxx", "onFailure: " + e.getLocalizedMessage());
+            }
+        });
+    }
 
 
     private void setProfile(String profileUrl) {
@@ -373,7 +361,7 @@ public class Customer_Account_Fragment extends Fragment {
     }
 
 
-    public void getPickImageIntent(){
+    public void getPickImageIntent() {
         // Vérifier si l'autorisation a été accordée
         int permission = ActivityCompat.checkSelfPermission(getContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -385,29 +373,29 @@ public class Customer_Account_Fragment extends Fragment {
                     REQUEST_EXTERNAL_STORAGE);
         } else {
             // Si l'autorisation a été accordée, ouvrir la galerie
-            Intent GalleryIntent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            Intent GalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(GalleryIntent, 42);
         }
     }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode==42) {
-            String[] filePathColumn={MediaStore.Images.Media.DATA};
+        if (resultCode == RESULT_OK && requestCode == 42) {
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
             Cursor cursor = getContext().getContentResolver().query(data.getData(), filePathColumn, null, null, null);
 
             String imagePath;
             Uri imageUri;
             if (cursor == null) {
-                imageUri= data.getData();
+                imageUri = data.getData();
                 imagePath = data.getData().getPath();
                 ImageList.add(imageUri);
                 setProfile(ImageList.get(0).toString());
-            }
-            else {
+            } else {
                 cursor.moveToFirst();
                 int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
                 imagePath = cursor.getString(idx);
-                imageUri= data.getData();
+                imageUri = data.getData();
                 ImageList.add(imageUri);
                 setProfile(ImageList.get(0).toString());
                 cursor.close();

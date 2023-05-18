@@ -44,7 +44,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         int resourceImage = getResources().getIdentifier(remoteMessage.getNotification().getIcon(), "drawable", getPackageName());
 
 
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "CHANNEL_ID");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
 //            builder.setSmallIcon(R.drawable.icontrans);
@@ -73,10 +72,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
 
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String channelId = "Your_channel_id";
             NotificationChannel channel = new NotificationChannel(
                     channelId,
@@ -85,7 +81,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             mNotificationManager.createNotificationChannel(channel);
             builder.setChannelId(channelId);
         }
-
 
 
 // notificationId is a unique int for each notification that you must define

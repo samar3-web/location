@@ -4,7 +4,6 @@ package com.samar.location.BottomNavigationBar;
 import static com.razorpay.AppSignatureHelper.TAG;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -15,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -31,22 +29,18 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.ServerTimestamp;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.samar.location.R;
 import com.samar.location.homepage.RecyclerViewAdapter;
 import com.samar.location.models.House;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -58,17 +52,16 @@ import java.util.Map;
  */
 public class HomeFragment extends Fragment {
 
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    final String[] tabs = {"All", "Tendance", "More View", "Luxe"};
+    public Bundle bundle;
     //Global variables
     RecyclerView my_rcv;
     ImageView userFace;
     RecyclerViewAdapter recyclerViewAdapter;
-    List<House> houses;
-
-    public Bundle bundle;
-
-    TabLayout tabLayout ;
-
-    final String[] tabs = {"All","Tendance","More View", "Luxe"};
 
     /*
 
@@ -77,12 +70,8 @@ public class HomeFragment extends Fragment {
     HomeTabs_Adpater homeTabs_adpater;
 
      */
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
+    List<House> houses;
+    TabLayout tabLayout;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -92,6 +81,8 @@ public class HomeFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private ShimmerFrameLayout shimmerFrameLayout;
     private String token;
+    private TabLayout.OnTabSelectedListener tabSelectedListener;
+    private TextWatcher textWatcher;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -153,7 +144,7 @@ public class HomeFragment extends Fragment {
         userFace = view.findViewById(R.id.userFace);
 
         tabLayout = view.findViewById(R.id.tab_layout);
-        for(String tab:  tabs){
+        for (String tab : tabs) {
             tabLayout.addTab(tabLayout.newTab().setText(tab));
         }
 
@@ -163,7 +154,7 @@ public class HomeFragment extends Fragment {
 
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomnavbar);
 
-         shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
         /*shimmerFrameLayout.startShimmer();
         // Simulating data retrieval
         // Replace this with your actual data retrieval logic
@@ -190,13 +181,13 @@ public class HomeFragment extends Fragment {
         filtreBtn = view.findViewById(R.id.filtreBtn);
 
         popupMenu = new PopupMenu(getContext(), filtreBtn);
-        popupMenu.getMenu().add(1,1,1,"No filter");
-        popupMenu.getMenu().add(1,1,2,"Filter by Availablilty");
-        popupMenu.getMenu().add(1,1,3,"Filter by Price");
-        popupMenu.getMenu().add(1,1,4,"Filter by Size");
-        popupMenu.getMenu().add(1,1,5,"Filter by Surface");
-        popupMenu.getMenu().add(1,1,6,"Filter by Creation date");
-        popupMenu.getMenu().add(1,1,7,"Filter by Updating date");
+        popupMenu.getMenu().add(1, 1, 1, "No filter");
+        popupMenu.getMenu().add(1, 1, 2, "Filter by Availablilty");
+        popupMenu.getMenu().add(1, 1, 3, "Filter by Price");
+        popupMenu.getMenu().add(1, 1, 4, "Filter by Size");
+        popupMenu.getMenu().add(1, 1, 5, "Filter by Surface");
+        popupMenu.getMenu().add(1, 1, 6, "Filter by Creation date");
+        popupMenu.getMenu().add(1, 1, 7, "Filter by Updating date");
 
         filtreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,7 +238,6 @@ public class HomeFragment extends Fragment {
                             recyclerViewAdapter.sortData("addedDate");
                         }
                         break;
-                        
 
 
                 }
@@ -255,9 +245,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabSelectedListener = new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 // Action à effectuer lorsqu'un onglet est sélectionné
@@ -305,12 +293,10 @@ public class HomeFragment extends Fragment {
             public void onTabReselected(TabLayout.Tab tab) {
                 // Action à effectuer lorsqu'un onglet est sélectionné pour la deuxième fois
             }
-        });
+        };
+        tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
-
-
-// Ajouter le TextWatcher
-        searchEt.addTextChangedListener(new TextWatcher() {
+        textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -318,7 +304,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // Mettre à jour les éléments de RecyclerView en fonction de la recherche
-                 //recyclerViewAdapter.getFilter().filter(s.toString());
+                // recyclerViewAdapter.getFilter().filter(s.toString());
                 if (recyclerViewAdapter != null) {
                     recyclerViewAdapter.filter(s.toString());
                 }
@@ -327,12 +313,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
             }
-        });
+        };
+// Ajouter le TextWatcher
+        searchEt.addTextChangedListener(textWatcher);
 
 
         my_rcv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged( RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                        /*
                            super.onScrollStateChanged(recyclerView, newState);
                            if (newState == RecyclerView.SCROLL_STATE_IDLE)
@@ -349,7 +337,7 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onScrolled( RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                            /*
                            super.onScrolled(recyclerView, dx, dy);
 
@@ -371,7 +359,6 @@ public class HomeFragment extends Fragment {
         return view;
 
 
-
     }
 
     /*shimmerFrameLayout.startShimmer();
@@ -391,7 +378,7 @@ public class HomeFragment extends Fragment {
 
                }
            }, 2000);*/
-    private void getHouseData(){
+    private void getHouseData() {
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         my_rcv.setVisibility(View.GONE);
         shimmerFrameLayout.startShimmer();
@@ -403,12 +390,11 @@ public class HomeFragment extends Fragment {
                         shimmerFrameLayout.stopShimmer();
                         shimmerFrameLayout.setVisibility(View.GONE);
                         my_rcv.setVisibility(View.VISIBLE);
-                        Log.d("xxxxxdocs", "onComplete: of HouseData fetching "+task.getResult().getDocuments());
-                        houses=new ArrayList<>();
-                        for(DocumentSnapshot doc : task.getResult().getDocuments())
-                        {
-                            if ((boolean)doc.get("availability") == true && (boolean)doc.get("authorized")){
-                                House house=new House();
+                        Log.d("xxxxxdocs", "onComplete: of HouseData fetching " + task.getResult().getDocuments());
+                        houses = new ArrayList<>();
+                        for (DocumentSnapshot doc : task.getResult().getDocuments()) {
+                            if ((boolean) doc.get("availability") && (boolean) doc.get("authorized")) {
+                                House house = new House();
                                 house.setDocId(doc.getId());
                                 house.setLocation(doc.get("location").toString());
                                 house.setSize(doc.get("size").toString());
@@ -419,28 +405,28 @@ public class HomeFragment extends Fragment {
                                 house.setStreet(doc.get("street").toString());
                                 house.setPost(doc.get("post").toString());
 
-                                house.setAvailability( (boolean) doc.get("availability"));
+                                house.setAvailability((boolean) doc.get("availability"));
 
                                 house.setPhone(doc.get("phone").toString());
 
-                                house.setOwnerEmail( doc.get("ownerEmail").toString() );
+                                house.setOwnerEmail(doc.get("ownerEmail").toString());
 
-                                house.setAuthorized((boolean) doc.get("authorized") );
+                                house.setAuthorized((boolean) doc.get("authorized"));
 
-                                house.setViews((long) doc.get("views") );
+                                house.setViews((long) doc.get("views"));
 
-                                house.setAddedDate( (Timestamp)  doc.get("addedDate"));
+                                house.setAddedDate((Timestamp) doc.get("addedDate"));
 
-                                house.setLastModifiedDate( (Timestamp) doc.get("lastModifiedDate") );
+                                house.setLastModifiedDate((Timestamp) doc.get("lastModifiedDate"));
 
-                                if(doc.get("latitude")  != null){
-                                    house.setLatitude((double)  doc.get("latitude") );
+                                if (doc.get("latitude") != null) {
+                                    house.setLatitude((double) doc.get("latitude"));
                                 }
-                                if(doc.get("longitude")  != null){
-                                    house.setLongitude((double)  doc.get("longitude") );
+                                if (doc.get("longitude") != null) {
+                                    house.setLongitude((double) doc.get("longitude"));
                                 }
 
-                                if(doc.get("images") != null){
+                                if (doc.get("images") != null) {
                                     List<String> images = (List<String>) doc.get("images");
                                     house.setImages(images);
 
@@ -450,8 +436,12 @@ public class HomeFragment extends Fragment {
                             }
 
                         }
+                        if (recyclerViewAdapter != null) {
+                            recyclerViewAdapter = null;
+                            my_rcv.setAdapter(null);
+                        }
 
-                        recyclerViewAdapter = new RecyclerViewAdapter(getActivity(),houses, R.layout.houses_cardview);
+                        recyclerViewAdapter = new RecyclerViewAdapter(getActivity(), houses, R.layout.houses_cardview);
                         //setting adapter to recycler view
                         my_rcv.setAdapter(recyclerViewAdapter);
                         //LayoutManager for recycler view
@@ -461,12 +451,11 @@ public class HomeFragment extends Fragment {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(Exception e) {
-                        Log.d("xxxxx", "onFailure: of HouseData fectching "+e.getLocalizedMessage());
+                        Log.d("xxxxx", "onFailure: of HouseData fectching " + e.getLocalizedMessage());
                     }
                 });
 
     }
-
 
 
     private void displayUserFace() {
@@ -499,6 +488,7 @@ public class HomeFragment extends Fragment {
                 .load(profileUrl)
                 .into(userFace);
     }
+
     private void setUserTokens() {
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
@@ -510,8 +500,8 @@ public class HomeFragment extends Fragment {
                         }
 
                         // Get new FCM registration token
-                         token = task.getResult();
-                        Log.d( "ffffffffffffffffffffffffffff", token);
+                        token = task.getResult();
+                        Log.d("ffffffffffffffffffffffffffff", token);
 
 
                     }
@@ -563,4 +553,35 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Release the ShimmerFrameLayout
+        shimmerFrameLayout = null;
+        swipeRefreshLayout = null;
+        my_rcv = null;
+        // Remove the listener
+        tabLayout.removeOnTabSelectedListener(tabSelectedListener);
+
+        // Clear the reference to the listener
+        tabSelectedListener = null;
+
+
+
+        // Remove TabLayout from its parent view
+        ViewGroup parent = (ViewGroup) tabLayout.getParent();
+        if (parent != null) {
+            parent.removeView(tabLayout);
+        }
+
+        // Clear reference to TabLayout
+        tabLayout = null;
+        // Clean up references to avoid memory leaks
+        filtreBtn.setOnClickListener(null);
+        popupMenu.setOnMenuItemClickListener(null);
+        tabLayout.removeOnTabSelectedListener(tabSelectedListener);
+        searchEt.removeTextChangedListener(textWatcher);
+        my_rcv.clearOnScrollListeners();
+    }
+
 }

@@ -1,13 +1,13 @@
 package com.samar.location;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +23,7 @@ import com.samar.location.homepage.HomePage;
 public class SplashActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,16 +35,15 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         firebaseAuth = FirebaseAuth.getInstance();
         //start login activity after 2sec
-        new Handler().postDelayed(new Runnable () {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void run () {
+            public void run() {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user==null){
+                if (user == null) {
                     //user not logged in start activity
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     finish();
-                }
-                else {
+                } else {
                     //user is logger in
                     checkUserType();
 
@@ -52,6 +52,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 3000);
     }
+
     private void checkUserType() {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
@@ -59,7 +60,7 @@ public class SplashActivity extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot ds: snapshot.getChildren()){
+                        for (DataSnapshot ds : snapshot.getChildren()) {
                             startActivity(new Intent(SplashActivity.this, HomePage.class));
                         }
                     }

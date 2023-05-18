@@ -1,8 +1,6 @@
 package com.samar.location;
 
 import android.Manifest;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -11,15 +9,10 @@ import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -33,15 +26,12 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.Timestamp;
-
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.microsoft.maps.Geopoint;
@@ -60,23 +50,23 @@ import java.util.Map;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 
-public class ViewHouseDetailsActivity  extends AppCompatActivity {
+public class ViewHouseDetailsActivity extends AppCompatActivity {
 
-    private ImageView housecardImage,back;
-    Button contact_owner,chat;
-    TextView housecardcity,contactPerson,houseNo,location,street,phone,price,size;
-     List<String> imageUrls ;
     private static final int CALL_PERMISSION_REQUEST_CODE = 1;
+    private static final String MY_API_KEY = "AlwLTKgevIemLkhFY8wA2oDQwpxY8SBBAR8a5dXymXDFKTmfGWKkXnJGQkGzXUMM";
+    public static String houseDocId;
+    Button contact_owner, chat;
+    TextView housecardcity, contactPerson, houseNo, location, street, phone, price, size;
+    List<String> imageUrls;
+    RecyclerView recyclerView;
+    private ImageView housecardImage, back;
     private MapView mapView;
     private FloatingActionButton mFab;
     private MapElementLayer mPinLayer;
     private MapImage mPinImage;
     private int mUntitledPushpinCount = 0;
     private Geopoint geopoint;
-    private static final String MY_API_KEY = "AlwLTKgevIemLkhFY8wA2oDQwpxY8SBBAR8a5dXymXDFKTmfGWKkXnJGQkGzXUMM";
     private House house;
-    RecyclerView recyclerView;
-    public static String houseDocId;
     private ScrollView scrollView;
     private Button direction;
 
@@ -84,22 +74,22 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_house_details);
-        houseDocId =  getIntent().getStringExtra("houseDocId");
+        houseDocId = getIntent().getStringExtra("houseDocId");
 
         housecardImage = findViewById(R.id.housecardImage);
         back = findViewById(R.id.back_home);
-        
+
         direction = findViewById(R.id.direction);
 
         recyclerView = findViewById(R.id.recyclerViewHorizontal);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        contact_owner=findViewById(R.id.call);
+        contact_owner = findViewById(R.id.call);
         chat = findViewById(R.id.chat);
 
         contactPerson = findViewById(R.id.contactPerson);
-        houseNo= findViewById(R.id.houseNo);
+        houseNo = findViewById(R.id.houseNo);
         location = findViewById(R.id.location);
-        street= findViewById(R.id.street);
+        street = findViewById(R.id.street);
         price = findViewById(R.id.price);
         size = findViewById(R.id.size);
         //
@@ -113,8 +103,10 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
         mapView.setCredentialsKey(MY_API_KEY);
         mapView.onCreate(savedInstanceState);
         scrollView = findViewById(R.id.scrollView);
+
+        mapView.onCreate(savedInstanceState);
         mapView.setOnTouchListener(new View.OnTouchListener() {
-            
+
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -139,9 +131,8 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
         showHouseDetails(houseDocId);
 
 
-
-
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -169,8 +160,8 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
                     Log.d("xxxxxx", "onComplete: getData()" + task.getResult().getData());
                     Map<String, Object> snapshot = task.getResult().getData();
                     try {
-                         house=new House();
-                         house.setDocId(task.getResult().getId());
+                        house = new House();
+                        house.setDocId(task.getResult().getId());
                         house.setLocation(snapshot.get("location").toString());
                         house.setSize(snapshot.get("size").toString());
                         house.setPrice((snapshot.get("price")).toString());
@@ -180,35 +171,35 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
                         house.setStreet(snapshot.get("street").toString());
                         house.setPost(snapshot.get("post").toString());
 
-                        house.setAvailability( (boolean) snapshot.get("availability"));
+                        house.setAvailability((boolean) snapshot.get("availability"));
 
                         house.setPhone(snapshot.get("phone").toString());
 
-                        house.setOwnerEmail( snapshot.get("ownerEmail").toString() );
+                        house.setOwnerEmail(snapshot.get("ownerEmail").toString());
 
-                        house.setAuthorized((boolean) snapshot.get("authorized") );
+                        house.setAuthorized((boolean) snapshot.get("authorized"));
 
-                        house.setViews((long) snapshot.get("views") );
+                        house.setViews((long) snapshot.get("views"));
 
-                        house.setAddedDate( (Timestamp)  snapshot.get("addedDate"));
+                        house.setAddedDate((Timestamp) snapshot.get("addedDate"));
 
-                        house.setLastModifiedDate( (Timestamp) snapshot.get("lastModifiedDate") );
+                        house.setLastModifiedDate((Timestamp) snapshot.get("lastModifiedDate"));
 
-                        if(snapshot.get("latitude")  != null){
-                            house.setLatitude((double)  snapshot.get("latitude") );
+                        if (snapshot.get("latitude") != null) {
+                            house.setLatitude((double) snapshot.get("latitude"));
                         }
-                        if(snapshot.get("longitude")  != null){
-                            house.setLongitude((double)  snapshot.get("longitude") );
+                        if (snapshot.get("longitude") != null) {
+                            house.setLongitude((double) snapshot.get("longitude"));
                         }
 
-                        if(snapshot.get("images") != null){
+                        if (snapshot.get("images") != null) {
                             List<String> images = (List<String>) snapshot.get("images");
                             house.setImages(images);
 
                         }
 
                         Glide.with(getApplicationContext())
-                                .load( house.getImages().get(0) )
+                                .load(house.getImages().get(0))
                                 .into(housecardImage);
                         PhotoViewAttacher pAttacher;
                         pAttacher = new PhotoViewAttacher(housecardImage);
@@ -243,13 +234,13 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
                             public void onClick(View v) {
 
                                 Intent intent = new Intent(getApplicationContext(), DiscussionActivity.class);
-                                intent.putExtra("friendEmail",house.getOwnerEmail() );
+                                intent.putExtra("friendEmail", house.getOwnerEmail());
                                 startActivity(intent);
                             }
                         });
 
 
-                        RecyclerViewHorizontalAdapter adapter = new RecyclerViewHorizontalAdapter(house.getImages(),housecardImage );
+                        RecyclerViewHorizontalAdapter adapter = new RecyclerViewHorizontalAdapter(house.getImages(), housecardImage);
                         recyclerView.setAdapter(adapter);
 
 
@@ -257,7 +248,7 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
                         mapView.getLayers().add(mPinLayer);
                         mPinImage = getPinImage();
                         geopoint = new Geopoint(house.getLatitude(), house.getLongitude());
-                        addPin(geopoint, house.getContactPerson()+"'s House");
+                        addPin(geopoint, house.getContactPerson() + "'s House");
                         mapView.setScene(
                                 MapScene.createFromLocationAndZoomLevel(geopoint, 15),
                                 MapAnimationKind.NONE);
@@ -290,6 +281,7 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
             }
         });
     }
+
     private MapImage getPinImage() {
         // Create a pin image from a drawable resource
         Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_pin, null);
@@ -320,6 +312,35 @@ public class ViewHouseDetailsActivity  extends AppCompatActivity {
                     ++mUntitledPushpinCount));
         }
         mPinLayer.getElements().add(pushpin);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
     }
 }
 

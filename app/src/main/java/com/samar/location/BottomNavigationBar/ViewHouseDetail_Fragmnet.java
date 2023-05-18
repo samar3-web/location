@@ -20,15 +20,13 @@ import com.samar.location.R;
  */
 public class ViewHouseDetail_Fragmnet extends Fragment {
 
-    ImageView image1 , image2 , image3 , image4 , image5;
-    TextView city , location;
-    Button price , size , rentIt;
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    ImageView image1, image2, image3, image4, image5;
+    TextView city, location;
+    Button price, size, rentIt;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -68,7 +66,7 @@ public class ViewHouseDetail_Fragmnet extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_view_house_detail__fragmnet, container, false);
+        View view = inflater.inflate(R.layout.fragment_view_house_detail__fragmnet, container, false);
 
         return view;
     }

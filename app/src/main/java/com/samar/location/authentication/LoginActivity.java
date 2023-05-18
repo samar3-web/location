@@ -9,8 +9,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-
-//import com.example.renthouse.BottomNavigationBar.BootomNavBarMain;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.FirebaseApp;
@@ -23,8 +21,8 @@ public class LoginActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
-    FloatingActionButton fb,google,twitter;
-    float v=0;
+    FloatingActionButton fb, google, twitter;
+    float v = 0;
 
     FirebaseAuth firebaseAuth;
 
@@ -36,26 +34,26 @@ public class LoginActivity extends AppCompatActivity {
         //Redirection to BootomNavBarMain class if user is connected
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if(currentUser != null) {
+        if (currentUser != null) {
 
             startActivity(new Intent(LoginActivity.this, BootomNavBarMain.class));
-            Toast.makeText(getApplicationContext(),currentUser.getEmail()+" is connected",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), currentUser.getEmail() + " is connected", Toast.LENGTH_LONG).show();
             finish();
         }
 
 
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
-           //Creating instance of firebase auth
+        //Creating instance of firebase auth
         FirebaseApp.initializeApp(getApplicationContext());
-          firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         tabLayout.addTab(tabLayout.newTab().setText("Login"));
         tabLayout.addTab(tabLayout.newTab().setText("SignUp"));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final LoginAdapter adapter = new LoginAdapter(getSupportFragmentManager(),this,tabLayout.getTabCount());
+        final LoginAdapter adapter = new LoginAdapter(getSupportFragmentManager(), this, tabLayout.getTabCount());
 
         viewPager.setAdapter(adapter);
 
@@ -81,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         tabLayout.setAlpha(v);
         tabLayout.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(100).start();
     }
+
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)

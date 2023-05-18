@@ -1,14 +1,9 @@
 package com.samar.location.models;
 
-import java.util.Date;
-
-
-
 public class Discussions {
     private String text;
     private String friendEmail;
     private long time;
-
 
 
     //Constructor
@@ -19,7 +14,7 @@ public class Discussions {
 
     }
 
-    public Discussions(){
+    public Discussions() {
 
     }
 
@@ -46,10 +41,6 @@ public class Discussions {
     public void setTime(long time) {
         this.time = time;
     }
-
-
-
-
 
 
 }

@@ -7,19 +7,17 @@ import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
 
-//import com.bumptech.glide.Glide;
-
 import java.util.List;
 
 public class CustomGalleryAdapter extends BaseAdapter {
-   private Context context;
-   private List imageUrl;
+    private final Context context;
+    private final List imageUrl;
 
-   public CustomGalleryAdapter(Context context , List imageUrl)
-   {
-       this.context=context;
-       this.imageUrl=imageUrl;
-   }
+    public CustomGalleryAdapter(Context context, List imageUrl) {
+        this.context = context;
+        this.imageUrl = imageUrl;
+    }
+
     @Override
     public int getCount() {
         return imageUrl.size();
@@ -38,15 +36,13 @@ public class CustomGalleryAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ImageView imageView=new ImageView(context);
+        ImageView imageView = new ImageView(context);
         //Glide.with(context)
-               // .load(imageUrl.get(position))
-            //    .into(imageView);
-        imageView.setLayoutParams(new Gallery.LayoutParams(300,200));
+        // .load(imageUrl.get(position))
+        //    .into(imageView);
+        imageView.setLayoutParams(new Gallery.LayoutParams(300, 200));
 
 
-
-
-       return imageView;
+        return imageView;
     }
 }

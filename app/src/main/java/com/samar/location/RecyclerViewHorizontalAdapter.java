@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,10 +15,10 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import java.util.List;
 
 public class RecyclerViewHorizontalAdapter extends RecyclerView.Adapter<RecyclerViewHorizontalAdapter.MyViewHolder> {
-    private List<String> dataList;
+    private final List<String> dataList;
     ImageView displayer;
 
-    public RecyclerViewHorizontalAdapter(List<String> dataList ,  ImageView displayer ) {
+    public RecyclerViewHorizontalAdapter(List<String> dataList, ImageView displayer) {
         this.dataList = dataList;
         this.displayer = displayer;
     }
@@ -45,13 +44,12 @@ public class RecyclerViewHorizontalAdapter extends RecyclerView.Adapter<Recycler
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Glide.with( holder.image.getContext())
-                        .load( dataList.get(holder.getAdapterPosition()))
+                Glide.with(holder.image.getContext())
+                        .load(dataList.get(holder.getAdapterPosition()))
                         .into(displayer);
             }
         });
     }
-
 
 
     @Override

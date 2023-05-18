@@ -1,11 +1,7 @@
 package com.samar.location;
 
-import static java.time.LocalDateTime.now;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,25 +11,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,6 +39,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.samar.location.databasecontoller.FirebaseDB;
 import com.samar.location.models.House;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -59,26 +49,23 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class ViewHouseUserDetailsActivity extends AppCompatActivity {
 
-    TextView  availability;
+    public static String houseDocId;
+    TextView availability;
     ImageView face;
-    EditText price, street, phone, size,houseNo, city,location;
-    Button edit_btn, save_btn,delete_btn;
+    EditText price, street, phone, size, houseNo, city, location;
+    Button edit_btn, save_btn, delete_btn;
     RadioGroup radioGroup;
     LinearLayout availability_layout;
     String currentUserEmail;
-
     FirebaseDB firebaseDB;
     RadioButton valable, invalable;
-    private Uri ImageUri;
     ArrayList ImageList = new ArrayList();
     ArrayList urlStrings;
 
     RecyclerView recyclerView;
-    private ProgressDialog progressDialog;
     FirebaseFirestore firestore;
-
-   public static String houseDocId;
-
+    private Uri ImageUri;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +73,7 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_house_user_details);
 
 
-        houseDocId =  getIntent().getStringExtra("houseDocId");
+        houseDocId = getIntent().getStringExtra("houseDocId");
 
         face = findViewById(R.id.face);
         availability = findViewById(R.id.house_availability);
@@ -111,7 +98,7 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        House  myHouse = new House();
+        House myHouse = new House();
 
         firebaseDB = new FirebaseDB();
         firestore = FirebaseFirestore.getInstance();
@@ -123,12 +110,8 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
         showHouseDetails(houseDocId);
 
 
-
-
-
-
         //------------------------edit Button code
-       // cProfile.setEnabled(false);
+        // cProfile.setEnabled(false);
         edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,40 +138,37 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
 
                 //Here we are Updating the data from House
 
-                RadioButton selectedRadioButton = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
-                if(selectedRadioButton!=null && selectedRadioButton==invalable)
-                    myHouse.setAvailability(false);
-                else
-                    myHouse.setAvailability(true);
+                RadioButton selectedRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+                myHouse.setAvailability(selectedRadioButton == null || selectedRadioButton != invalable);
 
-                if(price.getText()!=null)
+                if (price.getText() != null)
                     myHouse.setPrice(price.getText().toString());
 
-                if(phone.getText()!=null)
+                if (phone.getText() != null)
                     myHouse.setPhone(phone.getText().toString());
 
-                if(city.getText()!=null)
+                if (city.getText() != null)
                     myHouse.setCity(city.getText().toString());
 
-                if(location.getText()!=null)
+                if (location.getText() != null)
                     myHouse.setLocation(location.getText().toString());
 
-                if(street.getText()!=null)
+                if (street.getText() != null)
                     myHouse.setStreet(street.getText().toString());
 
-                if(size.getText()!=null)
+                if (size.getText() != null)
                     myHouse.setSize(size.getText().toString());
 
 
-                if(houseNo.getText()!=null)
+                if (houseNo.getText() != null)
                     myHouse.setHouseNo(houseNo.getText().toString());
 
                 myHouse.setLastModifiedDate(Timestamp.now());
                 //making imageview clickbable to change profile image.
 
-               // uploadDataHouseToStorage();
+                // uploadDataHouseToStorage();
 
-                firebaseDB.updateHouseData(houseDocId,myHouse,getApplicationContext());
+                firebaseDB.updateHouseData(houseDocId, myHouse, getApplicationContext());
 
                 showHouseDetails(houseDocId);
 
@@ -235,10 +215,6 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
     private void showHouseDetails(String houseDocId) {
 
 
@@ -254,7 +230,7 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
                     try {
 
                         if (snapshot.get("availability") != null) {
-                            availability.setText( snapshot.get("availability").toString().equals("true") ? "Available": "Not Available");
+                            availability.setText(snapshot.get("availability").toString().equals("true") ? "Available" : "Not Available");
                             if (snapshot.get("availability").toString().equals("true"))
                                 valable.setChecked(true);
                             else
@@ -283,19 +259,18 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
                             houseNo.setText(snapshot.get("houseNo").toString());
 
 
-
                         //Aficher une Gallery des images
 
-                        if(snapshot.get("images") != null){
+                        if (snapshot.get("images") != null) {
 
                             List<String> images = (List<String>) snapshot.get("images");
                             Glide.with(getApplicationContext())
-                                    .load( images.get(0) )
+                                    .load(images.get(0))
                                     .into(face);
                             PhotoViewAttacher pAttacher;
                             pAttacher = new PhotoViewAttacher(face);
                             pAttacher.update();
-                            RecyclerViewHorizontalAdapter adapter = new RecyclerViewHorizontalAdapter(images,face );
+                            RecyclerViewHorizontalAdapter adapter = new RecyclerViewHorizontalAdapter(images, face);
                             recyclerView.setAdapter(adapter);
 
                         }
@@ -397,7 +372,7 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
     }
 
     public void getPickImageIntent() {
-        Intent GalleryIntent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent GalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
 
         //Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -407,25 +382,24 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
     }
 
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data)  {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode==42) {
-            String[] filePathColumn={MediaStore.Images.Media.DATA};
+        if (resultCode == RESULT_OK && requestCode == 42) {
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
             Cursor cursor = getApplicationContext().getContentResolver().query(data.getData(), filePathColumn, null, null, null);
 
             String imagePath;
             Uri imageUri;
             if (cursor == null) {
-                imageUri= data.getData();
+                imageUri = data.getData();
                 imagePath = data.getData().getPath();
                 ImageList.add(imageUri);
                 setProfile(ImageList.get(0).toString());
-            }
-            else {
+            } else {
                 cursor.moveToFirst();
                 int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
                 imagePath = cursor.getString(idx);
-                imageUri= data.getData();
+                imageUri = data.getData();
                 ImageList.add(imageUri);
                 setProfile(ImageList.get(0).toString());
                 cursor.close();

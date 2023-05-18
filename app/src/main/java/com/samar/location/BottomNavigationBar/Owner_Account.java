@@ -5,7 +5,6 @@ import static android.app.Activity.RESULT_OK;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,9 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,14 +29,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-
-import com.samar.location.R;
-import com.samar.location.authentication.LoginActivity;
-import com.samar.location.databasecontoller.FirebaseDB;
-import com.samar.location.models.Customer_Model;
-import com.samar.location.models.Owner_Model;
-import com.samar.location.privateSpace.UserSpaceActivity;
-import com.samar.location.renthouse.AddHouseActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,6 +40,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.samar.location.R;
+import com.samar.location.authentication.LoginActivity;
+import com.samar.location.databasecontoller.FirebaseDB;
+import com.samar.location.models.Customer_Model;
+import com.samar.location.models.Owner_Model;
+import com.samar.location.privateSpace.UserSpaceActivity;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -63,33 +58,29 @@ import java.util.Map;
 public class Owner_Account extends Fragment {
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
+    private static final String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
-
-    TextView cName;
-    ImageView cProfile;
-    EditText cEmail, cAccountType, cPhone, cLocation, cInput_name;
-    Button edit_btn, logout_btn, save_btn;
-
-
-    String currentUserEmail;
-    Customer_Model customerModel;
-    FirebaseDB firebaseDB;
-    RadioButton male, female;
-    private Uri ImageUri;
-    ArrayList ImageList = new ArrayList();
-    ArrayList urlStrings;
-    private ProgressDialog progressDialog;
-    FirebaseFirestore firestore;
-    String currentUserUid;
-    Intent intent;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    TextView cName;
+    ImageView cProfile;
+    EditText cEmail, cAccountType, cPhone, cLocation, cInput_name;
+    Button edit_btn, logout_btn, save_btn;
+    String currentUserEmail;
+    Customer_Model customerModel;
+    FirebaseDB firebaseDB;
+    RadioButton male, female;
+    ArrayList ImageList = new ArrayList();
+    ArrayList urlStrings;
+    FirebaseFirestore firestore;
+    String currentUserUid;
+    Intent intent;
+    private Uri ImageUri;
+    private ProgressDialog progressDialog;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -132,7 +123,6 @@ public class Owner_Account extends Fragment {
         View view = inflater.inflate(R.layout.owner_account_layout, container, false);
 
 
-
         cName = view.findViewById(R.id.owner_name);
 
         cProfile = view.findViewById(R.id.owner_profile_image);
@@ -153,16 +143,16 @@ public class Owner_Account extends Fragment {
         firestore = FirebaseFirestore.getInstance();
 
         currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        currentUserUid=FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Log.d("xxxxOwnerUId", "onCreate:addHouseActivity ownerUid"+currentUserUid);
+        currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Log.d("xxxxOwnerUId", "onCreate:addHouseActivity ownerUid" + currentUserUid);
         Button user_houses_btn = view.findViewById(R.id.user_houses_btn);
 
         user_houses_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent=new Intent(getActivity(), UserSpaceActivity.class);
-                intent.putExtra("currentUserUid",currentUserUid);
+                Intent intent = new Intent(getActivity(), UserSpaceActivity.class);
+                intent.putExtra("currentUserUid", currentUserUid);
                 startActivity(intent);
 
             }
@@ -199,14 +189,14 @@ public class Owner_Account extends Fragment {
 
 
                 //Here we are Updating the data from profile
-                if(cInput_name.getText()!=null)
-                          ownerModel.setName(cInput_name.getText().toString());
+                if (cInput_name.getText() != null)
+                    ownerModel.setName(cInput_name.getText().toString());
 
 
-                if(cPhone.getText()!=null)
-                            ownerModel.setPhone(cPhone.getText().toString());
-                if (cLocation.getText()!=null)
-                             ownerModel.setAddress(cLocation.getText().toString());
+                if (cPhone.getText() != null)
+                    ownerModel.setPhone(cPhone.getText().toString());
+                if (cLocation.getText() != null)
+                    ownerModel.setAddress(cLocation.getText().toString());
                 //making imageview clickbable to change profile image.
 
                 uploadProfileToStorage();
@@ -241,28 +231,28 @@ public class Owner_Account extends Fragment {
             }
         });
 
-         logout_btn.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
+        logout_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                     new AlertDialog.Builder(getContext())
-                             .setMessage("Are you sure you want to logout from the application?")
-                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                 @Override
-                                 public void onClick(DialogInterface dialog, int which) {
+                new AlertDialog.Builder(getContext())
+                        .setMessage("Are you sure you want to logout from the application?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                                     FirebaseAuth.getInstance().signOut();
-                                     getActivity().finish();
-                                     Toast.makeText(getActivity(), "Logging Out", Toast.LENGTH_SHORT).show();
-                                     startActivity(new Intent(getActivity(), LoginActivity.class));
-                                 }
-                             })
-                             .setNegativeButton("No", null)
-                             .show();
+                                FirebaseAuth.getInstance().signOut();
+                                getActivity().finish();
+                                Toast.makeText(getActivity(), "Logging Out", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getActivity(), LoginActivity.class));
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
 
 
-             }
-         });
+            }
+        });
         return view;
 
     }
@@ -401,7 +391,7 @@ public class Owner_Account extends Fragment {
                     REQUEST_EXTERNAL_STORAGE);
         } else {
             // Si l'autorisation a été accordée, ouvrir la galerie
-            Intent GalleryIntent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            Intent GalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(GalleryIntent, 42);
         }
     }
@@ -409,23 +399,22 @@ public class Owner_Account extends Fragment {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode==42) {
-            String[] filePathColumn={MediaStore.Images.Media.DATA};
+        if (resultCode == RESULT_OK && requestCode == 42) {
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
             Cursor cursor = getContext().getContentResolver().query(data.getData(), filePathColumn, null, null, null);
 
             String imagePath;
             Uri imageUri;
             if (cursor == null) {
-                imageUri= data.getData();
+                imageUri = data.getData();
                 imagePath = data.getData().getPath();
                 ImageList.add(imageUri);
                 setProfile(ImageList.get(0).toString());
-            }
-            else {
+            } else {
                 cursor.moveToFirst();
                 int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
                 imagePath = cursor.getString(idx);
-                imageUri= data.getData();
+                imageUri = data.getData();
                 ImageList.add(imageUri);
                 setProfile(ImageList.get(0).toString());
                 cursor.close();

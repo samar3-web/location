@@ -6,12 +6,8 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
-//import com.example.renthouse.BottomNavigationBar.BootomNavBarMain;
 import androidx.annotation.NonNull;
 
-import com.samar.location.models.Customer_Model;
-import com.samar.location.models.House;
-import com.samar.location.models.Owner_Model;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -19,6 +15,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.samar.location.models.Customer_Model;
+import com.samar.location.models.House;
+import com.samar.location.models.Owner_Model;
 import com.samar.location.privateSpace.UserSpaceActivity;
 
 import java.util.HashMap;
@@ -62,11 +61,11 @@ public class FirebaseDB {
                         Log.d("xxxx", "onSuccess: " + document);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(Exception e) {
-                Log.d("xxxx", "onFailure: " + e.getLocalizedMessage());
-            }
-        });
+                    @Override
+                    public void onFailure(Exception e) {
+                        Log.d("xxxx", "onFailure: " + e.getLocalizedMessage());
+                    }
+                });
 
         return dataAdded;
     }
@@ -98,11 +97,11 @@ public class FirebaseDB {
                         Log.d("xxxx", "onSuccess: " + document);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(Exception e) {
-                Log.d("xxxx", "onFailure: " + e.getLocalizedMessage());
-            }
-        });
+                    @Override
+                    public void onFailure(Exception e) {
+                        Log.d("xxxx", "onFailure: " + e.getLocalizedMessage());
+                    }
+                });
 
         return dataAdded;
     }
@@ -111,7 +110,7 @@ public class FirebaseDB {
     //--------------------------get data from firebase firestore-------------------------------------------------
 
     public void getData(String currentUserEmail) {
-        firebaseFirestore=FirebaseFirestore.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore.collection("USERDATA").document(currentUserEmail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(Task<DocumentSnapshot> task) {
@@ -133,85 +132,84 @@ public class FirebaseDB {
         });
     }
 
-    public void updateProfileData(String currentUserEmail , Customer_Model model)
-    {   firebaseFirestore=FirebaseFirestore.getInstance();
-        DocumentReference documentReference=firebaseFirestore.collection(collection).document(currentUserEmail);
-        Map<String,Object> map = new HashMap<>();
-        String name=model.getName();
-        String phone=model.getPhone();
-        String address=model.getAddress();
-        map.put("name",name);
-        map.put("phone",phone);
-        map.put("address",address);
+    public void updateProfileData(String currentUserEmail, Customer_Model model) {
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = firebaseFirestore.collection(collection).document(currentUserEmail);
+        Map<String, Object> map = new HashMap<>();
+        String name = model.getName();
+        String phone = model.getPhone();
+        String address = model.getAddress();
+        map.put("name", name);
+        map.put("phone", phone);
+        map.put("address", address);
         documentReference.update(map);
     }
 
 
     //Updating the key:value pair in existing document
-    public void updateProfileData(String currentUserEmail , Owner_Model model)
-    {   firebaseFirestore=FirebaseFirestore.getInstance();
-        DocumentReference documentReference=firebaseFirestore.collection(collection).document(currentUserEmail);
-        Map<String,Object> map = new HashMap<>();
-        String name=model.getName();
-        String phone=model.getPhone();
+    public void updateProfileData(String currentUserEmail, Owner_Model model) {
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = firebaseFirestore.collection(collection).document(currentUserEmail);
+        Map<String, Object> map = new HashMap<>();
+        String name = model.getName();
+        String phone = model.getPhone();
 
-        String address=model.getAddress();
-        String profileUrl=model.getProfileUrl();
+        String address = model.getAddress();
+        String profileUrl = model.getProfileUrl();
 
-        map.put("name",name);
-        map.put("phone",phone);
+        map.put("name", name);
+        map.put("phone", phone);
 
-        map.put("address",address);
+        map.put("address", address);
 
         documentReference.update(map);
     }
 
 
-     //saving house data from owner dashboard
-      public void saveHouseData(String documentUid, House house, Context context)
-      {
-          firebaseFirestore=FirebaseFirestore.getInstance();
-          DocumentReference documentReference=  firebaseFirestore.collection("HouseCollection").document(documentUid);
-          Log.d("zzzzzzzzzzzzzz", "onClick: house phone " + house.getPhone());
-         documentReference.set(house).addOnCompleteListener(new OnCompleteListener<Void>() {
-             @Override
-             public void onComplete(Task<Void> task) {
-                 if(task.isSuccessful()){
+    //saving house data from owner dashboard
+    public void saveHouseData(String documentUid, House house, Context context) {
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = firebaseFirestore.collection("HouseCollection").document(documentUid);
+        Log.d("zzzzzzzzzzzzzz", "onClick: house phone " + house.getPhone());
+        documentReference.set(house).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(Task<Void> task) {
+                if (task.isSuccessful()) {
 
-                     Toast.makeText(context, "House Added Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "House Added Successfully", Toast.LENGTH_SHORT).show();
 
-                 }
+                }
 
 
-             }
-         });
-      }
+            }
+        });
+    }
 
     //updating house data from owner dashboard
 
-    public void updateHouseData(String documentId,House house, Context context){
-        firebaseFirestore=FirebaseFirestore.getInstance();
-        DocumentReference documentReference=firebaseFirestore.collection("HouseCollection").document(documentId);
+    public void updateHouseData(String documentId, House house, Context context) {
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = firebaseFirestore.collection("HouseCollection").document(documentId);
 
         Map<String, Object> updates = new HashMap<>();
-            updates.put("availability", house.isAvailability());
-            updates.put("price",house.getPrice());
-            updates.put("phone", house.getPhone());
-            updates.put("city", house.getCity());
-            updates.put("location", house.getLocation());
-            updates.put("street", house.getStreet());
-            updates.put("size", house.getSize());
-            updates.put("houseNo", house.getHouseNo());
-            updates.put("views", house.getViews());
+        updates.put("availability", house.isAvailability());
+        updates.put("price", house.getPrice());
+        updates.put("phone", house.getPhone());
+        updates.put("city", house.getCity());
+        updates.put("location", house.getLocation());
+        updates.put("street", house.getStreet());
+        updates.put("size", house.getSize());
+        updates.put("houseNo", house.getHouseNo());
+        updates.put("views", house.getViews());
 
-            updates.put("lastModifiedDate", house.getLastModifiedDate() );
+        updates.put("lastModifiedDate", house.getLastModifiedDate());
         documentReference.update(updates);
 
     }
 
 
-    public void deleteHouse(String documentId,Context context){
-        firebaseFirestore=FirebaseFirestore.getInstance();
+    public void deleteHouse(String documentId, Context context) {
+        firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore.collection("HouseCollection").document(documentId)
                 .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -223,8 +221,8 @@ public class FirebaseDB {
 
 
                         //Redirection to UserSpaceActivity with FLAG_ACTIVITY_CLEAR_TOP
-                    Intent intent = new Intent( context, UserSpaceActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        Intent intent = new Intent(context, UserSpaceActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
 
                         // finish current activity
@@ -233,18 +231,16 @@ public class FirebaseDB {
                         }
 
                     }
-                }) ;
-
+                });
 
 
     }
 
 
-
-        private void updateHouseInOwnerData(String currentUid, String currentUserEmail) {
-        firebaseFirestore=FirebaseFirestore.getInstance();
-        DocumentReference documentReference=firebaseFirestore.collection(collection).document(currentUserEmail);
-        documentReference.update("houseList",currentUid);
+    private void updateHouseInOwnerData(String currentUid, String currentUserEmail) {
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = firebaseFirestore.collection(collection).document(currentUserEmail);
+        documentReference.update("houseList", currentUid);
     }
 
 

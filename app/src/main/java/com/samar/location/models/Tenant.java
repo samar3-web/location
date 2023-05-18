@@ -1,7 +1,7 @@
 package com.samar.location.models;
 
 public class Tenant {
-    String name , lastName, email , phone ,amtPaid , paymentDate , shiftingDate;
+    String name, lastName, email, phone, amtPaid, paymentDate, shiftingDate;
 
 
     public Tenant() {

@@ -13,20 +13,18 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.samar.location.BottomNavigationBar.BootomNavBarMain;
-import com.samar.location.databasecontoller.FirebaseDB;
-import com.samar.location.models.Customer_Model;
-import com.samar.location.models.Owner_Model;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.samar.location.BottomNavigationBar.BootomNavBarMain;
 import com.samar.location.R;
+import com.samar.location.databasecontoller.FirebaseDB;
+import com.samar.location.models.Customer_Model;
+import com.samar.location.models.Owner_Model;
 
 
 public class SignupTabFragment extends Fragment {
@@ -40,7 +38,7 @@ public class SignupTabFragment extends Fragment {
     Button signup;
     RadioButton customer, owner;
     RadioGroup radioGroup;
-    String account_type="";
+    String account_type = "";
     float v = 0;
 
     FirebaseDB firebaseDB;
@@ -68,14 +66,14 @@ public class SignupTabFragment extends Fragment {
         con_pass = root.findViewById(R.id.con_pass);
         customer = root.findViewById(R.id.customer_button);
         owner = root.findViewById(R.id.owner_button);
-        radioGroup=root.findViewById(R.id.radioGroup);
+        radioGroup = root.findViewById(R.id.radioGroup);
 
-  //----------------------------------------------------------------------------------------------------------------------------------//
+        //----------------------------------------------------------------------------------------------------------------------------------//
         //creating instance of firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseDB = new FirebaseDB();
-        customerModel=new Customer_Model();
+        customerModel = new Customer_Model();
         ownerModel = new Owner_Model();
 //------------------------------------------------------------------------------------------------------------------------//
         email.setTranslationY(300);
@@ -110,50 +108,46 @@ public class SignupTabFragment extends Fragment {
                 String rname = name.getText().toString();
                 String rlastname = lastName.getText().toString();
                 String rpassword = pass.getText().toString();
-                String confirmpassword=con_pass.getText().toString();
+                String confirmpassword = con_pass.getText().toString();
                 String number = mobile_no.getText().toString();
 
-                   RadioButton selectedRadioButton  = (RadioButton)root.findViewById(radioGroup.getCheckedRadioButtonId());
-                   try {
-                       account_type=selectedRadioButton.getText().toString();
-                   }catch (Exception r){}
+                RadioButton selectedRadioButton = root.findViewById(radioGroup.getCheckedRadioButtonId());
+                try {
+                    account_type = selectedRadioButton.getText().toString();
+                } catch (Exception r) {
+                }
 
-                if( emailValidator(remail) && nameValidator(rname) && lastNameValidator(rlastname) && passwordValidator(rpassword ,confirmpassword) &&  phoneValidator(number) && accountValidator(customer,owner))
-                {
+                if (emailValidator(remail) && nameValidator(rname) && lastNameValidator(rlastname) && passwordValidator(rpassword, confirmpassword) && phoneValidator(number) && accountValidator(customer, owner)) {
 
 
-                    firebaseAuth.createUserWithEmailAndPassword(remail,rpassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    firebaseAuth.createUserWithEmailAndPassword(remail, rpassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
-                        public void onComplete( Task<AuthResult> task) {
-                            if(task.isSuccessful())
-                            {
+                        public void onComplete(Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
 
-                                if(account_type=="CUSTOMER")
-                                {
+                                if (account_type == "CUSTOMER") {
                                     customerModel.setEmail(remail);
                                     customerModel.setName(rname);
                                     customerModel.setLastName(rlastname);
                                     customerModel.setPassword(confirmpassword);
                                     customerModel.setPhone(number);
                                     customerModel.setAccountType(account_type);
-                                    firebaseDB.setData(firebaseFirestore,customerModel, firebaseAuth.getCurrentUser().getUid());
+                                    firebaseDB.setData(firebaseFirestore, customerModel, firebaseAuth.getCurrentUser().getUid());
 
-                                }
-                                else
-                                {
+                                } else {
                                     ownerModel.setEmail(remail);
                                     ownerModel.setName(rname);
                                     ownerModel.setLastName(rlastname);
                                     ownerModel.setPassword(confirmpassword);
                                     ownerModel.setPhone(number);
                                     ownerModel.setAccountType(account_type);
-                                    firebaseDB.setData(firebaseFirestore,ownerModel ,firebaseAuth.getCurrentUser().getUid());
+                                    firebaseDB.setData(firebaseFirestore, ownerModel, firebaseAuth.getCurrentUser().getUid());
                                 }
 
                                 Toast.makeText(getActivity(), "Signup completed.", Toast.LENGTH_SHORT).show();
 
                                 //Login the New USER
-                                loginUser(remail, rpassword,account_type);
+                                loginUser(remail, rpassword, account_type);
 
                                 /*
 
@@ -165,9 +159,7 @@ public class SignupTabFragment extends Fragment {
 
                                  */
 
-                            }
-                            else
-                            {
+                            } else {
                                 Toast.makeText(getActivity(), "Signup Failed", Toast.LENGTH_SHORT).show();
 
                             }
@@ -187,26 +179,34 @@ public class SignupTabFragment extends Fragment {
     }
 
     private boolean emailValidator(String remail) {
-            if(remail.isEmpty())
-            {email.setError("Cannot be empty"); return false;}
+        if (remail.isEmpty()) {
+            email.setError("Cannot be empty");
+            return false;
+        }
         return true;
     }
+
     private boolean nameValidator(String rname) {
-        if(rname.isEmpty())
-        {name.setError("Cannot be empty"); return false;}
+        if (rname.isEmpty()) {
+            name.setError("Cannot be empty");
+            return false;
+        }
         return true;
     }
+
     private boolean lastNameValidator(String rlastname) {
-        if(rlastname.isEmpty())
-        {lastName.setError("Cannot be empty"); return false;}
+        if (rlastname.isEmpty()) {
+            lastName.setError("Cannot be empty");
+            return false;
+        }
         return true;
     }
+
     private boolean accountValidator(RadioButton customer, RadioButton owner) {
-        if(customer.isChecked()==false && owner.isChecked()==false)
-           {
-               Toast.makeText(getActivity(), "Choose Owner or Customer", Toast.LENGTH_LONG).show();
-               return false;
-           }
+        if (!customer.isChecked() && !owner.isChecked()) {
+            Toast.makeText(getActivity(), "Choose Owner or Customer", Toast.LENGTH_LONG).show();
+            return false;
+        }
 
         return true;
     }
@@ -216,8 +216,10 @@ public class SignupTabFragment extends Fragment {
             mobile_no.setError("Cannot be Empty");
             return false;
         }
-        if(number.length()<8)
-        {mobile_no.setError("Must be 8 Characters or higher"); return false;}
+        if (number.length() < 8) {
+            mobile_no.setError("Must be 8 Characters or higher");
+            return false;
+        }
 
         return true;
     }
@@ -232,37 +234,37 @@ public class SignupTabFragment extends Fragment {
             con_pass.setError("Cannot be Empty");
             return false;
         }
-        if(password.length() < 8){
+        if (password.length() < 8) {
             pass.setError("Must be 8 Characters");
             return false;
         }
-        if(!password.equals(confirmpassword))
-        {    pass.setError("Password must be same");
+        if (!password.equals(confirmpassword)) {
+            pass.setError("Password must be same");
             con_pass.setError("Password must be same");
 
             return false;
         }
 
-       return true;
+        return true;
 
     }
 
     private void loginUser(String userEmail, String userPassword, String accountType) {
 
-        firebaseAuth.signInWithEmailAndPassword(userEmail,userPassword)
+        firebaseAuth.signInWithEmailAndPassword(userEmail, userPassword)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
 
                         Intent intent = new Intent(getActivity(), BootomNavBarMain.class);
-                        intent.putExtra("accountType",accountType);
+                        intent.putExtra("accountType", accountType);
                         startActivity(intent);
                         getActivity().finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(Exception e) {
-                        Toast.makeText(getActivity(), ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

@@ -19,7 +19,8 @@ public class Message {
         time = new Date().getTime();
 
     }
-    public Message(){
+
+    public Message() {
 
     }
 

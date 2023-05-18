@@ -11,17 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.samar.location.R;
 
-
 import java.util.List;
 
 
 public class AddHouseAdapter extends RecyclerView.Adapter<AddHouseAdapter.HouseHolder> {
     Context context;
     List selectedImages;
-    public AddHouseAdapter(Context context,List selectedImages)
-    {
-        this.context=context;
-        this.selectedImages=selectedImages;
+
+    public AddHouseAdapter(Context context, List selectedImages) {
+        this.context = context;
+        this.selectedImages = selectedImages;
 
     }
 
@@ -31,13 +30,13 @@ public class AddHouseAdapter extends RecyclerView.Adapter<AddHouseAdapter.HouseH
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
 
-        View view = layoutInflater.inflate(R.layout.imageview_addhouse_custom,parent,false);
-        HouseHolder houseHolder=new HouseHolder(view);
+        View view = layoutInflater.inflate(R.layout.imageview_addhouse_custom, parent, false);
+        HouseHolder houseHolder = new HouseHolder(view);
         return houseHolder;
     }
 
     @Override
-    public void onBindViewHolder( HouseHolder holder, int position) {
+    public void onBindViewHolder(HouseHolder holder, int position) {
         /*  holder.houseImage.setImageDrawable(context.getResources().getDrawable((Integer) selectedImages.get(position)));*/
         Glide.with(context)
                 .load(selectedImages.get(position).toString())
@@ -51,9 +50,10 @@ public class AddHouseAdapter extends RecyclerView.Adapter<AddHouseAdapter.HouseH
 
     public class HouseHolder extends RecyclerView.ViewHolder {
         ImageView houseImage;
+
         public HouseHolder(View itemView) {
             super(itemView);
-            houseImage=itemView.findViewById(R.id.houseImage);
+            houseImage = itemView.findViewById(R.id.houseImage);
 
         }
     }

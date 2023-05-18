@@ -6,13 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,7 +21,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.samar.location.R;
 import com.samar.location.authentication.LoginActivity;
-import com.samar.location.databasecontoller.FirebaseDB;
 import com.samar.location.homepage.RecyclerViewAdapter;
 
 import java.util.List;
@@ -35,7 +31,6 @@ public class BootomNavBarMain extends AppCompatActivity {
     RecyclerViewAdapter recyclerViewAdapter;
 
     HomeFragment homeFragment;
-
 
 
     @Override
@@ -52,7 +47,7 @@ public class BootomNavBarMain extends AppCompatActivity {
 
         //Making the labels to be visible forever
         // bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-         homeFragment=new HomeFragment();
+        homeFragment = new HomeFragment();
         //By default selected item and fragment when app starts
         bottomNavigationView.getMenu().getItem(0).setChecked(true);
         getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame,
@@ -70,21 +65,26 @@ public class BootomNavBarMain extends AppCompatActivity {
         getRequestsCount();
 
 
-
     }
+
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setMessage("Are you sure you want to exit the application?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                .setNegativeButton("No", null)
-                .show();
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            new AlertDialog.Builder(this)
+                    .setMessage("Are you sure you want to exit the application?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+        }
     }
+
 
     public void getAccountType(String currentUserEmail) {
 
@@ -106,27 +106,38 @@ public class BootomNavBarMain extends AppCompatActivity {
                                 getRequestsCount();
 
                                 if (item.getItemId() == R.id.homee) {
-                                    getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new HomeFragment(), "home_fragment").commit();
+                                  //  getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new HomeFragment(), "home_fragment").commit();
+                                    getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.bottomnavitem_frame, homeFragment, "home_fragment")
+                                            .addToBackStack(null)
+                                            .commit();
 
-                                }  else if (item.getItemId() == R.id.favourite) {
+
+                                } else if (item.getItemId() == R.id.favourite) {
                                     if (accType.equals("CUSTOMER"))
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Customer_Request_List()).commit();
-                                    else
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Customer_Request_List() ).commit();
+                                    {
 
-                                }else if(item.getItemId() == R.id.chat){
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Customer_Request_List()).addToBackStack(null).commit();
 
-                                    getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new ChatFragment()).commit();
+
+                                    }
+                                    else {
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Customer_Request_List()).addToBackStack(null).commit();
+                                    }
+
+                                } else if (item.getItemId() == R.id.chat) {
+
+                                    {
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new ChatFragment()).addToBackStack(null).commit();
+                                    }
+                                } else {
+                                    if (accType.equals("CUSTOMER")) {
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Customer_Account_Fragment()).addToBackStack(null).commit();
+                                    } else {
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Owner_Account()).addToBackStack(null).commit();
+                                    }
+
                                 }
-
-                                else {
-                                    if (accType.equals("CUSTOMER"))
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Customer_Account_Fragment()).commit();
-                                    else
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Owner_Account()).commit();
-
-                                }
-
 
 
                                 return true;
@@ -135,10 +146,10 @@ public class BootomNavBarMain extends AppCompatActivity {
 
 
                     } else {
-                        Toast.makeText(getApplicationContext(),"NO DATA FOUND FOR THIS USER !!!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "NO DATA FOUND FOR THIS USER !!!", Toast.LENGTH_LONG).show();
 
                         FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(getApplicationContext(), LoginActivity.class) );
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         finish();
 
 
@@ -175,8 +186,6 @@ public class BootomNavBarMain extends AppCompatActivity {
             }
         });
     }
-
-
 
 
 }

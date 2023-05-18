@@ -14,23 +14,20 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import com.google.firebase.Timestamp;
-import com.samar.location.BottomNavigationBar.BootomNavBarMain;
-import com.samar.location.R;
-import com.samar.location.bingmapsdk.MapDialogFragment;
-import com.samar.location.databasecontoller.FirebaseDB;
-import com.samar.location.models.Customer_Model;
-import com.samar.location.models.House;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.samar.location.BottomNavigationBar.BootomNavBarMain;
+import com.samar.location.R;
+import com.samar.location.bingmapsdk.MapDialogFragment;
+import com.samar.location.databasecontoller.FirebaseDB;
+import com.samar.location.models.House;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -38,22 +35,21 @@ import java.util.UUID;
 public class AddHouseActivity extends AppCompatActivity {
 
 
-    public static EditText contactPersonName, phone, houseNo, street, city, post, location, rentPrice,bingBtn,latitude,longitude,surface;
+
+    private static final int PICK_IMAGES = 42;
+    public static EditText contactPersonName, phone, houseNo, street, city, post, location, rentPrice, bingBtn, latitude, longitude, surface;
     Button addImagesBtn, saveHouseBtn;
     Spinner houseSize, available;
     RecyclerView addHouse_rcv;
     AddHouseAdapter addHouseAdapter;
-
     House house;
-    private Uri ImageUri;
     ArrayList ImageList = new ArrayList();
     ArrayList urlStrings;
-    private ProgressDialog progressDialog;
     String documentUid;
     Intent intent;
-
     FirebaseAuth firebaseAuth;
-
+    private Uri ImageUri;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,10 +122,8 @@ public class AddHouseActivity extends AppCompatActivity {
                 //    Toast.makeText(getApplicationContext(),"bing clicked",Toast.LENGTH_LONG).show();
 
 
-
             }
         });
-
 
 
         addImagesBtn.setOnClickListener(new View.OnClickListener() {
@@ -151,13 +145,12 @@ public class AddHouseActivity extends AppCompatActivity {
                 house.setViews(0);
                 house.setAuthorized(false);
 
-                if(validator(contactPersonName.getText().toString(), phone.getText().toString(),houseNo.getText().toString(),street.getText().toString(),city.getText().toString(),post.getText().toString(),location.getText().toString(),
-                        rentPrice.getText().toString(),surface.getText().toString()))
-                {
+                if (validator(contactPersonName.getText().toString(), phone.getText().toString(), houseNo.getText().toString(), street.getText().toString(), city.getText().toString(), post.getText().toString(), location.getText().toString(),
+                        rentPrice.getText().toString(), surface.getText().toString())) {
 
 
                     house.setContactPerson(contactPersonName.getText().toString());
-                    house.setPhone(phone.getText().toString() );
+                    house.setPhone(phone.getText().toString());
 
                     house.setHouseNo(houseNo.getText().toString());
                     house.setStreet(street.getText().toString());
@@ -167,16 +160,12 @@ public class AddHouseActivity extends AppCompatActivity {
                     house.setPrice(rentPrice.getText().toString());
                     house.setSize(houseSize.getSelectedItem().toString());
 
-                    house.setAddedDate( Timestamp.now() );
+                    house.setAddedDate(Timestamp.now());
                     //Date(House.formatDate(now() ) );
-                    house.setLastModifiedDate( Timestamp.now() );
+                    house.setLastModifiedDate(Timestamp.now());
 
 
-
-                    if (available.getSelectedItem().toString().equals("YES"))
-                        house.setAvailability(true);
-                    else
-                        house.setAvailability(false);
+                    house.setAvailability(available.getSelectedItem().toString().equals("YES"));
 
                     house.setLatitude(Double.parseDouble(latitude.getText().toString()));
                     house.setLongitude(Double.parseDouble(longitude.getText().toString()));
@@ -217,41 +206,39 @@ public class AddHouseActivity extends AppCompatActivity {
         if (!phoneValidator(phoneN))
             return false;
 
-        if (houseno.isEmpty()&&houseNo.getVisibility()==View.VISIBLE) {
+        if (houseno.isEmpty() && houseNo.getVisibility() == View.VISIBLE) {
             houseNo.setError("Cannot be empty");
             return false;
         }
-        if (street_s.isEmpty()&&street.getVisibility()==View.VISIBLE) {
+        if (street_s.isEmpty() && street.getVisibility() == View.VISIBLE) {
             street.setError("Cannot be empty");
             return false;
         }
-        if (city_s.isEmpty()&&city.getVisibility()==View.VISIBLE) {
+        if (city_s.isEmpty() && city.getVisibility() == View.VISIBLE) {
             city.setError("Cannot be empty");
             return false;
         }
-        if (post_s.isEmpty()&&post.getVisibility()==View.VISIBLE) {
+        if (post_s.isEmpty() && post.getVisibility() == View.VISIBLE) {
             post.setError("Cannot be empty");
             return false;
         }
-        if (location_s.isEmpty()&&location.getVisibility()==View.VISIBLE) {
+        if (location_s.isEmpty() && location.getVisibility() == View.VISIBLE) {
             location.setError("Cannot be empty");
             return false;
         }
-        if (price_s.isEmpty()&&rentPrice.getVisibility()==View.VISIBLE) {
+        if (price_s.isEmpty() && rentPrice.getVisibility() == View.VISIBLE) {
             rentPrice.setError("Cannot be empty");
             return false;
         }
-        if (surface_s.isEmpty()&&surface.getVisibility()==View.VISIBLE) {
+        if (surface_s.isEmpty() && surface.getVisibility() == View.VISIBLE) {
             surface.setError("Cannot be empty");
             return false;
         }
-        if (ImageList.isEmpty())
-        {
+        if (ImageList.isEmpty()) {
             Toast.makeText(this, "You must select images", Toast.LENGTH_SHORT).show();
         }
         return true;
     }
-
 
     private void uploadImagesToStorage() {
         if (!ImageList.isEmpty()) {
@@ -287,68 +274,18 @@ public class AddHouseActivity extends AppCompatActivity {
 
     private void storeLinksInFiretore(ArrayList<String> urlStrings) {
 
-        String[] images =  urlStrings.toArray(new String[ urlStrings.size() ]);
+        String[] images = urlStrings.toArray(new String[urlStrings.size()]);
 
         house.setImages(urlStrings);
 
         FirebaseDB firebaseDB = new FirebaseDB();
-          Log.d("aaaaaaaaaaaaa", "onClick: house surface " + house.getSurface());
+        Log.d("aaaaaaaaaaaaa", "onClick: house surface " + house.getSurface());
         firebaseDB.saveHouseData(documentUid, house, AddHouseActivity.this);
         progressDialog.dismiss();
         ImageList.clear();
         finish();
         startActivity(new Intent(AddHouseActivity.this, BootomNavBarMain.class));
     }
-
-
-    /*public void getPickImageIntent() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        startActivityForResult(intent, 42);
-    }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-
-
-
-
-            if (requestCode == 42) {
-
-                if (data.getClipData() != null) {
-                    int countClipData = data.getClipData().getItemCount() ;
-                    int currentImageSlect = 0;
-
-                    ImageList.clear();
-                    while (currentImageSlect < countClipData) {
-
-                        ImageUri = data.getClipData().getItemAt(currentImageSlect).getUri();
-                        ImageList.add(ImageUri);
-                        currentImageSlect = currentImageSlect + 1;
-                    }
-
-                } else if (data.getData() != null) {
-                    Uri imageUri = data.getData();
-                    ImageList.clear();
-                    ImageList.add(imageUri);
-
-                }
-
-
-
-                    Toast.makeText(AddHouseActivity.this, "You have Selected " + ImageList.size(), Toast.LENGTH_SHORT).show();
-                    addHouseAdapter = new AddHouseAdapter(AddHouseActivity.this, ImageList);
-                    addHouse_rcv.setAdapter(addHouseAdapter);
-                    addHouse_rcv.setLayoutManager(new GridLayoutManager(AddHouseActivity.this, 2));
-
-            }
-        }
-    }*/
-    private static final int PICK_IMAGES = 42;
-
-
 
     public void getPickImageIntent() {
         // Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -363,10 +300,10 @@ public class AddHouseActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == PICK_IMAGES) {
-                int countClipData =0;
+                int countClipData = 0;
                 if (data.getClipData() != null) {
                     countClipData = data.getClipData().getItemCount();
-                    if(countClipData < 5 || countClipData > 15){
+                    if (countClipData < 5 || countClipData > 15) {
                         Toast.makeText(AddHouseActivity.this, "Please select between 5 and 15 images", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -382,7 +319,7 @@ public class AddHouseActivity extends AppCompatActivity {
                     ImageList.clear();
                     ImageList.add(imageUri);
 
-                    if(ImageList.size() < 5 || ImageList.size() > 15){
+                    if (ImageList.size() < 5 || ImageList.size() > 15) {
                         ImageList.clear();
                         Toast.makeText(AddHouseActivity.this, "Please select between 5 and 15 images", Toast.LENGTH_SHORT).show();
                         return;
@@ -398,5 +335,6 @@ public class AddHouseActivity extends AppCompatActivity {
             }
         }
     }
+
 }
 

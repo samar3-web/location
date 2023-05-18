@@ -1,8 +1,8 @@
 package com.samar.location;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class addAnnonceActivity extends AppCompatActivity {
 

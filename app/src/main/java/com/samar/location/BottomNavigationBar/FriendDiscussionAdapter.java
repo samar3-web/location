@@ -2,17 +2,11 @@ package com.samar.location.BottomNavigationBar;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.utils.widget.ImageFilterView;
@@ -21,23 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.samar.location.DiscussionActivity;
 import com.samar.location.R;
 import com.samar.location.models.Discussions;
-import com.samar.location.models.Message;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 
 public class FriendDiscussionAdapter extends RecyclerView.Adapter<FriendDiscussionAdapter.ViewHolder> {
-    private List<Discussions> discussions;
-
+    private final List<Discussions> discussions;
 
 
     public FriendDiscussionAdapter(List<Discussions> discussionsList) {
@@ -59,8 +49,8 @@ public class FriendDiscussionAdapter extends RecyclerView.Adapter<FriendDiscussi
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         String dateString = dateFormat.format(new Date(discussion.getTime()));
 
-         String text = discussion.getText().length()>20 ? discussion.getText().substring(0, 20)+" ..."
-                 : discussion.getText();
+        String text = discussion.getText().length() > 20 ? discussion.getText().substring(0, 20) + " ..."
+                : discussion.getText();
 
         viewHolder.friend.setText(discussion.getFriendEmail());
 
@@ -87,6 +77,39 @@ public class FriendDiscussionAdapter extends RecyclerView.Adapter<FriendDiscussi
         return discussions.size();
     }
 
+    private void displayFriendInformation(Context context, Discussions discussion, ViewHolder viewHolder) {
+        // Effacer l'image précédente
+        viewHolder.profile.setImageResource(R.drawable.b);
+
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        String friendEmail = discussion.getFriendEmail();
+
+        firestore.collection("USERDATA").document(friendEmail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+
+                    if (document.exists()) {
+                        if (document.getString("name") != null) {
+                            String friendName = document.getString("name");
+                            viewHolder.friend.setText(friendName);
+                        }
+
+                        if (document.getString("profileUrl") != null) {
+
+                            Glide.with(context)
+                                    .load(document.getString("profileUrl"))
+                                    .into(viewHolder.profile);
+                        }
+
+
+                    }
+                }
+            }
+        });
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageFilterView profile;
@@ -105,44 +128,6 @@ public class FriendDiscussionAdapter extends RecyclerView.Adapter<FriendDiscussi
         }
 
 
-
-    }
-
-
-
-    private void displayFriendInformation(Context  context, Discussions discussion, ViewHolder viewHolder) {
-        // Effacer l'image précédente
-        viewHolder.profile.setImageResource(R.drawable.b);
-
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        String friendEmail = discussion.getFriendEmail();
-
-        firestore.collection("USERDATA").document(friendEmail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-
-                    if (document.exists()) {
-                        if(document.getString("name")!=null){
-                            String friendName = document.getString("name");
-                            viewHolder.friend.setText(friendName);
-                        }
-
-                        if( document.getString("profileUrl")!=null){
-
-                            Glide.with(context)
-                                    .load( document.getString("profileUrl") )
-                                    .into(viewHolder.profile);
-                        }
-
-
-
-
-                    }
-                }
-            }
-        });
     }
 }
 

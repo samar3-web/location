@@ -1,21 +1,16 @@
 package com.samar.location.models;
 
 
-
 import com.google.firebase.Timestamp;
 
-
 import java.io.Serializable;
-
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
 import java.util.List;
 
-public class House  implements Serializable {
+public class House implements Serializable {
 
 
     String houseNo;
@@ -40,10 +35,16 @@ public class House  implements Serializable {
 
     List<String> images = new ArrayList<>();
     List<String> requests = new ArrayList<>();
-     boolean authorized ,availability;
+    boolean authorized, availability;
 
     public House() {
 
+    }
+
+    public static String formatDate(com.google.firebase.Timestamp dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm");
+        LocalDateTime localDateTime = dateTime.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        return localDateTime.format(formatter);
     }
 
     public List<String> getRequests() {
@@ -69,7 +70,6 @@ public class House  implements Serializable {
     public void setDocId(String docId) {
         this.docId = docId;
     }
-
 
     public List<String> getImages() {
         return images;
@@ -199,15 +199,13 @@ public class House  implements Serializable {
         this.ownerUid = ownerUid;
     }
 
-
     public String getOwnerEmail() {
         return ownerEmail;
     }
+
     public void setOwnerEmail(String ownerEmail) {
         this.ownerEmail = ownerEmail;
     }
-
-
 
     public boolean isAuthorized() {
         return authorized;
@@ -223,12 +221,6 @@ public class House  implements Serializable {
 
     public void setAvailability(boolean availability) {
         this.availability = availability;
-    }
-
-    public static String formatDate(com.google.firebase.Timestamp dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm");
-        LocalDateTime localDateTime = dateTime.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        return localDateTime.format(formatter);
     }
 
 

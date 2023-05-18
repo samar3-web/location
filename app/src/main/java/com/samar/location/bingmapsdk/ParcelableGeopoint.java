@@ -4,6 +4,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ParcelableGeopoint implements Parcelable {
+    public static final Creator<ParcelableGeopoint> CREATOR = new Creator<ParcelableGeopoint>() {
+        @Override
+        public ParcelableGeopoint createFromParcel(Parcel in) {
+            return new ParcelableGeopoint(in);
+        }
+
+        @Override
+        public ParcelableGeopoint[] newArray(int size) {
+            return new ParcelableGeopoint[size];
+        }
+    };
     private final double latitude;
     private final double longitude;
 
@@ -16,18 +27,6 @@ public class ParcelableGeopoint implements Parcelable {
         latitude = in.readDouble();
         longitude = in.readDouble();
     }
-
-    public static final Creator<ParcelableGeopoint> CREATOR = new Creator<ParcelableGeopoint>() {
-        @Override
-        public ParcelableGeopoint createFromParcel(Parcel in) {
-            return new ParcelableGeopoint(in);
-        }
-
-        @Override
-        public ParcelableGeopoint[] newArray(int size) {
-            return new ParcelableGeopoint[size];
-        }
-    };
 
     public double getLatitude() {
         return latitude;

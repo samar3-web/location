@@ -20,20 +20,19 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.samar.location.authentication.LoginActivity;
-import com.samar.location.models.House;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.samar.location.R;
-
-
-import  com.google.firebase.Timestamp;
+import com.samar.location.authentication.LoginActivity;
+import com.samar.location.models.House;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,18 +44,15 @@ import java.util.List;
  */
 public class HouseListTab extends Fragment {
 
-    //Global variables
-    RecyclerView my_rcv;
-    RecyclerViewAdapter recyclerViewAdapter;
-     List<House> houses;
-     public Bundle bundle;
-
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    public Bundle bundle;
+    //Global variables
+    RecyclerView my_rcv;
+    RecyclerViewAdapter recyclerViewAdapter;
+    List<House> houses;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -86,8 +82,6 @@ public class HouseListTab extends Fragment {
     }
 
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,29 +99,29 @@ public class HouseListTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-                    // Inflate the layout for this fragment
-                    View view = inflater.inflate(R.layout.fragment_house_list_tab, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_house_list_tab, container, false);
 
-                    my_rcv = view.findViewById(R.id.my_rcv);
-                    searchEt = view.findViewById(R.id.searchEt);
-
-
-                   BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomnavbar);
-
-                   //Getting the house data from database and showing on houseList tab
-
-                   getHouseData();
+        my_rcv = view.findViewById(R.id.my_rcv);
+        searchEt = view.findViewById(R.id.searchEt);
 
 
-                   filtreBtn = view.findViewById(R.id.filtreBtn);
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomnavbar);
 
-                   filtreBtn.setOnClickListener(new View.OnClickListener() {
-                       @Override
-                       public void onClick(View v) {
-                           Toast.makeText(getContext(),searchEt.getText().toString(),Toast.LENGTH_SHORT).show();
-                           Log.d("aaaaaaaaaaaaaaaaa","aaaaaaaaaaaaaaaaaaaaaaa");
-                       }
-                   });
+        //Getting the house data from database and showing on houseList tab
+
+        getHouseData();
+
+
+        filtreBtn = view.findViewById(R.id.filtreBtn);
+
+        filtreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), searchEt.getText().toString(), Toast.LENGTH_SHORT).show();
+                Log.d("aaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaa");
+            }
+        });
 
 // Ajouter le TextWatcher
         searchEt.addTextChangedListener(new TextWatcher() {
@@ -138,9 +132,9 @@ public class HouseListTab extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // Mettre à jour les éléments de RecyclerView en fonction de la recherche
-               // recyclerViewAdapter.getFilter().filter(s.toString());
-                Toast.makeText(getContext(),s.toString(),Toast.LENGTH_SHORT).show();
-                Log.d("EditText :     ",s.toString());
+                // recyclerViewAdapter.getFilter().filter(s.toString());
+                Toast.makeText(getContext(), s.toString(), Toast.LENGTH_SHORT).show();
+                Log.d("EditText :     ", s.toString());
             }
 
             @Override
@@ -149,10 +143,9 @@ public class HouseListTab extends Fragment {
         });
 
 
-
-                   my_rcv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                       @Override
-                       public void onScrollStateChanged( RecyclerView recyclerView, int newState) {
+        my_rcv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                        /*
                            super.onScrollStateChanged(recyclerView, newState);
                            if (newState == RecyclerView.SCROLL_STATE_IDLE)
@@ -166,10 +159,10 @@ public class HouseListTab extends Fragment {
 
                         */
 
-                       }
+            }
 
-                       @Override
-                       public void onScrolled( RecyclerView recyclerView, int dx, int dy) {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                            /*
                            super.onScrolled(recyclerView, dx, dy);
 
@@ -184,23 +177,22 @@ public class HouseListTab extends Fragment {
 
                             */
 
-                       }
-                   });
+            }
+        });
         return view;
     }
 
-    private void getHouseData(){
+    private void getHouseData() {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection("HouseCollection").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(Task<QuerySnapshot> task) {
-                        Log.d("xxxxxdocs", "onComplete: of HouseData fetching "+task.getResult().getDocuments());
-                        houses=new ArrayList<>();
-                        for(DocumentSnapshot doc : task.getResult().getDocuments())
-                        {
-                            if ((boolean)doc.get("availability") == true){
-                                House house=new House();
+                        Log.d("xxxxxdocs", "onComplete: of HouseData fetching " + task.getResult().getDocuments());
+                        houses = new ArrayList<>();
+                        for (DocumentSnapshot doc : task.getResult().getDocuments()) {
+                            if ((boolean) doc.get("availability")) {
+                                House house = new House();
                                 house.setDocId(doc.getId());
                                 house.setLocation(doc.get("location").toString());
                                 house.setSize(doc.get("size").toString());
@@ -211,42 +203,41 @@ public class HouseListTab extends Fragment {
                                 house.setStreet(doc.get("street").toString());
                                 house.setPost(doc.get("post").toString());
 
-                               // house.setOwnerUid(doc.get("ownerUid").toString());
+                                // house.setOwnerUid(doc.get("ownerUid").toString());
 
-                                house.setAvailability( (boolean) doc.get("availability"));
+                                house.setAvailability((boolean) doc.get("availability"));
                                 house.setPhone(doc.get("phone").toString());
 
-                                house.setAddedDate( (Timestamp) doc.get("addedDate") );
-                                house.setLastModifiedDate((Timestamp)  doc.get("lastModifiedDate") );
-                                if(doc.get("images") != null){
-                                    house.setImages( (List<String>) doc.get("images") );
+                                house.setAddedDate((Timestamp) doc.get("addedDate"));
+                                house.setLastModifiedDate((Timestamp) doc.get("lastModifiedDate"));
+                                if (doc.get("images") != null) {
+                                    house.setImages((List<String>) doc.get("images"));
                                 }
-
-
 
 
                                 houses.add(house);
                             }
 
 
-                                  recyclerViewAdapter = new RecyclerViewAdapter(getActivity(),houses, R.layout.houses_cardview);
-                                  //setting adapter to recycler view
-                                  my_rcv.setAdapter(recyclerViewAdapter);
-                                  //LayoutManager for recycler view
-                                  my_rcv.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            recyclerViewAdapter = new RecyclerViewAdapter(getActivity(), houses, R.layout.houses_cardview);
+                            //setting adapter to recycler view
+                            my_rcv.setAdapter(recyclerViewAdapter);
+                            //LayoutManager for recycler view
+                            my_rcv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-                                             }}
+                        }
+                    }
                 }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(Exception e) {
-                Log.d("xxxxx", "onFailure: of HouseData fectching "+e.getLocalizedMessage());
-            }
-        });
+                    @Override
+                    public void onFailure(Exception e) {
+                        Log.d("xxxxx", "onFailure: of HouseData fectching " + e.getLocalizedMessage());
+                    }
+                });
 
     }
 
-    public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
-       //  MenuInflater inflater= getActivity().getMenuInflater();
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //  MenuInflater inflater= getActivity().getMenuInflater();
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
         inflater.inflate(R.menu.option_menu, menu);
@@ -261,8 +252,8 @@ public class HouseListTab extends Fragment {
             @Override
             public boolean onQueryTextChange(String text) {
                 Log.d("xxxxxsearch", "onQueryTextChange: " + text);
-                 if(recyclerViewAdapter!=null)
-                     recyclerViewAdapter.getFilter().filter(text);
+                if (recyclerViewAdapter != null)
+                    recyclerViewAdapter.getFilter().filter(text);
                 return false;
             }
         });
@@ -274,21 +265,16 @@ public class HouseListTab extends Fragment {
 
         int option_id = item.getItemId();
 
-        switch (option_id) {
-
-            case R.id.option_logout:
-                logoutcurrentUser();
-                return true;
-            default:
-                break;
-
+        if (option_id == R.id.option_logout) {
+            logoutcurrentUser();
+            return true;
         }
         return false;
     }
 
     private void logoutcurrentUser() {
         FirebaseAuth.getInstance().signOut();
-         getActivity().finish();
+        getActivity().finish();
         Toast.makeText(getActivity(), "Logging Out", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(getActivity(), LoginActivity.class));
 

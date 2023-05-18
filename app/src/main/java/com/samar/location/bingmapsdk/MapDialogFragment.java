@@ -2,6 +2,7 @@ package com.samar.location.bingmapsdk;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PointF;
@@ -35,14 +36,14 @@ import java.util.Locale;
 
 public class MapDialogFragment extends DialogFragment {
 
+    public static final int ADDRESSES = 10;
+    private static final String MY_API_KEY = "AlwLTKgevIemLkhFY8wA2oDQwpxY8SBBAR8a5dXymXDFKTmfGWKkXnJGQkGzXUMM";
     private MapView mapView;
     private FloatingActionButton mFab;
     private MapElementLayer mPinLayer;
     private MapImage mPinImage;
     private int mUntitledPushpinCount = 0;
     private Geopoint geopoint;
-    private static final String MY_API_KEY = "AlwLTKgevIemLkhFY8wA2oDQwpxY8SBBAR8a5dXymXDFKTmfGWKkXnJGQkGzXUMM";
-    public static final int ADDRESSES = 10;
     private List<Address> addressList;
 
     public MapDialogFragment() {
@@ -178,7 +179,7 @@ public class MapDialogFragment extends DialogFragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),"Holding : "+geopoint.getPosition().getLatitude()+", "+geopoint.getPosition().getLongitude(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Holding : " + geopoint.getPosition().getLatitude() + ", " + geopoint.getPosition().getLongitude(), Toast.LENGTH_LONG).show();
 
 
                 AddHouseActivity.houseNo.setVisibility(View.GONE);
@@ -211,22 +212,19 @@ public class MapDialogFragment extends DialogFragment {
                 String latitude = String.valueOf(addressList.get(0).getLatitude());
                 String longitude = String.valueOf(addressList.get(0).getLongitude());
 
-                StringBuilder sb = new StringBuilder();
-                sb.append("countryName: ").append(addressList.get(0).getCountryName()).append("\n")
-                        .append("houseNo: ").append(addressList.get(0).getAddressLine(0)).append("\n")
-                        .append("address: ").append(addressList.get(0).getAddressLine(1)).append("\n")
-                        .append("CountryCode: ").append(addressList.get(0).getCountryCode()).append("\n")
-                        .append("adminArea: ").append(addressList.get(0).getAdminArea()).append("\n")
-                        .append("subAdminArea: ").append(addressList.get(0).getSubAdminArea()).append("\n")
-                        .append("locality: ").append(addressList.get(0).getLocality()).append("\n")
-                        .append("subLocality: ").append(addressList.get(0).getSubLocality()).append("\n")
-                        .append("postalCode: ").append(addressList.get(0).getPostalCode()).append("\n")
-                        .append("streetName: ").append(addressList.get(0).getThoroughfare()).append("\n");
-
-                String addressString = sb.toString();
+                String addressString = "countryName: " + addressList.get(0).getCountryName() + "\n" +
+                        "houseNo: " + addressList.get(0).getAddressLine(0) + "\n" +
+                        "address: " + addressList.get(0).getAddressLine(1) + "\n" +
+                        "CountryCode: " + addressList.get(0).getCountryCode() + "\n" +
+                        "adminArea: " + addressList.get(0).getAdminArea() + "\n" +
+                        "subAdminArea: " + addressList.get(0).getSubAdminArea() + "\n" +
+                        "locality: " + addressList.get(0).getLocality() + "\n" +
+                        "subLocality: " + addressList.get(0).getSubLocality() + "\n" +
+                        "postalCode: " + addressList.get(0).getPostalCode() + "\n" +
+                        "streetName: " + addressList.get(0).getThoroughfare() + "\n";
                 System.out.println(addressString);
 
-                AddHouseActivity.bingBtn.setText(houseNo+", "+address);
+                AddHouseActivity.bingBtn.setText(houseNo + ", " + address);
                 /*AddHouseActivity.houseNo.setText(houseNo);
                 AddHouseActivity.street.setText(subAdminArea);
                 AddHouseActivity.city.setText(adminArea);
@@ -262,8 +260,6 @@ public class MapDialogFragment extends DialogFragment {
                     AddHouseActivity.longitude.setVisibility(View.VISIBLE);
                     AddHouseActivity.longitude.setText(longitude);
                 }
-
-
 
 
                 dismiss();
@@ -317,6 +313,16 @@ public class MapDialogFragment extends DialogFragment {
                     ++mUntitledPushpinCount));
         }
         mPinLayer.getElements().add(pushpin);
+    }
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        mapView.onDestroy();
+    }
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
     }
 
 }

@@ -8,16 +8,15 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class HomeTabs_Adpater extends FragmentStateAdapter {
 
-    public HomeTabs_Adpater(@NonNull  FragmentManager fragmentManager, @NonNull  Lifecycle lifecycle) {
+    public HomeTabs_Adpater(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
     }
 
     @Override
     public Fragment createFragment(int position) {
 
-        switch(position)
-        {
-            case 1: return new MapTab();
+        if (position == 1) {
+            return new MapTab();
         }
 
         return new HouseListTab();
