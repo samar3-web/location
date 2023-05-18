@@ -411,5 +411,12 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        System.gc();
+    }
+
 
 }

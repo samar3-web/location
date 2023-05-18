@@ -556,7 +556,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        my_rcv.clearOnScrollListeners();
+        my_rcv.removeAllViews();
+  /*      my_rcv.clearOnScrollListeners();
         // Release the ShimmerFrameLayout
         shimmerFrameLayout = null;
         swipeRefreshLayout = null;
@@ -581,7 +582,7 @@ public class HomeFragment extends Fragment {
         filtreBtn.setOnClickListener(null);
         popupMenu.setOnMenuItemClickListener(null);
 
-        searchEt.removeTextChangedListener(textWatcher);
+        searchEt.removeTextChangedListener(textWatcher);*/
 
     }
 

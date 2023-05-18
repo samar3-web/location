@@ -342,6 +342,12 @@ public class ViewHouseDetailsActivity extends AppCompatActivity {
         super.onLowMemory();
         mapView.onLowMemory();
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        System.gc();
+    }
 }
 
 

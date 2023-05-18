@@ -390,8 +390,9 @@ public class Customer_Request_List extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        swipeRefreshLayout = null;
-        my_rcv = null;
+        /*swipeRefreshLayout = null;
+        my_rcv = null;*/
+        my_rcv.removeAllViews();
     }
 }
 
