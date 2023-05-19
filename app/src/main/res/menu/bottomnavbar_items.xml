@@ -21,7 +21,6 @@
         android:title="Chat" />
 
     <item
-        android:id="@+id/account"
         android:enabled="true"
         android:icon="@drawable/account"
         android:title="Account" />

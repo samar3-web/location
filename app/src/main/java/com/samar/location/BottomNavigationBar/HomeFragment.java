@@ -557,6 +557,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -589,6 +590,7 @@ public class HomeFragment extends Fragment {
         searchEt.removeTextChangedListener(textWatcher);*/
 
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

@@ -231,6 +231,9 @@ public class UserHousesAdapter extends RecyclerView.Adapter<UserHousesAdapter.Vi
                     String houseDocId = houses.get(getAdapterPosition()).getDocId();
                     intent.putExtra("houseDocId", houseDocId);
                     v.getContext().startActivity(intent);
+                    if (v.getContext() instanceof Activity) {
+                        ((Activity) v.getContext()).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
 
 
                 }

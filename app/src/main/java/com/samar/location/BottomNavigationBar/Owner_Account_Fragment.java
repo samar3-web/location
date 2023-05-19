@@ -56,10 +56,10 @@ import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Owner_Account#newInstance} factory method to
+ * Use the {@link Owner_Account_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Owner_Account extends Fragment {
+public class Owner_Account_Fragment extends Fragment {
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static final String[] PERMISSIONS_STORAGE = {
@@ -89,7 +89,7 @@ public class Owner_Account extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Owner_Account() {
+    public Owner_Account_Fragment() {
         // Required empty public constructor
     }
 
@@ -102,8 +102,8 @@ public class Owner_Account extends Fragment {
      * @return A new instance of fragment Owner_Account.
      */
     // TODO: Rename and change types and number of parameters
-    public static Owner_Account newInstance(String param1, String param2) {
-        Owner_Account fragment = new Owner_Account();
+    public static Owner_Account_Fragment newInstance(String param1, String param2) {
+        Owner_Account_Fragment fragment = new Owner_Account_Fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -447,6 +447,7 @@ public class Owner_Account extends Fragment {
             }
         }
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

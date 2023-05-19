@@ -314,11 +314,13 @@ public class MapDialogFragment extends DialogFragment {
         }
         mPinLayer.getElements().add(pushpin);
     }
+
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         mapView.onDestroy();
     }
+
     @Override
     public void onLowMemory() {
         super.onLowMemory();

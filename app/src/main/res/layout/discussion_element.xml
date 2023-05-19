@@ -1,66 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/discussionView"
     android:layout_width="match_parent"
     android:layout_height="75dp"
-    android:layout_marginTop="5dp"
     android:layout_marginLeft="4dp"
+    android:layout_marginTop="5dp"
     android:layout_marginRight="4dp"
-    android:padding="4dp"
-    android:id="@+id/discussionView"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg_recat">
+    android:background="@drawable/bg_recat"
+    android:padding="4dp">
 
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/img_thumbnail"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="25dp"
-        android:layout_marginBottom="5dp"
         android:layout_marginTop="8dp"
-        android:background="@color/white"
+        android:layout_marginBottom="5dp"
 
+        android:background="@color/white"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:roundPercent="1"
-        app:srcCompat="@drawable/b"
-        android:scaleType="centerCrop"
-        android:id="@+id/img_thumbnail"
-        />
+        app:srcCompat="@drawable/b" />
 
     <TextView
         android:id="@+id/friend"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="25dp"
-        android:layout_toRightOf="@+id/img_thumbnail"
-        android:layout_alignTop="@+id/img_thumbnail"
-        android:layout_width="wrap_content"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        android:fontFamily="@font/calibri"
-        android:text="user_name"
-        android:layout_height="wrap_content" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/img_thumbnail"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toRightOf="@+id/img_thumbnail"
+        android:fontFamily="@font/calibri"
+        android:text="user_name"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/message_text"
-        android:textColor="@color/colorGray02"
-        android:text="hello , i need a house"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/friend"
         android:layout_alignLeft="@+id/friend"
-        />
+        android:text="hello , i need a house"
+        android:textColor="@color/colorGray02" />
+
     <TextView
         android:id="@+id/message_time"
-        android:textColor="@color/colorGray02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/friend"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="-2dp"
         android:padding="4dp"
-        android:text="message_time" />
+        android:text="message_time"
+        android:textColor="@color/colorGray02" />
 
 
 </RelativeLayout>

@@ -1,12 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".homepage.HouseListTab"
-    android:paddingBottom="20dp"
     android:orientation="vertical"
-    android:id="@+id/recycler_paremt">
+    android:paddingBottom="20dp"
+    tools:context=".homepage.HouseListTab">
 
     <!-- TODO: Update blank fragment layout -->
     <com.google.android.material.appbar.AppBarLayout
@@ -17,7 +16,6 @@
         app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:popupTheme="@style/AppTheme.PopupOverlay"
@@ -35,9 +33,9 @@
                     android:layout_marginBottom="8dp">
 
                     <TextView
-                        android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:fontFamily="@font/calibri"
                         android:text="Explore"
                         android:textColor="@color/blackTextColor"
@@ -51,12 +49,12 @@
                         android:id="@+id/card"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
                         android:layout_gravity="center"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="300dp"
-                        app:cardElevation="0dp"
 
-                        android:layout_alignParentEnd="true"
+                        app:cardElevation="0dp"
 
 
                         >
@@ -92,17 +90,14 @@
                             android:layout_width="41dp"
                             android:layout_height="44dp"
                             android:background="@color/white"
-                            android:src="@drawable/profile_round"
+                            android:padding="5dp"
                             android:scaleType="centerCrop"
-                            android:padding="5dp"/>
-
-
+                            android:src="@drawable/profile_round" />
 
 
                         <!--
                                                 </LinearLayout>
                         -->
-
 
 
                     </com.google.android.material.card.MaterialCardView>
@@ -137,8 +132,8 @@
                         android:layout_height="28dp"
                         android:layout_gravity="center"
                         android:layout_weight="20"
-                        android:src="@drawable/filter"
-                        android:clickable="true"/>
+                        android:clickable="true"
+                        android:src="@drawable/filter" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -156,24 +151,31 @@
 
 
     </com.google.android.material.appbar.AppBarLayout>
+
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_view_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:shimmer_auto_start="false">
+
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <include layout="@layout/houses_cardview"/>
-                <include layout="@layout/houses_cardview"/>
-                <include layout="@layout/houses_cardview"/>
+
+                <include layout="@layout/houses_cardview" />
+
+                <include layout="@layout/houses_cardview" />
+
+                <include layout="@layout/houses_cardview" />
             </LinearLayout>
         </ScrollView>
     </com.facebook.shimmer.ShimmerFrameLayout>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
@@ -183,9 +185,8 @@
             android:id="@+id/my_rcv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
             android:layout_marginTop="8dp"
-            />
+            android:paddingBottom="20dp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

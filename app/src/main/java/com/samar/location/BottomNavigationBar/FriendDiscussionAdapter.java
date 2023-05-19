@@ -29,7 +29,7 @@ import java.util.List;
 
 public class FriendDiscussionAdapter extends RecyclerView.Adapter<FriendDiscussionAdapter.ViewHolder> {
     private final List<Discussions> discussions;
-    private Context context;
+    private final Context context;
 
 
     public FriendDiscussionAdapter(List<Discussions> discussionsList, Context context) {

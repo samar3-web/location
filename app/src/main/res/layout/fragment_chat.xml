@@ -1,47 +1,40 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:paddingBottom="0dp"
-    tools:context=".DiscussionActivity"
-    >
+    tools:context=".DiscussionActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/discu_background"
-        android:id="@+id/discu"
-        >
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:id="@+id/discussions"
-        android:fontFamily="@font/calibri"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:text="Discussions"
-        />
+        android:background="@drawable/discu_background">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/calibri"
+            android:gravity="center"
+            android:text="Discussions"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
 
-
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_of_discussions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:dividerHeight="16dp"
-        android:divider="@android:color/transparent"
-        android:id="@+id/list_of_discussions"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="70dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="50dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="16dp"
 
         />
 

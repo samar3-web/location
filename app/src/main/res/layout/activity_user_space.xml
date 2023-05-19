@@ -1,18 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".privateSpace.UserSpaceActivity"
-    android:paddingBottom="20dp"
     android:orientation="vertical"
-    android:id="@+id/recycler_paremt" >
+    android:paddingBottom="20dp"
+    tools:context=".privateSpace.UserSpaceActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="end">
 
-    <!-- TODO: Update blank fragment layout -->
+        <!-- TODO: Update blank fragment layout -->
         <TextView
             android:id="@+id/tv"
             android:layout_width="wrap_content"
@@ -33,14 +33,13 @@
             android:drawableRight="@drawable/addhouse1"
             android:elevation="30dp"
             android:padding="10dp"
-            app:cornerRadius="200dp"
-            android:text="Add New " />
+            android:text="Add New "
+            app:cornerRadius="200dp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_rcv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        />
+        android:paddingBottom="20dp" />
 </LinearLayout>

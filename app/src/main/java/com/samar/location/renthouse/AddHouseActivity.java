@@ -35,7 +35,6 @@ import java.util.UUID;
 public class AddHouseActivity extends AppCompatActivity {
 
 
-
     private static final int PICK_IMAGES = 42;
     public static EditText contactPersonName, phone, houseNo, street, city, post, location, rentPrice, bingBtn, latitude, longitude, surface;
     Button addImagesBtn, saveHouseBtn;
@@ -335,6 +334,7 @@ public class AddHouseActivity extends AppCompatActivity {
             }
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

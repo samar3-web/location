@@ -1,13 +1,11 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".homepage.HouseListTab"
-    android:paddingBottom="20dp"
     android:orientation="vertical"
-    android:id="@+id/recycler_paremt">
+    android:paddingBottom="20dp"
+    tools:context=".homepage.HouseListTab">
 
     <!-- TODO: Update blank fragment layout -->
     <com.google.android.material.appbar.AppBarLayout
@@ -18,7 +16,6 @@
         app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:popupTheme="@style/AppTheme.PopupOverlay"
@@ -36,9 +33,9 @@
                     android:layout_marginBottom="8dp">
 
                     <TextView
-                        android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:fontFamily="@font/calibri"
                         android:text="Explore"
                         android:textColor="@color/blackTextColor"
@@ -51,21 +48,21 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        app:cardBackgroundColor="@color/white"
                         android:layout_alignParentEnd="true"
-                        app:cardCornerRadius="300dp"
+                        android:layout_gravity="center_horizontal"
                         android:layout_marginTop="2dp"
                         android:padding="10dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="300dp"
                         app:cardElevation="20dp">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
                             android:layout_gravity="center"
                             android:layout_margin="2dp"
-                            >
+                            android:orientation="vertical">
+
                             <com.google.android.material.card.MaterialCardView
                                 android:id="@+id/card"
                                 android:layout_width="31dp"
@@ -79,12 +76,11 @@
                                     android:id="@+id/userFace"
                                     android:layout_width="41dp"
                                     android:layout_height="44dp"
-                                    android:background="@color/white"
                                     android:layout_gravity="center"
+                                    android:background="@color/white"
                                     android:src="@drawable/b" />
                             </com.google.android.material.card.MaterialCardView>
                         </LinearLayout>
-
 
 
                     </com.google.android.material.card.MaterialCardView>
@@ -119,8 +115,8 @@
                         android:layout_height="28dp"
                         android:layout_gravity="center"
                         android:layout_weight="20"
-                        android:src="@drawable/filter"
-                        android:clickable="true"/>
+                        android:clickable="true"
+                        android:src="@drawable/filter" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -129,9 +125,7 @@
         </androidx.appcompat.widget.Toolbar>
 
 
-
     </com.google.android.material.appbar.AppBarLayout>
-
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -143,9 +137,8 @@
             android:id="@+id/my_rcv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
             android:layout_marginTop="8dp"
-            />
+            android:paddingBottom="20dp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

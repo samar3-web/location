@@ -4,18 +4,15 @@
 
     <item
         android:id="@+id/option_logout"
-        android:title="Logout"
         android:icon="@drawable/logout"
-        app:showAsAction="never"
-        />
+        android:title="Logout"
+        app:showAsAction="never" />
     <item
         android:id="@+id/option_search"
-        android:title="Search"
         android:icon="@drawable/option_search"
-        app:showAsAction="always"
+        android:title="Search"
         app:actionViewClass="android.widget.SearchView"
-        />
-
+        app:showAsAction="always" />
 
 
 </menu>

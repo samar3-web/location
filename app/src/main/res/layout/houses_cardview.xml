@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:id="@+id/cardview_parent"
     android:background="@color/white"
-    android:padding="8dp"
-    >
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
@@ -16,89 +14,90 @@
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true"
-        app:contentPadding="16dp"
-        >
+        app:contentPadding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:weightSum="100"
-            android:orientation="vertical">
-            <!-- Media -->
-            <RelativeLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/housecardImage"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                android:weightSum="100">
+                <!-- Media -->
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    app:iss_auto_cycle="true"
-                    app:iss_period="1000"
-                    app:iss_delay="0"/>
-                <com.denzcoskun.imageslider.ImageSlider
-                    android:id="@+id/image_slider"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:overScrollMode="never">
+                    android:layout_height="match_parent">
 
-                </com.denzcoskun.imageslider.ImageSlider>
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/housecardImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        app:iss_auto_cycle="true"
+                        app:iss_delay="0"
+                        app:iss_period="1000" />
 
+                    <com.denzcoskun.imageslider.ImageSlider
+                        android:id="@+id/image_slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:overScrollMode="never">
 
-
-                <ImageView
-                    android:id="@+id/favorite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10"
-                    android:background="#000000ff"
-                    android:src="@drawable/no_favorite"
-                    android:fontFamily="@font/calibri"
-                    android:padding="6dp"
-                    android:layout_alignParentRight="true"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/housecardviews"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/calibri"
-                    android:textColor="@color/black"
-                    android:layout_weight="10"
-                    android:background="#000000ff"
-                    android:padding="6dp"
-                    android:layout_alignParentLeft="true"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:text="1000"
-                    android:drawablePadding="5dp"
-                    android:textAlignment="textStart"
-                    android:drawableLeft="@drawable/eyes" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/housecardcity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/housecardImage"
-                    android:alpha="0.65"
-                    android:background="@color/black"
-                    android:padding="15dp"
-                    android:text="City ,Country"
-                    android:textColor="@color/white"
-
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-
-            </RelativeLayout>
+                    </com.denzcoskun.imageslider.ImageSlider>
 
 
-        </LinearLayout>
+                    <ImageView
+                        android:id="@+id/favorite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_weight="10"
+                        android:background="#000000ff"
+                        android:fontFamily="@font/calibri"
+                        android:padding="6dp"
+                        android:src="@drawable/no_favorite"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/housecardviews"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_weight="10"
+                        android:background="#000000ff"
+                        android:drawableLeft="@drawable/eyes"
+                        android:drawablePadding="5dp"
+                        android:fontFamily="@font/calibri"
+                        android:padding="6dp"
+                        android:text="1000"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/housecardcity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/housecardImage"
+                        android:alpha="0.65"
+                        android:background="@color/black"
+                        android:padding="15dp"
+                        android:text="City ,Country"
+                        android:textColor="@color/white"
+
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -123,44 +122,41 @@
                     android:layout_marginEnd="-48dp"
                     android:layout_marginRight="-48dp"
                     android:fontFamily="@font/calibri"
-                    android:text="S+1"
                     android:padding="6dp"
+                    android:text="S+1"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
-
-
-
 
 
                 <TextView
                     android:id="@+id/housecardlastDateModified"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/calibri"
-                    android:textColor="@color/black"
                     android:layout_alignEnd="@+id/housecardsize"
-
                     android:layout_alignRight="@id/housecardsize"
                     android:layout_marginEnd="-140dp"
 
-                    android:textSize="16sp"
-                    android:text="25/06/2023 25:12"
+                    android:drawableLeft="@drawable/time"
+                    android:fontFamily="@font/calibri"
 
                     android:padding="6dp"
+                    android:text="25/06/2023 25:12"
+
                     android:textAlignment="textStart"
-                    android:drawableLeft="@drawable/time" />
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_weight="10"
                     android:background="@drawable/light_orange_rounded_shape"
                     android:drawableLeft="@drawable/ic_star_yellow_24dp"
                     android:fontFamily="@font/calibri"
                     android:padding="6dp"
                     android:text="4.5"
-                    android:layout_alignParentRight="true"
                     android:textAlignment="textStart"
                     android:textColor="#ffc32d"
                     android:textSize="14sp"
@@ -169,12 +165,9 @@
             </RelativeLayout>
 
 
-
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-
 
 
 </LinearLayout>

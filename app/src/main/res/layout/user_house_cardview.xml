@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:id="@+id/cardview_parent"
     android:background="@color/white"
+    android:orientation="vertical"
 
     >
 
@@ -13,16 +12,16 @@
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp"
         android:layout_marginBottom="8dp"
-        app:cardElevation="8dp"
-        >
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp">
 
         <LinearLayout
             android:id="@+id/linearCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,15 +29,14 @@
                 <!-- Media -->
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    >
+                    android:layout_height="match_parent">
+
                     <ImageView
                         android:id="@+id/housecardImage"
                         android:layout_width="match_parent"
                         android:layout_height="210dp"
                         android:animateLayoutChanges="true"
-                        android:scaleType="fitXY"
-                        />
+                        android:scaleType="fitXY" />
 
 
                     <com.google.android.material.textview.MaterialTextView
@@ -59,35 +57,35 @@
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_gravity="center_horizontal"
-                >
+                android:paddingRight="10dp">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/housecardsize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4BHK"
-
-                    app:cornerRadius="15dp"
                     android:layout_marginRight="10dp"
 
+                    android:text="4BHK"
+                    app:cornerRadius="15dp"
+
                     />
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/housecardprice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$1000"
-                    app:cornerRadius="15dp"
-                    app:elevation="8dp"
-                    app:backgroundTint="@color/colorGray02"
                     android:layout_marginRight="10dp"
-                    />
+                    android:text="$1000"
+                    app:backgroundTint="@color/colorGray02"
+                    app:cornerRadius="15dp"
+                    app:elevation="8dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_delete"
@@ -107,12 +105,9 @@
             </LinearLayout>
 
 
-
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-
 
 
 </LinearLayout>

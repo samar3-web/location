@@ -106,26 +106,24 @@ public class BootomNavBarMain extends AppCompatActivity {
                                 getRequestsCount();
 
                                 if (item.getItemId() == R.id.homee) {
-                                  //  getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new HomeFragment(), "home_fragment").commit();
+                                    //  getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new HomeFragment(), "home_fragment").commit();
                                     getSupportFragmentManager().beginTransaction()
                                             .replace(R.id.bottomnavitem_frame, homeFragment, "home_fragment")
-                                          //  .addToBackStack(null)
+                                            //  .addToBackStack(null)
                                             .commit();
 
 
                                 } else if (item.getItemId() == R.id.favourite) {
-                                    if (accType.equals("CUSTOMER"))
-                                    {
+                                    if (accType.equals("CUSTOMER")) {
 
                                         getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Customer_Request_List())
                                                 //.addToBackStack(null)
                                                 .commit();
 
 
-                                    }
-                                    else {
+                                    } else {
                                         getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Customer_Request_List())
-                                              //  .addToBackStack(null)
+                                                //  .addToBackStack(null)
                                                 .commit();
                                     }
 
@@ -133,16 +131,16 @@ public class BootomNavBarMain extends AppCompatActivity {
 
                                     {
                                         getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new ChatFragment())
-                                               // .addToBackStack(null)
+                                                // .addToBackStack(null)
                                                 .commit();
                                     }
                                 } else {
                                     if (accType.equals("CUSTOMER")) {
                                         getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Customer_Account_Fragment())
-                                             //  .addToBackStack(null)
+                                                //  .addToBackStack(null)
                                                 .commit();
                                     } else {
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Owner_Account())
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.bottomnavitem_frame, new Owner_Account_Fragment())
                                                 //.addToBackStack(null)
                                                 .commit();
                                     }

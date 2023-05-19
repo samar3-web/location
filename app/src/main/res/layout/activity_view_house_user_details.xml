@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-android:padding="10dp" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
+
         <RelativeLayout
 
             android:layout_width="match_parent"
@@ -24,6 +25,7 @@ android:padding="10dp" >
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -52,32 +54,31 @@ android:padding="10dp" >
                                     android:layout_alignParentTop="true"
                                     android:src="@drawable/back_to_home_button" />
                             </com.google.android.material.card.MaterialCardView>
+
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/edit_btn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignEnd="@+id/face"
                                 android:layout_margin="10dp"
-                                app:cornerRadius="200dp"
-                                android:elevation="30dp"
                                 android:drawableRight="@drawable/edit_pen"
-                                />
+                                android:elevation="30dp"
+                                app:cornerRadius="200dp" />
 
                             <!-- Media -->
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/save_btn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="28dp"
-                                android:elevation="30dp"
-                                android:text="save"
                                 android:layout_alignEnd="@+id/face"
                                 android:layout_margin="10dp"
-                                app:cornerRadius="200dp"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="28dp"
                                 android:drawableRight="@drawable/edit_pen"
+                                android:elevation="30dp"
+                                android:text="save"
                                 android:visibility="gone"
-                                />
+                                app:cornerRadius="200dp" />
 
                             <ImageView
                                 android:id="@+id/face"
@@ -96,22 +97,17 @@ android:padding="10dp" >
                 </LinearLayout>
 
 
-
-
-
-
-
                 <TextView
                     android:id="@+id/house_availability"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="5dp"
                     android:layout_gravity="end"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:gravity="center"
                     android:hint="Availability"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
                     android:textColorHint="@color/black"
+                    android:textSize="20sp"
 
                     />
 
@@ -129,204 +125,191 @@ android:padding="10dp" >
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <com.google.android.material.card.MaterialCardView
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="10dp"
-            android:padding="10dp"
-            android:layout_margin="20dp"
-            app:cardElevation="20dp">
+            <com.google.android.material.card.MaterialCardView
 
-            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-
-
-
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:padding="10dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="20dp">
 
                 <LinearLayout
-                    android:id="@+id/availability_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:visibility="gone"
-                    >
-                    <TextView
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                        android:layout_width="wrap_content"
+
+                    <LinearLayout
+                        android:id="@+id/availability_layout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Availability"
-                        android:textSize="20sp"
-                        android:layout_gravity="center_vertical"
-                        android:padding="10dp"
-                        />
-                    <RadioGroup
-                        android:id="@+id/house_availability_input"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:orientation="horizontal"
-                        >
+                        android:visibility="gone">
 
-                        <RadioButton
-                            android:id="@+id/valable"
+                        <TextView
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorPrimary"
-                            android:text="True"
-                            android:textColor="@color/colorPrimary"
-                            android:paddingHorizontal="5dp"
-                            android:imeOptions="actionDone"
-                            />
+                            android:layout_gravity="center_vertical"
+                            android:padding="10dp"
+                            android:text="Availability"
+                            android:textSize="20sp" />
 
-                        <RadioButton
-                            android:id="@+id/invalable"
+                        <RadioGroup
+                            android:id="@+id/house_availability_input"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/colorPrimary"
-                            android:text="False"
-                            android:paddingHorizontal="5dp"
-                            android:imeOptions="actionDone"
-                            android:textColor="@color/colorPrimary"
-                            />
-                    </RadioGroup>
+                            android:layout_gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/valable"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:buttonTint="@color/colorPrimary"
+                                android:imeOptions="actionDone"
+                                android:paddingHorizontal="5dp"
+                                android:text="True"
+                                android:textColor="@color/colorPrimary" />
+
+                            <RadioButton
+                                android:id="@+id/invalable"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:buttonTint="@color/colorPrimary"
+                                android:imeOptions="actionDone"
+                                android:paddingHorizontal="5dp"
+                                android:text="False"
+                                android:textColor="@color/colorPrimary" />
+                        </RadioGroup>
+
+                    </LinearLayout>
+
+
+                    <EditText
+                        android:id="@+id/price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/bitcoin"
+                        android:drawablePadding="20dp"
+                        android:drawableTint="@color/colorPrimary"
+                        android:enabled="false"
+                        android:imeOptions="actionDone"
+                        android:inputType="textCapWords"
+                        android:padding="20dp"
+                        android:text="House Price"
+                        android:textAllCaps="true"
+
+                        />
+
+                    <EditText
+                        android:id="@+id/owner_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/phone_red"
+                        android:drawablePadding="20dp"
+                        android:drawableTint="@color/colorPrimary"
+                        android:enabled="false"
+                        android:imeOptions="actionDone"
+                        android:inputType="phone"
+                        android:padding="20dp"
+                        android:text="10000000000"
+
+                        />
+
+                    <EditText
+                        android:id="@+id/city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/location"
+                        android:drawablePadding="20dp"
+                        android:drawableTint="@color/colorPrimary"
+                        android:enabled="false"
+                        android:hint="CityName"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPostalAddress"
+                        android:padding="20dp" />
+
+                    <EditText
+                        android:id="@+id/location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/location"
+                        android:drawablePadding="20dp"
+                        android:drawableTint="@color/colorPrimary"
+                        android:enabled="false"
+                        android:hint="Location"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPostalAddress"
+                        android:padding="20dp" />
+
+
+                    <EditText
+                        android:id="@+id/street"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/location"
+                        android:drawablePadding="20dp"
+                        android:drawableTint="@color/colorPrimary"
+                        android:enabled="false"
+                        android:hint="Street"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPostalAddress"
+                        android:padding="20dp" />
+
+                    <EditText
+                        android:id="@+id/size"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/baseline_numbers_24"
+                        android:drawablePadding="20dp"
+                        android:drawableTint="@color/colorPrimary"
+                        android:enabled="false"
+                        android:hint="Size"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPostalAddress"
+                        android:padding="20dp" />
+
+                    <EditText
+                        android:id="@+id/houseNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/baseline_menu_open_24"
+                        android:drawablePadding="20dp"
+                        android:drawableTint="@color/colorPrimary"
+                        android:enabled="false"
+                        android:hint="houseNo"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPostalAddress"
+                        android:padding="20dp" />
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/delete_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="20dp"
+                        android:text="Delete"
+                        android:textSize="20sp"
+                        app:cornerRadius="20dp"
+
+
+                        />
+
 
                 </LinearLayout>
 
-
-                <EditText
-                    android:id="@+id/price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="House Price"
-                    android:inputType="textCapWords"
-                    android:textAllCaps="true"
-                    android:padding="20dp"
-                    android:drawablePadding="20dp"
-                    android:drawableTint="@color/colorPrimary"
-                    android:drawableLeft="@drawable/bitcoin"
-                    android:enabled="false"
-                    android:imeOptions="actionDone"
-
-                    />
-
-                <EditText
-                    android:id="@+id/owner_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="10000000000"
-                    android:inputType="phone"
-                    android:drawablePadding="20dp"
-                    android:padding="20dp"
-                    android:drawableTint="@color/colorPrimary"
-                    android:drawableLeft="@drawable/phone_red"
-                    android:enabled="false"
-                    android:imeOptions="actionDone"
-
-                    />
-                <EditText
-                    android:id="@+id/city"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="CityName"
-                    android:inputType="textPostalAddress"
-                    android:drawablePadding="20dp"
-                    android:padding="20dp"
-                    android:drawableTint="@color/colorPrimary"
-                    android:drawableLeft="@drawable/location"
-                    android:enabled="false"
-                    android:imeOptions="actionDone"
-                    />
-                <EditText
-                    android:id="@+id/location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Location"
-                    android:inputType="textPostalAddress"
-                    android:drawablePadding="20dp"
-                    android:padding="20dp"
-                    android:drawableTint="@color/colorPrimary"
-                    android:drawableLeft="@drawable/location"
-                    android:enabled="false"
-                    android:imeOptions="actionDone"
-                    />
-
-
-                <EditText
-                    android:id="@+id/street"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Street"
-                    android:inputType="textPostalAddress"
-                    android:drawablePadding="20dp"
-                    android:padding="20dp"
-                    android:drawableTint="@color/colorPrimary"
-                    android:drawableLeft="@drawable/location"
-                    android:enabled="false"
-                    android:imeOptions="actionDone"
-                    />
-                <EditText
-                    android:id="@+id/size"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Size"
-                    android:inputType="textPostalAddress"
-                    android:drawablePadding="20dp"
-                    android:padding="20dp"
-                    android:drawableTint="@color/colorPrimary"
-                    android:drawableLeft="@drawable/baseline_numbers_24"
-                    android:enabled="false"
-                    android:imeOptions="actionDone"
-                    />
-                <EditText
-                    android:id="@+id/houseNo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="houseNo"
-                    android:inputType="textPostalAddress"
-                    android:drawablePadding="20dp"
-                    android:padding="20dp"
-                    android:drawableTint="@color/colorPrimary"
-                    android:drawableLeft="@drawable/baseline_menu_open_24"
-                    android:enabled="false"
-                    android:imeOptions="actionDone"
-                    />
-
-
-
-
-
-
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/delete_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    app:cornerRadius="20dp"
-                    android:text="Delete"
-                    android:textSize="20sp"
-
-
-                    />
-
-
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.card.MaterialCardView>
 
         </ScrollView>
     </LinearLayout>
-
 
 
 </LinearLayout>

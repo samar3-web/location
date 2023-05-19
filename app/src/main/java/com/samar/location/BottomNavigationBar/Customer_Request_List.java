@@ -391,6 +391,7 @@ public class Customer_Request_List extends Fragment {
                     }
                 });
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -398,6 +399,7 @@ public class Customer_Request_List extends Fragment {
         my_rcv = null;*/
         my_rcv.removeAllViews();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

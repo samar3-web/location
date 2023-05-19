@@ -120,7 +120,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public void sortData(String sortBy) {
-        Log.d("gggggggggggg",sortBy.toLowerCase());
+        Log.d("gggggggggggg", sortBy.toLowerCase());
         switch (sortBy.toLowerCase()) {
             case "none":
                 houses.clear();

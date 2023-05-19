@@ -296,6 +296,7 @@ public class DiscussionActivity extends AppCompatActivity {
 
         return future;
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

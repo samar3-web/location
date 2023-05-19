@@ -163,7 +163,7 @@ public class ChatFragment extends Fragment {
 
 
         //adapter les friends Discussions
-        FriendDiscussionAdapter adapter = new FriendDiscussionAdapter(friendsDiscussions,getActivity());
+        FriendDiscussionAdapter adapter = new FriendDiscussionAdapter(friendsDiscussions, getActivity());
 
         list_of_discussions.setAdapter(adapter);
         list_of_discussions.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -182,6 +182,7 @@ public class ChatFragment extends Fragment {
 
         return exist;
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

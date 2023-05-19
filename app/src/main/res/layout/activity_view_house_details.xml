@@ -19,7 +19,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/cardview_parent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/transparent_background"
@@ -82,7 +81,6 @@
 
                                     <!--profile image-->
                                     <com.google.android.material.card.MaterialCardView
-                                        android:id="@+id/profile_cardview"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignEnd="@+id/housecardImage"
@@ -132,29 +130,29 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_margin="5dp">
+                                    android:layout_margin="5dp"
+                                    android:orientation="horizontal">
 
                                     <TextView
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
+                                        android:layout_weight="0.5"
                                         android:drawableLeft="@drawable/house_price"
                                         android:drawablePadding="7dp"
                                         android:text="Price"
                                         android:textSize="18dp"
-                                        app:cornerRadius="15dp"
-                                        android:layout_weight="0.5"/>
+                                        app:cornerRadius="15dp" />
 
                                     <TextView
                                         android:id="@+id/price"
-                                        android:text="1000 DT"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:textAlignment="textStart"
+                                        android:layout_weight="0.5"
                                         android:fontFamily="@font/calibri"
+                                        android:text="1000 DT"
+                                        android:textAlignment="textStart"
                                         android:textColor="@color/blue"
-                                        android:textSize="20dp"
-                                        android:layout_weight="0.5"/>
+                                        android:textSize="20dp" />
 
 
                                 </LinearLayout>
@@ -162,32 +160,30 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_margin="5dp">
-
-
+                                    android:layout_margin="5dp"
+                                    android:orientation="horizontal">
 
 
                                     <TextView
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
+                                        android:layout_weight="0.5"
                                         android:drawableLeft="@drawable/house_size"
                                         android:drawablePadding="7dp"
                                         android:text="Area"
                                         android:textSize="18dp"
-                                        app:cornerRadius="15dp"
-                                        android:layout_weight="0.5"/>
+                                        app:cornerRadius="15dp" />
 
                                     <TextView
                                         android:id="@+id/size"
-                                        android:text="S + 3"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:textAlignment="textStart"
+                                        android:layout_weight="0.5"
                                         android:fontFamily="@font/calibri"
+                                        android:text="S + 3"
+                                        android:textAlignment="textStart"
                                         android:textColor="@color/blue"
-                                        android:textSize="20dp"
-                                        android:layout_weight="0.5"/>
+                                        android:textSize="20dp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -199,23 +195,23 @@
                                     <TextView
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
+                                        android:layout_weight="0.5"
                                         android:drawableLeft="@drawable/location_h"
                                         android:drawablePadding="7dp"
                                         android:text="City"
                                         android:textSize="18dp"
-                                        app:cornerRadius="15dp"
-                                        android:layout_weight="0.5"/>
+                                        app:cornerRadius="15dp" />
 
                                     <TextView
                                         android:id="@+id/street"
-                                        android:text="Tunis"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:textAlignment="textStart"
+                                        android:layout_weight="0.5"
                                         android:fontFamily="@font/calibri"
+                                        android:text="Tunis"
+                                        android:textAlignment="textStart"
                                         android:textColor="@color/blue"
-                                        android:textSize="20dp"
-                                        android:layout_weight="0.5"/>
+                                        android:textSize="20dp" />
                                 </LinearLayout>
 
 
@@ -228,24 +224,24 @@
                                     <TextView
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:drawableLeft="@drawable/price"                                        android:drawablePadding="7dp"
+                                        android:layout_weight="0.5"
+                                        android:drawableLeft="@drawable/price"
+                                        android:drawablePadding="7dp"
                                         android:text="House Number"
                                         android:textSize="18dp"
-                                        app:cornerRadius="15dp"
-                                        android:layout_weight="0.5"/>
+                                        app:cornerRadius="15dp" />
 
                                     <TextView
                                         android:id="@+id/houseNo"
-                                        android:text="72 Avenue Bouriguiba"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:textAlignment="textStart"
-                                        android:fontFamily="@font/calibri"
-                                        android:textColor="@color/blue"
-                                        android:textSize="20dp"
                                         android:layout_weight="0.5"
-                                        android:ellipsize="end"/>
-
+                                        android:ellipsize="end"
+                                        android:fontFamily="@font/calibri"
+                                        android:text="72 Avenue Bouriguiba"
+                                        android:textAlignment="textStart"
+                                        android:textColor="@color/blue"
+                                        android:textSize="20dp" />
 
 
                                 </LinearLayout>
@@ -259,24 +255,23 @@
                                     <TextView
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
+                                        android:layout_weight="0.5"
                                         android:drawableLeft="@drawable/home_location"
                                         android:text="Location"
                                         android:textSize="18dp"
-                                        app:cornerRadius="15dp"
-                                        android:layout_weight="0.5"/>
+                                        app:cornerRadius="15dp" />
 
                                     <TextView
                                         android:id="@+id/location"
-                                        android:text="Sokra, Ariana"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:textAlignment="textStart"
-                                        android:fontFamily="@font/calibri"
-                                        android:textColor="@color/blue"
-                                        android:textSize="20dp"
                                         android:layout_weight="0.5"
-                                        android:ellipsize="end"/>
-
+                                        android:ellipsize="end"
+                                        android:fontFamily="@font/calibri"
+                                        android:text="Sokra, Ariana"
+                                        android:textAlignment="textStart"
+                                        android:textColor="@color/blue"
+                                        android:textSize="20dp" />
 
 
                                 </LinearLayout>
@@ -291,8 +286,7 @@
                                         android:id="@+id/mapView"
                                         android:layout_width="match_parent"
                                         android:layout_height="230dp"
-                                        android:layout_margin="20dp"
-                                        />
+                                        android:layout_margin="20dp" />
 
                                 </LinearLayout>
 
@@ -353,12 +347,12 @@
                             android:backgroundTint="#322584EC"
                             android:clickable="true"
                             android:drawableTint="#0000FF"
+                            android:paddingStart="8dp"
                             android:tint="@android:color/white"
                             app:cornerRadius="45dp"
                             app:fabSize="mini"
                             app:icon="@drawable/ic_baseline_chat_24"
-                            app:iconGravity="textEnd"
-                            android:paddingStart="8dp"/>
+                            app:iconGravity="textEnd" />
 
                         <Button
                             android:id="@+id/call"
@@ -370,14 +364,15 @@
                             android:backgroundTint="#2731EA4A"
                             android:clickable="true"
                             android:drawableTint="#0000FF"
+                            android:paddingStart="8dp"
                             android:tint="@android:color/white"
                             app:cornerRadius="45dp"
                             app:fabSize="mini"
                             app:icon="@drawable/baseline_call_24"
                             app:iconGravity="textEnd"
-                            android:paddingStart="8dp"
 
                             />
+
                         <Button
                             android:id="@+id/direction"
                             android:layout_width="80dp"
@@ -388,14 +383,13 @@
                             android:backgroundTint="#FF5722"
                             android:clickable="true"
 
+                            android:paddingStart="8dp"
                             app:cornerRadius="45dp"
                             app:fabSize="mini"
                             app:icon="@android:drawable/ic_dialog_map"
                             app:iconGravity="textEnd"
-                            android:paddingStart="8dp"
 
                             />
-
 
 
                     </LinearLayout>

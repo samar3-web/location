@@ -2,17 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".homepage.MapTab"
     android:orientation="vertical"
-    >
+    tools:context=".homepage.MapTab">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Map Tab"
         android:gravity="center"
-        android:textSize="40sp"
-        />
+        android:text="Map Tab"
+        android:textSize="40sp" />
 
 </LinearLayout>
