@@ -28,14 +28,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        android:backgroundTint="@color/style_picker_blue"
-        android:drawableLeft="@drawable/ic_pin"
-        android:elevation="0dp"
-        android:scaleType="centerCrop"
-        android:text="Confirm"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:backgroundTint="#FFA500"
+    android:drawableLeft="@drawable/ic_pin"
+    android:elevation="0dp"
+    android:scaleType="centerCrop"
+    android:text="Confirm"
+    android:textColor="#000000"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
