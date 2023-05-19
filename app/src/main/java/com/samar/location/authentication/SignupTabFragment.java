@@ -260,6 +260,7 @@ public class SignupTabFragment extends Fragment {
                         intent.putExtra("accountType", accountType);
                         startActivity(intent);
                         getActivity().finish();
+                        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

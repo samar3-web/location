@@ -8,10 +8,14 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -393,6 +397,20 @@ public class Customer_Request_List extends Fragment {
         /*swipeRefreshLayout = null;
         my_rcv = null;*/
         my_rcv.removeAllViews();
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Set initial translationY value for the fragment's view
+        view.setTranslationY(view.getHeight());
+
+        // Create an animation for the fragment
+        Animation slideUpAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up_animation);
+
+
+        // Start the animation
+        view.startAnimation(slideUpAnimation);
     }
 }
 

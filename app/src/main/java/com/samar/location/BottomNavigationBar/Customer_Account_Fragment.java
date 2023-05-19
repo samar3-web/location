@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,6 +28,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -229,6 +233,8 @@ public class Customer_Account_Fragment extends Fragment {
                                 getActivity().finish();
                                 Toast.makeText(getActivity(), "Logging Out", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getActivity(), LoginActivity.class));
+                                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
                             }
                         })
                         .setNegativeButton("No", null)
@@ -422,6 +428,20 @@ public class Customer_Account_Fragment extends Fragment {
                 Toast.makeText(getContext(), "Permission denied to make storage", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Set initial translationY value for the fragment's view
+        view.setTranslationY(view.getHeight());
+
+        // Create an animation for the fragment
+        Animation slideUpAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up_animation);
+
+
+        // Start the animation
+        view.startAnimation(slideUpAnimation);
     }
 
 

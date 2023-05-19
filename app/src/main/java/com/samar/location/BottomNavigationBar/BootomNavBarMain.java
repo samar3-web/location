@@ -161,6 +161,7 @@ public class BootomNavBarMain extends AppCompatActivity {
                         FirebaseAuth.getInstance().signOut();
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         finish();
+                        //overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
 
                         Log.d("xxxxxx", "onComplete: NO DATA");

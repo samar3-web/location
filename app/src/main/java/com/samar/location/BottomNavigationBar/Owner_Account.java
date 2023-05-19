@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,6 +27,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -154,6 +158,7 @@ public class Owner_Account extends Fragment {
                 Intent intent = new Intent(getActivity(), UserSpaceActivity.class);
                 intent.putExtra("currentUserUid", currentUserUid);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
             }
         });
@@ -234,23 +239,23 @@ public class Owner_Account extends Fragment {
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 new AlertDialog.Builder(getContext())
                         .setMessage("Are you sure you want to logout from the application?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                                 FirebaseAuth.getInstance().signOut();
                                 getActivity().finish();
                                 Toast.makeText(getActivity(), "Logging Out", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getActivity(), LoginActivity.class));
+
+                                // Start LoginActivity with transition animation
+                                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                                startActivity(intent);
+                                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                             }
                         })
                         .setNegativeButton("No", null)
                         .show();
-
-
             }
         });
         return view;
@@ -442,6 +447,19 @@ public class Owner_Account extends Fragment {
             }
         }
     }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        // Set initial translationY value for the fragment's view
+        view.setTranslationY(view.getHeight());
+
+        // Create an animation for the fragment
+        Animation slideUpAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up_animation);
+
+
+        // Start the animation
+        view.startAnimation(slideUpAnimation);
+    }
 
 }

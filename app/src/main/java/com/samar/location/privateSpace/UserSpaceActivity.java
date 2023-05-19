@@ -53,7 +53,8 @@ public class UserSpaceActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), AddHouseActivity.class);
                 intent.putExtra("currentUserUid", currentUserUid);
                 startActivity(intent);
-                finish();
+                //finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -146,6 +147,14 @@ public class UserSpaceActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
+        System.gc();
     }
 
 

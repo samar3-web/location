@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -178,6 +181,20 @@ public class ChatFragment extends Fragment {
         }
 
         return exist;
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Set initial translationY value for the fragment's view
+        view.setTranslationY(view.getHeight());
+
+        // Create an animation for the fragment
+        Animation slideUpAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up_animation);
+
+
+        // Start the animation
+        view.startAnimation(slideUpAnimation);
     }
 
 
