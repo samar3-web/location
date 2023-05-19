@@ -6,13 +6,13 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\Strongkoya\.android\avd\Pixel_1.avd" />
+            <type value="SERIAL_NUMBER" />
+            <value value="R58M15E9X5X" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2023-05-19T14:02:13.577222400Z" />
+    <timeTargetWasSelectedWithDropDown value="2023-05-19T14:21:14.197375Z" />
     <runningDeviceTargetsSelectedWithDialog>
       <Target>
         <type value="RUNNING_DEVICE_TARGET" />

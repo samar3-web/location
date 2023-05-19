@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -66,6 +67,7 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
     FirebaseFirestore firestore;
     private Uri ImageUri;
     private ProgressDialog progressDialog;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +106,13 @@ public class ViewHouseUserDetailsActivity extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
 
         currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-
+        back = findViewById(R.id.back_home);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         //showing data details
         showHouseDetails(houseDocId);
 

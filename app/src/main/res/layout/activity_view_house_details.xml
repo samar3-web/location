@@ -152,7 +152,7 @@
                                         android:layout_height="wrap_content"
                                         android:textAlignment="textStart"
                                         android:fontFamily="@font/calibri"
-                                        android:textColor="#191970"
+                                        android:textColor="@color/blue"
                                         android:textSize="20dp"
                                         android:layout_weight="0.5"/>
 
@@ -185,7 +185,7 @@
                                         android:layout_height="wrap_content"
                                         android:textAlignment="textStart"
                                         android:fontFamily="@font/calibri"
-                                        android:textColor="#191970"
+                                        android:textColor="@color/blue"
                                         android:textSize="20dp"
                                         android:layout_weight="0.5"/>
                                 </LinearLayout>
@@ -213,7 +213,7 @@
                                         android:layout_height="wrap_content"
                                         android:textAlignment="textStart"
                                         android:fontFamily="@font/calibri"
-                                        android:textColor="#191970"
+                                        android:textColor="@color/blue"
                                         android:textSize="20dp"
                                         android:layout_weight="0.5"/>
                                 </LinearLayout>
@@ -241,7 +241,7 @@
                                         android:layout_height="wrap_content"
                                         android:textAlignment="textStart"
                                         android:fontFamily="@font/calibri"
-                                        android:textColor="#191970"
+                                        android:textColor="@color/blue"
                                         android:textSize="20dp"
                                         android:layout_weight="0.5"
                                         android:ellipsize="end"/>
@@ -272,7 +272,7 @@
                                         android:layout_height="wrap_content"
                                         android:textAlignment="textStart"
                                         android:fontFamily="@font/calibri"
-                                        android:textColor="#191970"
+                                        android:textColor="@color/blue"
                                         android:textSize="20dp"
                                         android:layout_weight="0.5"
                                         android:ellipsize="end"/>

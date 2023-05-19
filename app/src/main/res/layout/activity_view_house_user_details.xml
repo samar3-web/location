@@ -37,6 +37,21 @@ android:padding="10dp" >
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="18dp"
+                                app:cardCornerRadius="20dp"
+                                app:cardElevation="8dp">
+
+                                <ImageView
+                                    android:id="@+id/back_home"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:src="@drawable/back_to_home_button" />
+                            </com.google.android.material.card.MaterialCardView>
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/edit_btn"
                                 android:layout_width="wrap_content"

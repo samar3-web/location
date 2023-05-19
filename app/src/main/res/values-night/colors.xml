@@ -37,4 +37,5 @@
 
     <!--colros for card-->
     <color name="whiteCardColor">#000000</color>
+    <color name="blue">#3737D3</color>
 </resources>

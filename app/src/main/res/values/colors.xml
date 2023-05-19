@@ -35,4 +35,5 @@
 
     <!--colros for card-->
     <color name="whiteCardColor">#fff</color>
+    <color name="blue">#191970</color>
     </resources>
