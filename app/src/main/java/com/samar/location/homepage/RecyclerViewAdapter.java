@@ -1,5 +1,6 @@
 package com.samar.location.homepage;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -382,7 +383,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         intent.putExtra("houseDocId", house.getDocId());
                     }
                     context.startActivity(intent);
-
+                    if (context instanceof Activity) {
+                        ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
 
                 }
             });

@@ -1,6 +1,7 @@
 package com.samar.location;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -346,6 +347,9 @@ public class ViewHouseDetailsActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
         System.gc();
     }
 }

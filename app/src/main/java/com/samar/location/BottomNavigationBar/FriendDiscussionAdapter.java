@@ -1,5 +1,6 @@
 package com.samar.location.BottomNavigationBar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -28,10 +29,12 @@ import java.util.List;
 
 public class FriendDiscussionAdapter extends RecyclerView.Adapter<FriendDiscussionAdapter.ViewHolder> {
     private final List<Discussions> discussions;
+    private Context context;
 
 
-    public FriendDiscussionAdapter(List<Discussions> discussionsList) {
+    public FriendDiscussionAdapter(List<Discussions> discussionsList, Context context) {
         this.discussions = discussionsList;
+        this.context = context;
     }
 
     @NonNull
@@ -65,6 +68,9 @@ public class FriendDiscussionAdapter extends RecyclerView.Adapter<FriendDiscussi
                 Intent intent = new Intent(v.getContext(), DiscussionActivity.class);
                 intent.putExtra("friendEmail", discussion.getFriendEmail());
                 v.getContext().startActivity(intent);
+                if (context instanceof Activity) {
+                    ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
             }
         });
 

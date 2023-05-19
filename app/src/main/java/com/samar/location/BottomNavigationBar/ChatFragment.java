@@ -160,7 +160,7 @@ public class ChatFragment extends Fragment {
 
 
         //adapter les friends Discussions
-        FriendDiscussionAdapter adapter = new FriendDiscussionAdapter(friendsDiscussions);
+        FriendDiscussionAdapter adapter = new FriendDiscussionAdapter(friendsDiscussions,getActivity());
 
         list_of_discussions.setAdapter(adapter);
         list_of_discussions.setLayoutManager(new LinearLayoutManager(getContext()));
