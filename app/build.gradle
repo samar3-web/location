@@ -76,6 +76,8 @@ dependencies {
 
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
 
+   // implementation 'com.facebook.fresco:fresco:2.5.0'
+
 
 
 }

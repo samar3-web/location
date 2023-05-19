@@ -132,6 +132,7 @@ public class HomeFragment extends Fragment {
         //ajouter les tokens de l'utilsateur de tous les apps installées utilsant son login
         setUserTokens();
 
+
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -233,12 +234,12 @@ public class HomeFragment extends Fragment {
                         break;
                     case 6:
                         if (recyclerViewAdapter != null) {
-                            recyclerViewAdapter.sortData("lastModifiedDate");
+                            recyclerViewAdapter.sortData("addedDate");
                         }
                         break;
                     case 7:
                         if (recyclerViewAdapter != null) {
-                            recyclerViewAdapter.sortData("addedDate");
+                            recyclerViewAdapter.sortData("lastModifiedDate");
                         }
                         break;
 
