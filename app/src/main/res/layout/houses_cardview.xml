@@ -69,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/calibri"
-                    android:textColor="#0C0C0C"
+                    android:textColor="@color/black"
                     android:layout_weight="10"
                     android:background="#000000ff"
                     android:padding="6dp"
@@ -77,6 +77,7 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:text="1000"
+                    android:drawablePadding="5dp"
                     android:textAlignment="textStart"
                     android:drawableLeft="@drawable/eyes" />
 
@@ -109,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/calibri"
                     android:text="$21000.TND"
-                    android:textColor="#0C0C0C"
+                    android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -124,7 +125,7 @@
                     android:fontFamily="@font/calibri"
                     android:text="S+1"
                     android:padding="6dp"
-                    android:textColor="#0C0C0C"
+                    android:textColor="@color/black"
                     android:textSize="14sp" />
 
 
@@ -136,7 +137,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/calibri"
-                    android:textColor="#0C0C0C"
+                    android:textColor="@color/black"
                     android:layout_alignEnd="@+id/housecardsize"
 
                     android:layout_alignRight="@id/housecardsize"
