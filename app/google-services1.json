@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "426563249975",
-    "project_id": "location-df489",
-    "storage_bucket": "location-df489.appspot.com"
+    "project_number": "1060108893141",
+    "project_id": "location2-5379d",
+    "storage_bucket": "location2-5379d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:426563249975:android:2acf8f8d31eeefd98fdcb2",
+        "mobilesdk_app_id": "1:1060108893141:android:34d71468edeb957ca4db5c",
         "android_client_info": {
           "package_name": "com.samar.location"
         }
       },
       "oauth_client": [
         {
-          "client_id": "426563249975-k6on9hun9aapfig7llphjrjgcqe831g7.apps.googleusercontent.com",
+          "client_id": "1060108893141-d2jg291c018u1h06tuduetbhad85o56a.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDY3kc3dpn660zTjxgoLAbmdqqTZE7Xq_Y"
+          "current_key": "AIzaSyAoBi3hF-Ea8WId2z_PE0zUV8Pt09vAtOw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "426563249975-k6on9hun9aapfig7llphjrjgcqe831g7.apps.googleusercontent.com",
+              "client_id": "1060108893141-d2jg291c018u1h06tuduetbhad85o56a.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
